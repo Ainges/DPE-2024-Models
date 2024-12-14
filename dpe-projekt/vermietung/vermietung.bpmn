@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_vermietung_ckqhp4h" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Objekt soll vermietet werden">
+      <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_17db3yp" sourceRef="StartEvent_1" targetRef="Activity_0qpzdpu" />
+    <bpmn:endEvent id="EndEvent_1" name="Objekt kann neu vermietet werden">
+      <bpmn:incoming>Flow_1gxg75f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_12pkbxb" sourceRef="Activity_0qpzdpu" targetRef="Event_0a210l8" />
+    <bpmn:callActivity id="Activity_0qpzdpu" name="Mieterfindung">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>This is an example **Manual Task**. A **Manual Task** is designed to allow someone to complete a task outside of the system and then report back that it is complete. You can click the *Continue* button to proceed. When you are done running this process, you can edit the **Process Model** to include a:
+
+ * **Script Task** - write a short snippet of python code to update some data
+ *  **User Task** - generate a form that collects information from a user
+ * **Service Task** - communicate with an external API to fetch or update some data.
+
+You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
+      <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="Activity_1o2ueri" name="Vermieten">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>This is an example **Manual Task**. A **Manual Task** is designed to allow someone to complete a task outside of the system and then report back that it is complete. You can click the *Continue* button to proceed. When you are done running this process, you can edit the **Process Model** to include a:
+
+ * **Script Task** - write a short snippet of python code to update some data
+ *  **User Task** - generate a form that collects information from a user
+ * **Service Task** - communicate with an external API to fetch or update some data.
+
+You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ynjm62</bpmn:incoming>
+      <bpmn:outgoing>Flow_12dreb5</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_12dreb5" sourceRef="Activity_1o2ueri" targetRef="Event_18snlzx" />
+    <bpmn:intermediateThrowEvent id="Event_0a210l8" name="Mieter zieht ein">
+      <bpmn:incoming>Flow_12pkbxb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ynjm62</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_0ynjm62" sourceRef="Event_0a210l8" targetRef="Activity_1o2ueri" />
+    <bpmn:intermediateThrowEvent id="Event_18snlzx" name="Kündigung ist aufgetreten">
+      <bpmn:incoming>Flow_12dreb5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s8bo1k</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_1s8bo1k" sourceRef="Event_18snlzx" targetRef="Activity_01ofcnz" />
+    <bpmn:sequenceFlow id="Flow_1gxg75f" sourceRef="Activity_01ofcnz" targetRef="EndEvent_1" />
+    <bpmn:callActivity id="Activity_01ofcnz" name="Beendigung des Mietverhältnisses">
+      <bpmn:incoming>Flow_1s8bo1k</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gxg75f</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:textAnnotation id="TextAnnotation_1pz79en">
+      <bpmn:text>- Inserieren
+- Bewerbungen managen
+- Mietvertrag
+- Schlüsselübergabe</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0s3b8jy" associationDirection="None" sourceRef="Activity_0qpzdpu" targetRef="TextAnnotation_1pz79en" />
+    <bpmn:textAnnotation id="TextAnnotation_0nrex9i">
+      <bpmn:text>- Care Prozesse
+- Nebenläufige Pflichte
+- Schäden / reparaturen
+- Kündigung (ist aufgetreten)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0lwhi25" associationDirection="None" sourceRef="Activity_1o2ueri" targetRef="TextAnnotation_0nrex9i" />
+    <bpmn:textAnnotation id="TextAnnotation_1a02r4s">
+      <bpmn:text>Welche abläufe sind nach einer gültigen Kündigung zu beachten</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_13v7bot" associationDirection="None" sourceRef="Activity_01ofcnz" targetRef="TextAnnotation_1a02r4s" />
+    <bpmn:textAnnotation id="TextAnnotation_00rs85n">
+      <bpmn:text>Ab hier ist die Kündigung unumkehrbar / rechtskräftig</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_15jhno7" associationDirection="None" sourceRef="Event_18snlzx" targetRef="TextAnnotation_00rs85n" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_vermietung_ckqhp4h">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-58" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-82" y="295" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="882" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="858" y="295" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hffxsx_di" bpmnElement="Activity_0qpzdpu">
+        <dc:Bounds x="80" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1vx5rv7" bpmnElement="Activity_1o2ueri">
+        <dc:Bounds x="400" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0a210l8_di" bpmnElement="Event_0a210l8">
+        <dc:Bounds x="272" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="253" y="295" width="75" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18snlzx_di" bpmnElement="Event_18snlzx">
+        <dc:Bounds x="572" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="556" y="298" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rdw4ub_di" bpmnElement="Activity_01ofcnz">
+        <dc:Bounds x="680" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1pz79en_di" bpmnElement="TextAnnotation_1pz79en">
+        <dc:Bounds x="80" y="350" width="150" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0nrex9i_di" bpmnElement="TextAnnotation_0nrex9i">
+        <dc:Bounds x="400" y="350" width="170" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1a02r4s_di" bpmnElement="TextAnnotation_1a02r4s">
+        <dc:Bounds x="680" y="350" width="100" height="90" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_00rs85n_di" bpmnElement="TextAnnotation_00rs85n">
+        <dc:Bounds x="540" y="80" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
+        <di:waypoint x="-22" y="270" />
+        <di:waypoint x="80" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12pkbxb_di" bpmnElement="Flow_12pkbxb">
+        <di:waypoint x="180" y="270" />
+        <di:waypoint x="272" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12dreb5_di" bpmnElement="Flow_12dreb5">
+        <di:waypoint x="500" y="270" />
+        <di:waypoint x="572" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ynjm62_di" bpmnElement="Flow_0ynjm62">
+        <di:waypoint x="308" y="270" />
+        <di:waypoint x="400" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1s8bo1k_di" bpmnElement="Flow_1s8bo1k">
+        <di:waypoint x="608" y="270" />
+        <di:waypoint x="680" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gxg75f_di" bpmnElement="Flow_1gxg75f">
+        <di:waypoint x="780" y="270" />
+        <di:waypoint x="882" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0s3b8jy_di" bpmnElement="Association_0s3b8jy">
+        <di:waypoint x="130" y="310" />
+        <di:waypoint x="130" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0lwhi25_di" bpmnElement="Association_0lwhi25">
+        <di:waypoint x="450" y="310" />
+        <di:waypoint x="450" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_13v7bot_di" bpmnElement="Association_13v7bot">
+        <di:waypoint x="730" y="310" />
+        <di:waypoint x="730" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_15jhno7_di" bpmnElement="Association_15jhno7">
+        <di:waypoint x="590" y="252" />
+        <di:waypoint x="590" y="150" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
