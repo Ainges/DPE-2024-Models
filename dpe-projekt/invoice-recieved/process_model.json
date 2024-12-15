@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Invoice Recieved",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "Invoice Recieved.bpmn",
+    "primary_process_id": "Process_invoice_recieved_m4k8e4x"
+}

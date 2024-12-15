@@ -4,5 +4,14 @@
     "data_store_specifications": {},
     "description": "",
     "display_name": "DPE Projekt",
-    "messages": null
+    "messages": {
+        "handover-of-keys": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "invoice-received": {
+            "correlation_properties": {},
+            "schema": {}
+        }
+    }
 }
