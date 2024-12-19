@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_0j8vjry">
+    <bpmn:participant id="Participant_0qogfp4" processRef="Process_statement_for_each_invoice_category_brzdcir" />
+    <bpmn:textAnnotation id="TextAnnotation_00sy2fa">
+      <bpmn:text>Anzahl Wohnungen, Fläache, Personen</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0uunmlo" associationDirection="None" sourceRef="Activity_0vo4j1a" targetRef="TextAnnotation_00sy2fa" />
+    <bpmn:textAnnotation id="TextAnnotation_14ffqqy">
+      <bpmn:text>Und/oder Content based routing</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0bq96kl" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_14ffqqy" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
+    <bpmn:ioSpecification>
+      <bpmn:dataInput id="DataInput-676433915-1" name="Invoice Category" />
+      <bpmn:dataOutput id="objInvoiceCategoryPerApartment" name="Invoice Category per Apartment" />
+      <bpmn:inputSet>
+        <bpmn:dataInputRefs>DataInput-676433915-1</bpmn:dataInputRefs>
+      </bpmn:inputSet>
+      <bpmn:outputSet>
+        <bpmn:dataOutputRefs>objInvoiceCategoryPerApartment</bpmn:dataOutputRefs>
+      </bpmn:outputSet>
+    </bpmn:ioSpecification>
+    <bpmn:startEvent id="Event_143vwhb">
+      <bpmn:outgoing>Flow_093fiux</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_093fiux" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
+    <bpmn:serviceTask id="Activity_1possjg" name="Calculate sum of invoice category">
+      <bpmn:incoming>Flow_093fiux</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eoh67a</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1w0zio9">
+        <bpmn:targetRef>DataObjectReference_17i1thr</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1eoh67a" sourceRef="Activity_1possjg" targetRef="Activity_1uqkbi9" />
+    <bpmn:dataObjectReference id="DataObjectReference_17i1thr" name="Sum of Invoice Category" dataObjectRef="objSumofInvoiceCategory" />
+    <bpmn:dataObject id="objSumofInvoiceCategory" name="Sum of Invoice Category" isCollection="true" />
+    <bpmn:userTask id="Activity_1uqkbi9" name="Select distribution key">
+      <bpmn:incoming>Flow_1eoh67a</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a8wg1w</bpmn:outgoing>
+      <bpmn:property id="Property_0zizci1" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1gk8e0r">
+        <bpmn:sourceRef>DataObjectReference_17i1thr</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0zizci1</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1a8wg1w" sourceRef="Activity_1uqkbi9" targetRef="Activity_0vo4j1a" />
+    <bpmn:businessRuleTask id="Activity_0vo4j1a" name="Match distribution keys">
+      <bpmn:incoming>Flow_1a8wg1w</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dwx73n</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1dwx73n" sourceRef="Activity_0vo4j1a" targetRef="Activity_1xwfml1" />
+    <bpmn:serviceTask id="Activity_1xwfml1" name="Split invoice categories based on distribution key">
+      <bpmn:incoming>Flow_1dwx73n</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n8y2b0</bpmn:outgoing>
+      <bpmn:property id="Property_076t5z6" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1dvsijv">
+        <bpmn:sourceRef>DataObjectReference_17i1thr</bpmn:sourceRef>
+        <bpmn:targetRef>Property_076t5z6</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0z8vv1g">
+        <bpmn:targetRef>DataStoreReference_1hmdrs8</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0b78qo4">
+      <bpmn:incoming>Flow_0n8y2b0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0n8y2b0" sourceRef="Activity_1xwfml1" targetRef="Event_0b78qo4" />
+    <bpmn:dataStoreReference id="DataStoreReference_1hmdrs8" name="Accounting Transactions&#10;Management" />
+    <bpmn:dataObjectReference id="DataObjectReference_1300f2u" dataObjectRef="objInvoiceCategoryPerApartment" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
+      <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
+        <dc:Bounds x="-50" y="-15" width="890" height="375" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
+        <dc:Bounds x="12" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1opof2j_di" bpmnElement="Activity_1possjg">
+        <dc:Bounds x="100" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_17i1thr_di" bpmnElement="DataObjectReference_17i1thr">
+        <dc:Bounds x="242" y="45" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="223" y="102" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15wxqts_di" bpmnElement="Activity_1uqkbi9">
+        <dc:Bounds x="260" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0c72xot_di" bpmnElement="Activity_0vo4j1a">
+        <dc:Bounds x="420" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fugoeo_di" bpmnElement="Activity_1xwfml1">
+        <dc:Bounds x="580" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0b78qo4_di" bpmnElement="Event_0b78qo4">
+        <dc:Bounds x="742" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1hmdrs8_di" bpmnElement="DataStoreReference_1hmdrs8">
+        <dc:Bounds x="585" y="35" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="577" y="-15" width="66" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="DataInput-676433915-1">
+        <dc:Bounds x="32" y="75" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="9" y="132" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objInvoiceCategoryPerApartment">
+        <dc:Bounds x="772" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749" y="62" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_093fiux_di" bpmnElement="Flow_093fiux">
+        <di:waypoint x="48" y="190" />
+        <di:waypoint x="100" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eoh67a_di" bpmnElement="Flow_1eoh67a">
+        <di:waypoint x="200" y="190" />
+        <di:waypoint x="260" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a8wg1w_di" bpmnElement="Flow_1a8wg1w">
+        <di:waypoint x="360" y="190" />
+        <di:waypoint x="420" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dwx73n_di" bpmnElement="Flow_1dwx73n">
+        <di:waypoint x="520" y="190" />
+        <di:waypoint x="580" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n8y2b0_di" bpmnElement="Flow_0n8y2b0">
+        <di:waypoint x="680" y="190" />
+        <di:waypoint x="742" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
+        <dc:Bounds x="440" y="40" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_14ffqqy_di" bpmnElement="TextAnnotation_14ffqqy">
+        <dc:Bounds x="430" y="260" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1w0zio9_di" bpmnElement="DataOutputAssociation_1w0zio9">
+        <di:waypoint x="186" y="150" />
+        <di:waypoint x="242" y="87" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1gk8e0r_di" bpmnElement="DataInputAssociation_1gk8e0r">
+        <di:waypoint x="274" y="95" />
+        <di:waypoint x="304" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1dvsijv_di" bpmnElement="DataInputAssociation_1dvsijv">
+        <di:waypoint x="278" y="75" />
+        <di:waypoint x="581" y="157" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0z8vv1g_di" bpmnElement="DataOutputAssociation_0z8vv1g">
+        <di:waypoint x="622" y="150" />
+        <di:waypoint x="610" y="85" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0uunmlo_di" bpmnElement="Association_0uunmlo">
+        <di:waypoint x="476" y="150" />
+        <di:waypoint x="482" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0bq96kl_di" bpmnElement="Association_0bq96kl">
+        <di:waypoint x="590" y="230" />
+        <di:waypoint x="517" y="260" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

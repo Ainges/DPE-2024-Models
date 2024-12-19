@@ -68,7 +68,7 @@ date</bpmn:text>
       <bpmn:outgoing>Flow_059b81m</bpmn:outgoing>
       <bpmn:outgoing>Flow_1flwypj</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0x66my7" name="Store accounting transactions">
+    <bpmn:serviceTask id="Activity_0x66my7" name="Store invoice">
       <bpmn:incoming>Flow_1ulleny</bpmn:incoming>
       <bpmn:outgoing>Flow_1wjlao3</bpmn:outgoing>
       <bpmn:property id="Property_0rcfviy" name="__targetRef_placeholder" />
@@ -214,12 +214,6 @@ date</bpmn:text>
           <dc:Bounds x="2221" y="606" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0kr3e9k_di" bpmnElement="Gateway_0kr3e9k" isMarkerVisible="true">
-        <dc:Bounds x="2095" y="555" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2092" y="518" width="57" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1a74g2w_di" bpmnElement="Activity_1iqnvj8">
         <dc:Bounds x="1280" y="625" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -260,6 +254,12 @@ date</bpmn:text>
         <dc:Bounds x="450" y="592" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="439" y="635" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kr3e9k_di" bpmnElement="Gateway_0kr3e9k" isMarkerVisible="true">
+        <dc:Bounds x="2095" y="555" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2092" y="518" width="57" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uogqyz_di" bpmnElement="Activity_04h651x">
@@ -315,13 +315,6 @@ date</bpmn:text>
         <di:waypoint x="2030" y="580" />
         <di:waypoint x="2095" y="580" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0bpxbke_di" bpmnElement="Flow_0bpxbke">
-        <di:waypoint x="2145" y="580" />
-        <di:waypoint x="2242" y="580" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2185" y="562" width="18" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11egqb3_di" bpmnElement="Flow_11egqb3">
         <di:waypoint x="1185" y="665" />
         <di:waypoint x="1280" y="665" />
@@ -360,6 +353,13 @@ date</bpmn:text>
         <di:waypoint x="1750" y="890" />
         <di:waypoint x="1160" y="890" />
         <di:waypoint x="1160" y="690" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bpxbke_di" bpmnElement="Flow_0bpxbke">
+        <di:waypoint x="2145" y="580" />
+        <di:waypoint x="2242" y="580" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2185" y="562" width="18" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0cr5dnl_di" bpmnElement="Flow_0cr5dnl">
         <di:waypoint x="1800" y="800" />
