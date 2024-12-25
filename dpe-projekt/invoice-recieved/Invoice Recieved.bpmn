@@ -4,9 +4,9 @@
     <bpmn:participant id="Participant_0sbn701" name="Invoice Handling" processRef="Process_19ks2hv" />
     <bpmn:participant id="Participant_0kgb4l4" name="External EDI Provider" />
     <bpmn:participant id="Participant_15sdrlb" name="Landlord" />
-    <bpmn:messageFlow id="Flow_1khiaqh" sourceRef="Participant_0kgb4l4" targetRef="Activity_0x9vlb2" />
-    <bpmn:messageFlow id="Flow_1hsd7at" sourceRef="Activity_1nnrlxk" targetRef="Participant_0kgb4l4" />
-    <bpmn:messageFlow id="Flow_1xlbrmd" sourceRef="Activity_04h651x" targetRef="Participant_15sdrlb" />
+    <bpmn:messageFlow id="Flow_1khiaqh" name="Digital invoice data" sourceRef="Participant_0kgb4l4" targetRef="Activity_0x9vlb2" />
+    <bpmn:messageFlow id="Flow_1hsd7at" name="Request of digital invoice data" sourceRef="Activity_1nnrlxk" targetRef="Participant_0kgb4l4" />
+    <bpmn:messageFlow id="Flow_1xlbrmd" name="Notification about failed Invoice" sourceRef="Activity_04h651x" targetRef="Participant_15sdrlb" />
     <bpmn:textAnnotation id="TextAnnotation_10augua">
       <bpmn:text>User can upload a pdf or take a picture and use OCR or enter details manually; Splitting of invoices to different Account transactions possible</bpmn:text>
     </bpmn:textAnnotation>
@@ -432,14 +432,23 @@ date</bpmn:text>
       <bpmndi:BPMNEdge id="Flow_1khiaqh_di" bpmnElement="Flow_1khiaqh">
         <di:waypoint x="930" y="990" />
         <di:waypoint x="930" y="815" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="911" y="900" width="68" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hsd7at_di" bpmnElement="Flow_1hsd7at">
         <di:waypoint x="740" y="815" />
         <di:waypoint x="740" y="990" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="712" y="900" width="86" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1xlbrmd_di" bpmnElement="Flow_1xlbrmd">
         <di:waypoint x="1760" y="850" />
         <di:waypoint x="1760" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1717" y="536" width="86" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

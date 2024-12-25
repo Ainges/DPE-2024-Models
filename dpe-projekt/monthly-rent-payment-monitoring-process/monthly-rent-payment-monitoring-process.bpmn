@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_1g9p6ho">
+    <bpmn:participant id="Participant_1bf92p4" name="Monthly Rent Payment Monitoring Process" processRef="Process_monthly_rent_payment_monitoring_process_5mdmreb" />
+    <bpmn:correlationKey id="CorrelationKey_1694pch" name="MainCorrelationKey" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_monthly_rent_payment_monitoring_process_5mdmreb" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_0q9oyno" sourceRef="Event_1dgs14v" targetRef="Activity_0kea5oe" />
+    <bpmn:dataObject id="objMonthlyRentStatement" name="Monthly Rent Statement" />
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+    <bpmn:startEvent id="Event_1dgs14v" name="Monitor monthly rent statement has been received">
+      <bpmn:outgoing>Flow_0q9oyno</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1hsu2rw" messageRef="monitor-monthly-rent">
+        <bpmn:extensionElements />
+      </bpmn:messageEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0kea5oe" name="Create monthly rent statement">
+      <bpmn:incoming>Flow_0q9oyno</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nlqj3y</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0eazluj">
+        <bpmn:targetRef>DataObjectReference_14t8jjs</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+    <bpmn:sequenceFlow id="Flow_0nlqj3y" sourceRef="Activity_0kea5oe" targetRef="Activity_0ui191a" />
+    <bpmn:callActivity id="Activity_0ui191a" name="Check Received Payment">
+      <bpmn:incoming>Flow_0nlqj3y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a19k4l</bpmn:outgoing>
+      <bpmn:property id="Property_1uqidx5" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0l6axy9">
+        <bpmn:sourceRef>DataObjectReference_14t8jjs</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1uqidx5</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="Gateway_1phmxz0" name="Payment completed?">
+      <bpmn:incoming>Flow_1a19k4l</bpmn:incoming>
+      <bpmn:outgoing>Flow_1j16vv5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1md50og</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1a19k4l" sourceRef="Activity_0ui191a" targetRef="Gateway_1phmxz0" />
+    <bpmn:sequenceFlow id="Flow_1j16vv5" name="Yes" sourceRef="Gateway_1phmxz0" targetRef="Event_0rh3ia7" />
+    <bpmn:endEvent id="Event_0rh3ia7" name="Monthly rent payment completed">
+      <bpmn:incoming>Flow_1j16vv5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_1aqdypu" name="Monthly rent payment not completed">
+      <bpmn:incoming>Flow_1md50og</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1md50og" name="No" sourceRef="Gateway_1phmxz0" targetRef="Event_1aqdypu" />
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_14t8jjs" name="Monthly Rent Statement" dataObjectRef="objMonthlyRentStatement" />
+  </bpmn:process>
+  <bpmn:message id="monitor-monthly-rent" name="monitor-monthly-rent" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1g9p6ho">
+      <bpmndi:BPMNShape id="Participant_1bf92p4_di" bpmnElement="Participant_1bf92p4" isHorizontal="true">
+        <dc:Bounds x="-360" y="-255" width="711" height="365" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hf6mli_di" bpmnElement="Event_1dgs14v">
+        <dc:Bounds x="-298" y="-58" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-325" y="-15" width="90" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d8cx39_di" bpmnElement="Activity_0kea5oe">
+        <dc:Bounds x="-200" y="-80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0q2hj6m_di" bpmnElement="Activity_0ui191a">
+        <dc:Bounds x="-30" y="-80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1phmxz0_di" bpmnElement="Gateway_1phmxz0" isMarkerVisible="true">
+        <dc:Bounds x="115" y="-65" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="174.5" y="-54" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rh3ia7_di" bpmnElement="Event_0rh3ia7">
+        <dc:Bounds x="282" y="-128" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="270" y="-85" width="61" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1aqdypu_di" bpmnElement="Event_1aqdypu">
+        <dc:Bounds x="282" y="2" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="270" y="45" width="61" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_14t8jjs_di" bpmnElement="DataObjectReference_14t8jjs">
+        <dc:Bounds x="-68" y="-215" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-83" y="-158" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0q9oyno_di" bpmnElement="Flow_0q9oyno">
+        <di:waypoint x="-262" y="-40" />
+        <di:waypoint x="-200" y="-40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nlqj3y_di" bpmnElement="Flow_0nlqj3y">
+        <di:waypoint x="-100" y="-40" />
+        <di:waypoint x="-30" y="-40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a19k4l_di" bpmnElement="Flow_1a19k4l">
+        <di:waypoint x="70" y="-40" />
+        <di:waypoint x="115" y="-40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j16vv5_di" bpmnElement="Flow_1j16vv5">
+        <di:waypoint x="140" y="-65" />
+        <di:waypoint x="140" y="-110" />
+        <di:waypoint x="282" y="-110" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="146" y="-90" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1md50og_di" bpmnElement="Flow_1md50og">
+        <di:waypoint x="140" y="-15" />
+        <di:waypoint x="140" y="20" />
+        <di:waypoint x="282" y="20" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="148" y="0" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0eazluj_di" bpmnElement="DataOutputAssociation_0eazluj">
+        <di:waypoint x="-150" y="-80" />
+        <di:waypoint x="-150" y="-195" />
+        <di:waypoint x="-68" y="-195" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0l6axy9_di" bpmnElement="DataInputAssociation_0l6axy9">
+        <di:waypoint x="-32" y="-190" />
+        <di:waypoint x="20" y="-190" />
+        <di:waypoint x="20" y="-80" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

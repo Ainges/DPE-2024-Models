@@ -5,11 +5,23 @@
     "description": "",
     "display_name": "DPE Projekt",
     "messages": {
+        "Tenant-objection": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "handover-of-keys": {
             "correlation_properties": {},
             "schema": {}
         },
         "invoice-received": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "monitor-monthly-rent": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "tenant-objection": {
             "correlation_properties": {},
             "schema": {}
         }
