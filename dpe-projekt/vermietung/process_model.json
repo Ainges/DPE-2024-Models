@@ -1,9 +1,9 @@
 {
     "description": "",
-    "display_name": "Vermietung",
+    "display_name": "Rental Process",
     "exception_notification_addresses": [],
     "fault_or_suspend_on_exception": "fault",
     "metadata_extraction_paths": null,
     "primary_file_name": "vermietung.bpmn",
-    "primary_process_id": "Process_vermietung_ckqhp4h"
+    "primary_process_id": "Process_rental_ckqhp4h"
 }
