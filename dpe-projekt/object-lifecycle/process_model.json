@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Object Lifecycle",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "object-lifecycle.bpmn",
+    "primary_process_id": "Process_object_lifecycle_gv7yall"
+}
