@@ -116,13 +116,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1tqklxg" sourceRef="Activity_0wpcx9k" targetRef="Gateway_1sujc3i" />
     <bpmn:sequenceFlow id="Flow_0zwgj14" sourceRef="Gateway_1sujc3i" targetRef="Event_0nh05pg" />
-    <bpmn:endEvent id="Event_0nh05pg" name="Cosmetic repairs completed">
-      <bpmn:incoming>Flow_0zwgj14</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1az8gcq" sourceRef="Gateway_1sujc3i" targetRef="Event_17t8nb5" />
-    <bpmn:endEvent id="Event_17t8nb5" name="Cosmetic repairs not completed">
-      <bpmn:incoming>Flow_1az8gcq</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="Event_05sb3xn" name="The landlord is no longer accountable for the property">
       <bpmn:incoming>Flow_1rsjy39</bpmn:incoming>
     </bpmn:endEvent>
@@ -131,6 +125,12 @@
     </bpmn:endEvent>
     <bpmn:endEvent id="Event_1p9i0j3" name="Annual Statemment Preparation Reminder successfully sent">
       <bpmn:incoming>Flow_1tycrh2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_0nh05pg" name="Cosmetic repairs completed">
+      <bpmn:incoming>Flow_0zwgj14</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_17t8nb5" name="Cosmetic repairs not completed">
+      <bpmn:incoming>Flow_1az8gcq</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
@@ -193,18 +193,6 @@
           <dc:Bounds x="1244.5" y="1136" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0nh05pg_di" bpmnElement="Event_0nh05pg">
-        <dc:Bounds x="1412" y="1072" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1389" y="1115" width="83" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_17t8nb5_di" bpmnElement="Event_17t8nb5">
-        <dc:Bounds x="1412" y="1192" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1389" y="1235" width="83" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05sb3xn_di" bpmnElement="Event_05sb3xn">
         <dc:Bounds x="1432" y="342" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -221,6 +209,18 @@
         <dc:Bounds x="1432" y="892" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1408" y="935" width="84" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0nh05pg_di" bpmnElement="Event_0nh05pg">
+        <dc:Bounds x="1432" y="1072" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1409" y="1115" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17t8nb5_di" bpmnElement="Event_17t8nb5">
+        <dc:Bounds x="1432" y="1192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1409" y="1235" width="84" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_048d1xj_di" bpmnElement="Event_1c38l2s">
@@ -303,12 +303,12 @@
       <bpmndi:BPMNEdge id="Flow_0zwgj14_di" bpmnElement="Flow_0zwgj14">
         <di:waypoint x="1210" y="1125" />
         <di:waypoint x="1210" y="1090" />
-        <di:waypoint x="1412" y="1090" />
+        <di:waypoint x="1432" y="1090" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1az8gcq_di" bpmnElement="Flow_1az8gcq">
         <di:waypoint x="1210" y="1175" />
         <di:waypoint x="1210" y="1210" />
-        <di:waypoint x="1412" y="1210" />
+        <di:waypoint x="1432" y="1210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0cmgtpw_di" bpmnElement="Participant_0jjp3ud" isHorizontal="true">
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />
