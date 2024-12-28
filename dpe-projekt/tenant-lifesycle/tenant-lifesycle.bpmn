@@ -4,7 +4,9 @@
     <bpmn:participant id="Participant_15j1i9r" name="Tenant Lifesycle" processRef="Process_tenant_lifesycle_wg1vm62" />
     <bpmn:participant id="Participant_01dek9g" name="Landlord" />
     <bpmn:participant id="Participant_02xoqw3" name="Tenant" />
-    <bpmn:participant id="Participant_0ko2t6b" name="Monthly Rent Payment Monitoring Process" />
+    <bpmn:participant id="Participant_0ko2t6b" name="Monthly Rent Payment Monitoring Process">
+      <bpmn:participantMultiplicity />
+    </bpmn:participant>
     <bpmn:messageFlow id="Flow_14xx5hv" sourceRef="Participant_01dek9g" targetRef="Event_0u0x8e9" />
     <bpmn:messageFlow id="Flow_0cupqw8" name="Termination from Landlord" sourceRef="Participant_01dek9g" targetRef="Activity_0irf9g2" />
     <bpmn:messageFlow id="Flow_16od94f" name="Termination from Tenant" sourceRef="Participant_02xoqw3" targetRef="Activity_0irf9g2" />
@@ -35,6 +37,7 @@
     <bpmn:sendTask id="Activity_07fi4vj" name="Monitor and manage  monthly rent">
       <bpmn:incoming>Flow_06ytex8</bpmn:incoming>
       <bpmn:outgoing>Flow_0c515hs</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics />
     </bpmn:sendTask>
     <bpmn:endEvent id="Event_0sa1lfs" name="Monthly Rent Payment Monitoring Process started">
       <bpmn:incoming>Flow_0c515hs</bpmn:incoming>
@@ -97,15 +100,15 @@
         <di:waypoint x="670" y="90" />
         <di:waypoint x="982" y="90" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1pim5v2_di" bpmnElement="Participant_01dek9g" isHorizontal="true">
+        <dc:Bounds x="-130" y="-330" width="1390" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0u92f12_di" bpmnElement="Participant_02xoqw3" isHorizontal="true">
         <dc:Bounds x="-120" y="330" width="490" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_150d2nk_di" bpmnElement="Participant_0ko2t6b" isHorizontal="true">
         <dc:Bounds x="440" y="330" width="600" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_1pim5v2_di" bpmnElement="Participant_01dek9g" isHorizontal="true">
-        <dc:Bounds x="-130" y="-330" width="1390" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_14xx5hv_di" bpmnElement="Flow_14xx5hv">

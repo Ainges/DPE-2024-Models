@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Annual Statement Objection Monitoring Process",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "annual-statement-objection-monitoring-process.bpmn",
+    "primary_process_id": "Process_annual_statement_objection_monitoring_process_hythk68"
+}

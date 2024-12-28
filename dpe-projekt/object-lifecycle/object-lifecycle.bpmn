@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1f8ymqx">
     <bpmn:participant id="Participant_1vyzkhg" name="Object Lifecycle" processRef="Process_object_lifecycle_gv7yall" />
     <bpmn:participant id="Participant_0jjp3ud" name="Landlord" />
-    <bpmn:participant id="Participant_06zg95l" name="Tenant" />
     <bpmn:participant id="Participant_1etz6a7" name="Manage Delayed Annual Statement Process" />
     <bpmn:messageFlow id="Flow_1hj1t8x" sourceRef="Participant_0jjp3ud" targetRef="Activity_1tkvx4m" />
     <bpmn:messageFlow id="Flow_1t0gfmg" name="Annual Statement Preparation Reminder" sourceRef="Activity_0c9uuou" targetRef="Participant_0jjp3ud" />
     <bpmn:messageFlow id="Flow_1ritdi1" sourceRef="Activity_0qzjcs8" targetRef="Participant_1etz6a7" />
-    <bpmn:messageFlow id="Flow_0jnv1tu" name="Tenant Objection" sourceRef="Participant_06zg95l" targetRef="Event_1c38l2s" />
     <bpmn:textAnnotation id="TextAnnotation_0bgz5mg">
       <bpmn:text>Object is created, built, or acquired</bpmn:text>
     </bpmn:textAnnotation>
@@ -20,12 +18,8 @@
       <bpmn:text>Hier muss aber trotzdem die Jahresabrechnung gegenüber des Gesetztgebers gemacht werden</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1bgd0zd" associationDirection="None" sourceRef="Event_08svpnq" targetRef="TextAnnotation_11uf3gh" />
-    <bpmn:textAnnotation id="TextAnnotation_0qg6rse">
-      <bpmn:text>Das passt nicht ganz. will es aber ohne Absprache nicht ändern</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_02molgg" associationDirection="None" sourceRef="Event_1c38l2s" targetRef="TextAnnotation_0qg6rse" />
     <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
-    <bpmn:correlationKey id="CorrelationKey_067c8af" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1lo5057" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
     <bpmn:sequenceFlow id="Flow_1ygv9au" sourceRef="Event_16up0z3" targetRef="Activity_07psk58" />
@@ -73,7 +67,7 @@
       <bpmn:outgoing>Flow_04atias</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_13h532p" />
     </bpmn:boundaryEvent>
-    <bpmn:sendTask id="Activity_0c9uuou" name="Manage Annual Statement preparation Reminder">
+    <bpmn:sendTask id="Activity_0c9uuou" name="Annual Statement preparation Reminder">
       <bpmn:incoming>Flow_0p94gh0</bpmn:incoming>
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
     </bpmn:sendTask>
@@ -81,13 +75,6 @@
       <bpmn:incoming>Flow_04atias</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:boundaryEvent id="Event_1c38l2s" name="Tenant objection to the received annual statement has been received" cancelActivity="false" attachedToRef="Activity_0zcwtno">
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1c91bww">
-        <bpmn:extensionElements>
-          <spiffworkflow:messageVariable />
-        </bpmn:extensionElements>
-      </bpmn:messageEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0cznwe5" sourceRef="Gateway_0llvysu" targetRef="Activity_0pxb21n" />
     <bpmn:sequenceFlow id="Flow_168ubfo" sourceRef="Activity_0pxb21n" targetRef="Activity_0wpcx9k" />
     <bpmn:dataObject id="objCosmeticRepairs" name="Cosmetic Repairs" />
@@ -223,12 +210,6 @@
           <dc:Bounds x="1409" y="1235" width="84" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_048d1xj_di" bpmnElement="Event_1c38l2s">
-        <dc:Bounds x="622" y="502" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="584" y="433" width="90" height="53" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0f4v3nc_di" bpmnElement="Event_08svpnq">
         <dc:Bounds x="722" y="582" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -314,10 +295,6 @@
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_0rg5qod_di" bpmnElement="Participant_06zg95l" isHorizontal="true">
-        <dc:Bounds x="-80" y="1330" width="300" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_05fj4du_di" bpmnElement="Participant_1etz6a7" isHorizontal="true">
         <dc:Bounds x="640" y="1340" width="888" height="60" />
         <bpmndi:BPMNLabel />
@@ -332,10 +309,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_11uf3gh_di" bpmnElement="TextAnnotation_11uf3gh">
         <dc:Bounds x="850" y="550" width="99.98686974789916" height="127.71357688583247" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0qg6rse_di" bpmnElement="TextAnnotation_0qg6rse">
-        <dc:Bounds x="10" y="660" width="99.98285658307209" height="84.63541467361689" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ber26q_di" bpmnElement="DataOutputAssociation_1ber26q">
@@ -359,10 +332,6 @@
         <di:waypoint x="757" y="596" />
         <di:waypoint x="850" y="576" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_02molgg_di" bpmnElement="Association_02molgg">
-        <di:waypoint x="623" y="525" />
-        <di:waypoint x="110" y="662" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
         <di:waypoint x="1453" y="342" />
         <di:waypoint x="1467" y="251" />
@@ -381,14 +350,6 @@
       <bpmndi:BPMNEdge id="Flow_1ritdi1_di" bpmnElement="Flow_1ritdi1">
         <di:waypoint x="1110" y="740" />
         <di:waypoint x="1110" y="1340" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0jnv1tu_di" bpmnElement="Flow_0jnv1tu">
-        <di:waypoint x="153" y="1330" />
-        <di:waypoint x="153" y="520" />
-        <di:waypoint x="622" y="520" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="127" y="928" width="83" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

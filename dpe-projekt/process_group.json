@@ -21,6 +21,10 @@
             "correlation_properties": {},
             "schema": {}
         },
+        "objection-monitoring-start": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "tenant-objection": {
             "correlation_properties": {},
             "schema": {}
