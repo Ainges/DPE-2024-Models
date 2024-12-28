@@ -42,7 +42,7 @@
       <bpmn:incoming>Flow_062b5kj</bpmn:incoming>
       <bpmn:outgoing>Flow_1y6noe4</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Activity_0gfd25g" name="Adjust Annual Statement">
+    <bpmn:serviceTask id="Activity_0gfd25g" name="Update Annual Statement">
       <bpmn:incoming>Flow_1wk9pk1</bpmn:incoming>
       <bpmn:outgoing>Flow_0qvxk6e</bpmn:outgoing>
       <bpmn:property id="Property_0eqxj3j" name="__targetRef_placeholder" />
@@ -55,7 +55,7 @@
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0qvxk6e" sourceRef="Activity_0gfd25g" targetRef="Activity_0nvp5bv" />
-    <bpmn:sendTask id="Activity_0nvp5bv" name="Send Adjusted Annual Statement to Tenant">
+    <bpmn:sendTask id="Activity_0nvp5bv" name="Send Updated Annual Statement to Tenant">
       <bpmn:incoming>Flow_0qvxk6e</bpmn:incoming>
       <bpmn:outgoing>Flow_16hef1x</bpmn:outgoing>
     </bpmn:sendTask>
@@ -107,9 +107,11 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_02perdg_di" bpmnElement="Activity_0gfd25g">
         <dc:Bounds x="890" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1fdib1b_di" bpmnElement="Activity_0nvp5bv">
         <dc:Bounds x="1040" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_06t0svt_di" bpmnElement="Event_06t0svt">
         <dc:Bounds x="1212" y="132" width="36" height="36" />
