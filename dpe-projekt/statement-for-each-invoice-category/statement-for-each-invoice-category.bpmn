@@ -5,16 +5,20 @@
     <bpmn:textAnnotation id="TextAnnotation_00sy2fa">
       <bpmn:text>Anzahl Wohnungen, Fläache, Personen</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0uunmlo" associationDirection="None" sourceRef="Activity_0vo4j1a" targetRef="TextAnnotation_00sy2fa" />
     <bpmn:textAnnotation id="TextAnnotation_14ffqqy">
       <bpmn:text>Und/oder Content based routing</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0bq96kl" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_14ffqqy" />
+    <bpmn:association id="Association_0uunmlo" associationDirection="None" sourceRef="Activity_0vo4j1a" targetRef="TextAnnotation_00sy2fa" />
+    <bpmn:textAnnotation id="TextAnnotation_1nrox9a">
+      <bpmn:text>Creates all statement entries per housing object</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
   </bpmn:collaboration>
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
-      <bpmn:dataInput id="DataInput-676433915-1" name="Invoice Category" />
-      <bpmn:dataOutput id="objInvoiceCategoryPerApartment" name="Invoice Category per Apartment" />
+      <bpmn:dataInput id="DataInput-676433915-1" name="Invoices per Housing Object per Category" />
+      <bpmn:dataOutput id="objInvoiceCategoryPerApartment" name="Liste an Buchungssätzen" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>DataInput-676433915-1</bpmn:dataInputRefs>
       </bpmn:inputSet>
@@ -46,12 +50,8 @@
       </bpmn:dataInputAssociation>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1a8wg1w" sourceRef="Activity_1uqkbi9" targetRef="Activity_0vo4j1a" />
-    <bpmn:businessRuleTask id="Activity_0vo4j1a" name="Match distribution keys">
-      <bpmn:incoming>Flow_1a8wg1w</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dwx73n</bpmn:outgoing>
-    </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="Flow_1dwx73n" sourceRef="Activity_0vo4j1a" targetRef="Activity_1xwfml1" />
-    <bpmn:serviceTask id="Activity_1xwfml1" name="Split invoice categories based on distribution key">
+    <bpmn:serviceTask id="Activity_1xwfml1" name="Create Statement entries">
       <bpmn:incoming>Flow_1dwx73n</bpmn:incoming>
       <bpmn:outgoing>Flow_0n8y2b0</bpmn:outgoing>
       <bpmn:property id="Property_076t5z6" name="__targetRef_placeholder" />
@@ -59,21 +59,28 @@
         <bpmn:sourceRef>DataObjectReference_17i1thr</bpmn:sourceRef>
         <bpmn:targetRef>Property_076t5z6</bpmn:targetRef>
       </bpmn:dataInputAssociation>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0z8vv1g">
-        <bpmn:targetRef>DataStoreReference_1hmdrs8</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_0b78qo4">
       <bpmn:incoming>Flow_0n8y2b0</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0n8y2b0" sourceRef="Activity_1xwfml1" targetRef="Event_0b78qo4" />
-    <bpmn:dataStoreReference id="DataStoreReference_1hmdrs8" name="Accounting Transactions&#10;Management" />
     <bpmn:dataObjectReference id="DataObjectReference_1300f2u" dataObjectRef="objInvoiceCategoryPerApartment" />
+    <bpmn:businessRuleTask id="Activity_0vo4j1a" name="Match distribution keys">
+      <bpmn:incoming>Flow_1a8wg1w</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dwx73n</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:dataObjectReference id="z" dataObjectRef="objSumofInvoiceCategory" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
       <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
         <dc:Bounds x="-50" y="-15" width="890" height="375" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="DataInput-676433915-1">
+        <dc:Bounds x="32" y="45" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="13" y="102" width="77" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
         <dc:Bounds x="12" y="172" width="36" height="36" />
@@ -103,22 +110,10 @@
       <bpmndi:BPMNShape id="Event_0b78qo4_di" bpmnElement="Event_0b78qo4">
         <dc:Bounds x="742" y="172" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1hmdrs8_di" bpmnElement="DataStoreReference_1hmdrs8">
-        <dc:Bounds x="585" y="35" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="577" y="-15" width="66" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="DataInput-676433915-1">
-        <dc:Bounds x="32" y="75" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="9" y="132" width="83" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objInvoiceCategoryPerApartment">
         <dc:Bounds x="772" y="5" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="749" y="62" width="83" height="27" />
+          <dc:Bounds x="750" y="62" width="82" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_093fiux_di" bpmnElement="Flow_093fiux">
@@ -141,6 +136,10 @@
         <di:waypoint x="680" y="190" />
         <di:waypoint x="742" y="190" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
+        <di:waypoint x="668" y="150" />
+        <di:waypoint x="680" y="138" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
         <dc:Bounds x="440" y="40" width="100" height="70" />
         <bpmndi:BPMNLabel />
@@ -161,10 +160,6 @@
         <di:waypoint x="278" y="75" />
         <di:waypoint x="581" y="157" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0z8vv1g_di" bpmnElement="DataOutputAssociation_0z8vv1g">
-        <di:waypoint x="622" y="150" />
-        <di:waypoint x="610" y="85" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0uunmlo_di" bpmnElement="Association_0uunmlo">
         <di:waypoint x="476" y="150" />
         <di:waypoint x="482" y="110" />
@@ -173,6 +168,10 @@
         <di:waypoint x="590" y="230" />
         <di:waypoint x="517" y="260" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
+        <dc:Bounds x="680" y="70" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
