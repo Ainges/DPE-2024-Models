@@ -3,20 +3,16 @@
   <bpmn:collaboration id="Collaboration_0g6wv93">
     <bpmn:participant id="Participant_0sbn701" name="Annual Statement" processRef="Process_18ks2hv" />
     <bpmn:participant id="Participant_1968i74" name="Tenant" />
-    <bpmn:participant id="Participant_1a6es3j" name="Annual Statement Objection Monitoring Process">
-      <bpmn:participantMultiplicity />
-    </bpmn:participant>
     <bpmn:messageFlow id="Flow_13isndv" name="Annual Statement" sourceRef="Activity_0es3vz9" targetRef="Participant_1968i74" />
     <bpmn:messageFlow id="Flow_0m7ha3p" name="Payment information" sourceRef="Activity_0tmc5xy" targetRef="Participant_1968i74" />
     <bpmn:messageFlow id="Flow_0kk6d9h" name="Payment Request" sourceRef="Activity_0r9xnyz" targetRef="Participant_1968i74" />
-    <bpmn:messageFlow id="Flow_0o9xzfl" sourceRef="Activity_17w87h7" targetRef="Participant_1a6es3j" />
     <bpmn:textAnnotation id="TextAnnotation_06o2s9m">
       <bpmn:text>digital and analog</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_004gz7g">
       <bpmn:text>Array im Array</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:correlationKey id="CorrelationKey_165lwhh" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1rycmk0" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="false">
     <bpmn:laneSet id="LaneSet_0mmy1ix">
@@ -32,7 +28,6 @@
         <bpmn:flowNodeRef>Activity_1445tiq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1acwryr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1h6lclh</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_17w87h7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0es3vz9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_07tmoin</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1vpqkl3</bpmn:flowNodeRef>
@@ -79,12 +74,10 @@
     <bpmn:sequenceFlow id="Flow_101rak2" name="Yes" sourceRef="Gateway_1m3grvi" targetRef="Activity_1445tiq" />
     <bpmn:sequenceFlow id="Flow_19vu338" name="No" sourceRef="Gateway_0k1hrvh" targetRef="Event_1yq2iah" />
     <bpmn:sequenceFlow id="Flow_1bt1f32" sourceRef="Activity_0es3vz9" targetRef="Gateway_1xbpsm3" />
-    <bpmn:sequenceFlow id="Flow_05wfjsr" sourceRef="Gateway_0k1hrvh" targetRef="Activity_17w87h7" />
     <bpmn:sequenceFlow id="Flow_1k33hu1" sourceRef="Activity_0tmc5xy" targetRef="Activity_0ympwsu" />
     <bpmn:sequenceFlow id="Flow_00wb1jt" sourceRef="Activity_0r9xnyz" targetRef="Activity_0bs8m47" />
     <bpmn:sequenceFlow id="Flow_1c9t7qa" sourceRef="Gateway_1acwryr" targetRef="Gateway_0k1hrvh" />
     <bpmn:sequenceFlow id="Flow_0cxgihw" sourceRef="Activity_1445tiq" targetRef="Gateway_1acwryr" />
-    <bpmn:sequenceFlow id="Flow_0sjvt0q" sourceRef="Activity_17w87h7" targetRef="Gateway_1h6lclh" />
     <bpmn:startEvent id="Event_1rj5956">
       <bpmn:outgoing>Flow_1cstye6</bpmn:outgoing>
     </bpmn:startEvent>
@@ -133,7 +126,7 @@
     <bpmn:exclusiveGateway id="Gateway_0k1hrvh" name="Annual Statement created?">
       <bpmn:incoming>Flow_1c9t7qa</bpmn:incoming>
       <bpmn:outgoing>Flow_19vu338</bpmn:outgoing>
-      <bpmn:outgoing>Flow_05wfjsr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0p0yei6</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="Gateway_1m3grvi" name="Unterjähriger Mieterwechsel">
       <bpmn:incoming>Flow_1ryo1un</bpmn:incoming>
@@ -171,21 +164,11 @@
       <bpmn:outgoing>Flow_1c9t7qa</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="Gateway_1h6lclh">
-      <bpmn:incoming>Flow_0sjvt0q</bpmn:incoming>
+      <bpmn:incoming>Flow_0p0yei6</bpmn:incoming>
       <bpmn:outgoing>Flow_0k4s3d3</bpmn:outgoing>
       <bpmn:outgoing>Flow_0bnn5vg</bpmn:outgoing>
       <bpmn:outgoing>Flow_0mrkljf</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="Activity_17w87h7" name="Objection monitoring">
-      <bpmn:incoming>Flow_05wfjsr</bpmn:incoming>
-      <bpmn:outgoing>Flow_0sjvt0q</bpmn:outgoing>
-      <bpmn:property id="Property_1tf3l3j" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_0o4vu4x">
-        <bpmn:sourceRef>DataObjectReference_0zr8nlz</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1tf3l3j</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:multiInstanceLoopCharacteristics />
-    </bpmn:sendTask>
     <bpmn:sendTask id="Activity_0es3vz9" name="Send annual Statement to tenants">
       <bpmn:incoming>Flow_0mrkljf</bpmn:incoming>
       <bpmn:outgoing>Flow_1bt1f32</bpmn:outgoing>
@@ -262,6 +245,7 @@
       </bpmn:dataInputAssociation>
       <bpmn:multiInstanceLoopCharacteristics />
     </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_0p0yei6" sourceRef="Gateway_0k1hrvh" targetRef="Gateway_1h6lclh" />
     <bpmn:association id="Association_0wmpush" associationDirection="None" sourceRef="DataObjectReference_1kvohcw" targetRef="TextAnnotation_004gz7g" />
     <bpmn:association id="Association_1x4wefn" associationDirection="None" sourceRef="Activity_0es3vz9" targetRef="TextAnnotation_06o2s9m" />
   </bpmn:process>
@@ -347,10 +331,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1h6lclh_di" bpmnElement="Gateway_1h6lclh" isMarkerVisible="true">
         <dc:Bounds x="2065" y="820" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00pgnkv_di" bpmnElement="Activity_17w87h7">
-        <dc:Bounds x="1920" y="805" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1mk56zn_di" bpmnElement="Activity_0es3vz9">
         <dc:Bounds x="2220" y="805" width="100" height="80" />
@@ -522,10 +502,6 @@
         <di:waypoint x="2320" y="845" />
         <di:waypoint x="2815" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_05wfjsr_di" bpmnElement="Flow_05wfjsr">
-        <di:waypoint x="1865" y="845" />
-        <di:waypoint x="1920" y="845" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1k33hu1_di" bpmnElement="Flow_1k33hu1">
         <di:waypoint x="2530" y="710" />
         <di:waypoint x="2610" y="710" />
@@ -543,10 +519,6 @@
         <di:waypoint x="1720" y="960" />
         <di:waypoint x="1720" y="870" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0sjvt0q_di" bpmnElement="Flow_0sjvt0q">
-        <di:waypoint x="2020" y="845" />
-        <di:waypoint x="2065" y="845" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0wmpush_di" bpmnElement="Association_0wmpush">
         <di:waypoint x="1070" y="645" />
         <di:waypoint x="1124" y="505" />
@@ -555,12 +527,12 @@
         <di:waypoint x="2320" y="816" />
         <di:waypoint x="2383" y="780" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p0yei6_di" bpmnElement="Flow_0p0yei6">
+        <di:waypoint x="1865" y="845" />
+        <di:waypoint x="2065" y="845" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
         <dc:Bounds x="400" y="310" width="2710" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_1e2nmln_di" bpmnElement="Participant_1a6es3j" isHorizontal="true">
-        <dc:Bounds x="1840" y="1230" width="600" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_06o2s9m_di" bpmnElement="TextAnnotation_06o2s9m">
@@ -611,10 +583,6 @@
         <di:waypoint x="1548" y="920" />
         <di:waypoint x="1715" y="555" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0o4vu4x_di" bpmnElement="DataInputAssociation_0o4vu4x">
-        <di:waypoint x="1738" y="553" />
-        <di:waypoint x="1938" y="805" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0uy0njj_di" bpmnElement="DataInputAssociation_0uy0njj">
         <di:waypoint x="1738" y="546" />
         <di:waypoint x="1990" y="760" />
@@ -659,10 +627,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2336" y="451" width="88" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0o9xzfl_di" bpmnElement="Flow_0o9xzfl">
-        <di:waypoint x="1970" y="885" />
-        <di:waypoint x="1970" y="1230" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

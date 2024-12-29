@@ -3,10 +3,9 @@
   <bpmn:collaboration id="Collaboration_1f8ymqx">
     <bpmn:participant id="Participant_1vyzkhg" name="Object Lifecycle" processRef="Process_object_lifecycle_gv7yall" />
     <bpmn:participant id="Participant_0jjp3ud" name="Landlord" />
-    <bpmn:participant id="Participant_1etz6a7" name="Manage Delayed Annual Statement Process" />
     <bpmn:messageFlow id="Flow_1hj1t8x" sourceRef="Participant_0jjp3ud" targetRef="Activity_1tkvx4m" />
     <bpmn:messageFlow id="Flow_1t0gfmg" name="Annual Statement Preparation Reminder" sourceRef="Activity_0c9uuou" targetRef="Participant_0jjp3ud" />
-    <bpmn:messageFlow id="Flow_1ritdi1" sourceRef="Activity_0qzjcs8" targetRef="Participant_1etz6a7" />
+    <bpmn:messageFlow id="Flow_03lizqz" name="Notify about delayed Annual Statement creation" sourceRef="Activity_0qzjcs8" targetRef="Participant_0jjp3ud" />
     <bpmn:textAnnotation id="TextAnnotation_0bgz5mg">
       <bpmn:text>Object is created, built, or acquired</bpmn:text>
     </bpmn:textAnnotation>
@@ -63,10 +62,6 @@
       <bpmn:timerEventDefinition id="TimerEventDefinition_04wmaek" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0zubdmh" sourceRef="Activity_0qzjcs8" targetRef="Event_1v5b3pe" />
-    <bpmn:boundaryEvent id="Event_08svpnq" name="12-month deadline for creation and sending  the annual statement" attachedToRef="Activity_0zcwtno">
-      <bpmn:outgoing>Flow_04atias</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_13h532p" />
-    </bpmn:boundaryEvent>
     <bpmn:sendTask id="Activity_0c9uuou" name="Annual Statement preparation Reminder">
       <bpmn:incoming>Flow_0p94gh0</bpmn:incoming>
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
@@ -119,6 +114,10 @@
     <bpmn:endEvent id="Event_17t8nb5" name="Cosmetic repairs not completed">
       <bpmn:incoming>Flow_1az8gcq</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:boundaryEvent id="Event_08svpnq" name="12-month deadline for creation and sending  the annual statement" cancelActivity="false" attachedToRef="Activity_0zcwtno">
+      <bpmn:outgoing>Flow_04atias</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_05pytqx" />
+    </bpmn:boundaryEvent>
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -210,12 +209,6 @@
           <dc:Bounds x="1409" y="1235" width="84" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0f4v3nc_di" bpmnElement="Event_08svpnq">
-        <dc:Bounds x="722" y="582" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="708.5" y="650" width="61" height="80" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1t8rd58_di" bpmnElement="Event_1uptr9d">
         <dc:Bounds x="622" y="582" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -226,6 +219,12 @@
         <dc:Bounds x="352" y="382" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="389" y="389" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_02bs69v_di" bpmnElement="Event_08svpnq">
+        <dc:Bounds x="722" y="582" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="709" y="650" width="61" height="80" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ygv9au_di" bpmnElement="Flow_1ygv9au">
@@ -295,10 +294,6 @@
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_05fj4du_di" bpmnElement="Participant_1etz6a7" isHorizontal="true">
-        <dc:Bounds x="640" y="1340" width="888" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0bgz5mg_di" bpmnElement="TextAnnotation_0bgz5mg">
         <dc:Bounds x="-20" y="230" width="99.98285658307209" height="54.98138714733541" />
         <bpmndi:BPMNLabel />
@@ -347,9 +342,12 @@
           <dc:Bounds x="766" y="440" width="87" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ritdi1_di" bpmnElement="Flow_1ritdi1">
-        <di:waypoint x="1110" y="740" />
-        <di:waypoint x="1110" y="1340" />
+      <bpmndi:BPMNEdge id="Flow_03lizqz_di" bpmnElement="Flow_03lizqz">
+        <di:waypoint x="1110" y="660" />
+        <di:waypoint x="1110" y="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1087" y="352" width="76" height="53" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
