@@ -110,6 +110,9 @@
         <bpmn:sourceRef>DataObjectReference_0aaw7oj</bpmn:sourceRef>
         <bpmn:targetRef>Property_0q3s4aw</bpmn:targetRef>
       </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0qafqg7">
+        <bpmn:targetRef>DataObjectReference_0zr8nlz</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
       <bpmn:multiInstanceLoopCharacteristics />
     </bpmn:callActivity>
     <bpmn:sendTask id="Activity_0es3vz9" name="Send annual Statement to tenants">
@@ -508,6 +511,10 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1876" y="451" width="88" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0qafqg7_di" bpmnElement="DataOutputAssociation_0qafqg7">
+        <di:waypoint x="1164" y="805" />
+        <di:waypoint x="1253" y="555" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
