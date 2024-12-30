@@ -203,9 +203,6 @@
       <bpmn:outgoing>Flow_0bnn5vg</bpmn:outgoing>
       <bpmn:outgoing>Flow_0mrkljf</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:dataObjectReference id="DataObjectReference_0aaw7oj" name="Statement Entries" dataObjectRef="objInvoiceCategoriesPerApartment" />
-    <bpmn:dataObjectReference id="DataObjectReference_0aaw7oj" name="Statement Entries" dataObjectRef="objInvoiceCategoriesPerApartment" />
-    <bpmn:dataObjectReference id="DataObjectReference_0aaw7oj" name="Statement Entries" dataObjectRef="objInvoiceCategoriesPerApartment" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -226,6 +223,12 @@
         <dc:Bounds x="892" y="635" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="872" y="692" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0aaw7oj_di" bpmnElement="DataObjectReference_0aaw7oj">
+        <dc:Bounds x="1052" y="625" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1028" y="682" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rj5956_di" bpmnElement="Event_1rj5956">
@@ -320,12 +323,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1h6lclh_di" bpmnElement="Gateway_1h6lclh" isMarkerVisible="true">
         <dc:Bounds x="1485" y="820" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_0aaw7oj_di" bpmnElement="DataObjectReference_0aaw7oj">
-        <dc:Bounds x="1052" y="625" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1028" y="682" width="88" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
         <di:waypoint x="810" y="845" />
