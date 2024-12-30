@@ -67,7 +67,7 @@
     <bpmn:sequenceFlow id="Flow_1bt1f32" sourceRef="Activity_0es3vz9" targetRef="Gateway_1xbpsm3" />
     <bpmn:sequenceFlow id="Flow_1k33hu1" sourceRef="Activity_0tmc5xy" targetRef="Activity_0ympwsu" />
     <bpmn:sequenceFlow id="Flow_00wb1jt" sourceRef="Activity_0r9xnyz" targetRef="Activity_0bs8m47" />
-    <bpmn:startEvent id="Event_1rj5956">
+    <bpmn:startEvent id="Event_1rj5956" name="Tme to prepare the Annual Statement has arrived">
       <bpmn:outgoing>Flow_1cstye6</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_05oq3wb" name="Get all invoices of housing object">
@@ -233,6 +233,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rj5956_di" bpmnElement="Event_1rj5956">
         <dc:Bounds x="462" y="827" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="442" y="870" width="76" height="53" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0e2z1c5_di" bpmnElement="Activity_05oq3wb">
         <dc:Bounds x="710" y="805" width="100" height="80" />
@@ -463,6 +466,10 @@
         <di:waypoint x="1082" y="685" />
         <di:waypoint x="1140" y="805" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0qafqg7_di" bpmnElement="DataOutputAssociation_0qafqg7">
+        <di:waypoint x="1164" y="805" />
+        <di:waypoint x="1253" y="555" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0uy0njj_di" bpmnElement="DataInputAssociation_0uy0njj">
         <di:waypoint x="1278" y="546" />
         <di:waypoint x="1530" y="760" />
@@ -511,10 +518,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1876" y="451" width="88" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0qafqg7_di" bpmnElement="DataOutputAssociation_0qafqg7">
-        <di:waypoint x="1164" y="805" />
-        <di:waypoint x="1253" y="555" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
