@@ -35,10 +35,10 @@
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_1tlji64" sourceRef="Event_1rj5956" targetRef="Gateway_0zwcbi5" />
     <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_0zwcbi5" targetRef="Gateway_0guueiv">
-      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == false</bpmn:conditionExpression>
+      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1ccxvlo" name="Yes" sourceRef="Gateway_0zwcbi5" targetRef="Activity_1nnrlxk">
-      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == true</bpmn:conditionExpression>
+      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1d4c5gh" sourceRef="Activity_0x9vlb2" targetRef="Gateway_03lrubp" />
     <bpmn:dataObjectReference id="DataObjectReference_0cm9l7j" name="Digital Invoice" dataObjectRef="objDigitalInvoice" />
