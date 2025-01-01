@@ -153,7 +153,7 @@
       <bpmn:incoming>Flow_1bt1f32</bpmn:incoming>
       <bpmn:outgoing>Flow_0a8xqqz</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:callActivity id="Activity_0ympwsu" name="Payment Received">
+    <bpmn:callActivity id="Activity_0ympwsu" name="Payment Received" calledElement="Process_1je984j">
       <bpmn:incoming>Flow_1k33hu1</bpmn:incoming>
       <bpmn:outgoing>Flow_0aybazv</bpmn:outgoing>
       <bpmn:property id="Property_19wjswc" name="__targetRef_placeholder" />
