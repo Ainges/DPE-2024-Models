@@ -86,7 +86,6 @@
       <bpmn:incoming>Flow_1cstye6</bpmn:incoming>
       <bpmn:outgoing>Flow_0yglw5l</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:dataStoreReference id="DataStoreReference_01b05dx" name="Accounting Transactions&#10;Management" />
     <bpmn:callActivity id="Activity_0hau30o" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir">
       <bpmn:incoming>Flow_07b15xc</bpmn:incoming>
       <bpmn:outgoing>Flow_0fs00a8</bpmn:outgoing>
@@ -203,6 +202,7 @@
       <bpmn:outgoing>Flow_0bnn5vg</bpmn:outgoing>
       <bpmn:outgoing>Flow_0mrkljf</bpmn:outgoing>
     </bpmn:exclusiveGateway>
+    <bpmn:dataStoreReference id="DataStoreReference_01b05dx" name="Accounting Transactions&#10;Management" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -244,12 +244,6 @@
       <bpmndi:BPMNShape id="Activity_13xcrtl_di" bpmnElement="Activity_10uhudp">
         <dc:Bounds x="550" y="805" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_01b05dx_di" bpmnElement="DataStoreReference_01b05dx">
-        <dc:Bounds x="705" y="655" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="699" y="610" width="65" height="40" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ba0igt_di" bpmnElement="Activity_0hau30o">
         <dc:Bounds x="910" y="805" width="100" height="80" />
@@ -323,6 +317,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1h6lclh_di" bpmnElement="Gateway_1h6lclh" isMarkerVisible="true">
         <dc:Bounds x="1485" y="820" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_01b05dx_di" bpmnElement="DataStoreReference_01b05dx">
+        <dc:Bounds x="665" y="615" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="659" y="570" width="65" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
         <di:waypoint x="810" y="845" />
@@ -442,13 +442,9 @@
         <dc:Bounds x="2050" y="780" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_004gz7g_di" bpmnElement="TextAnnotation_004gz7g">
-        <dc:Bounds x="1080" y="475" width="100" height="30" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_1k891a9_di" bpmnElement="DataInputAssociation_1k891a9">
-        <di:waypoint x="735" y="705" />
-        <di:waypoint x="753" y="805" />
+        <di:waypoint x="699" y="665" />
+        <di:waypoint x="747" y="805" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1isijvf_di" bpmnElement="DataOutputAssociation_1isijvf">
         <di:waypoint x="794" y="805" />
@@ -519,6 +515,10 @@
           <dc:Bounds x="1876" y="451" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_004gz7g_di" bpmnElement="TextAnnotation_004gz7g">
+        <dc:Bounds x="940" y="500" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
