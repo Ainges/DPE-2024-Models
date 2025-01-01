@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "API Test GET",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "api-test-get.bpmn",
+    "primary_process_id": "Process_api_test_get_sia58t0"
+}
