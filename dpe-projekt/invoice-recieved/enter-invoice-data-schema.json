@@ -27,41 +27,13 @@
       "type": "string",
       "description": "The BIC of the receiver"
     },
-    "invoiceCategory": {
-      "type": "object",
-      "properties": {
-        "invoiceCategoryId": {
-          "type": "integer",
-          "description": "The unique identifier for an invoice category"
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the invoice category"
-        }
-      },
-      "required": [
-        "invoiceCategoryId",
-        "name"
-      ],
-      "description": "The category of the invoice"
+    "invoiceCategoryId": {
+      "type": "integer",
+      "description": "The unique identifier for an invoice category"
     },
-    "housingObject": {
-      "type": "object",
-      "properties": {
-        "housingObjectId": {
-          "type": "integer",
-          "description": "The unique identifier for a housing object"
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the housing object"
-        },
-        "required": [
-          "housingObjectId",
-          "name"
-        ],
-        "description": "The housing object associated with the invoice"
-      }
+    "housingObjectId": {
+      "type": "integer",
+      "description": "The unique identifier for a housing object"
     },
     "required": [
       "invoiceDate",
@@ -71,8 +43,8 @@
       "receiver",
       "receiverIban",
       "receiverBic",
-      "invoiceCategory",
-      "housingObject"
+      "invoiceCategoryId",
+      "housingObjectId"
     ]
   }
 }
