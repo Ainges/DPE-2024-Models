@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_171wa98">
     <bpmn:participant id="Participant_1lklo0z" name="Send Payment" processRef="Process_1je984j" />
     <bpmn:participant id="Participant_0cddu1x" name="Payment Reciever" />
@@ -17,26 +17,33 @@
     <bpmn:textAnnotation id="TextAnnotation_061e1py">
       <bpmn:text>Reciever, Subject, Amount</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="DataInput-383219861-1" targetRef="TextAnnotation_061e1py" />
+    <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="objPaymentDetails" targetRef="TextAnnotation_061e1py" />
+    <bpmn:textAnnotation id="TextAnnotation_0bb5kbd">
+      <bpmn:text>Update Invoice record with status: paied</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_07ygvym" associationDirection="None" sourceRef="Activity_08gahch" targetRef="TextAnnotation_0bb5kbd" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1je984j">
+  <bpmn:process id="Process_1je984j" name="Send Payment" isExecutable="true">
     <bpmn:ioSpecification>
-      <bpmn:dataInput id="DataInput-383219861-1" name="Payment Details" />
+      <bpmn:dataInput id="objPaymentDetails" name="Payment Details" />
+      <bpmn:dataOutput id="objPaymentConfirmation" name="Payment Confirmation" />
       <bpmn:inputSet>
-        <bpmn:dataInputRefs>DataInput-383219861-1</bpmn:dataInputRefs>
+        <bpmn:dataInputRefs>objPaymentDetails</bpmn:dataInputRefs>
       </bpmn:inputSet>
-      <bpmn:outputSet />
+      <bpmn:outputSet>
+        <bpmn:dataOutputRefs>objPaymentConfirmation</bpmn:dataOutputRefs>
+      </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:startEvent id="Event_1k9387b">
       <bpmn:outgoing>Flow_1x1qu2r</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1x1qu2r" sourceRef="Event_1k9387b" targetRef="Activity_1f7mgof" />
-    <bpmn:serviceTask id="Activity_1f7mgof" name="Generate bank transfer template">
-      <bpmn:incoming>Flow_1x1qu2r</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1dmu8y8" sourceRef="Activity_1f7mgof" targetRef="Activity_05io0ms" />
     <bpmn:userTask id="Activity_05io0ms" name="Make payment">
+      <bpmn:extensionElements>
+        <spiffworkflow:postScript>#For testing purposes
+varPaymentSuccessfull = true</spiffworkflow:postScript>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1dmu8y8</bpmn:incoming>
       <bpmn:outgoing>Flow_11jbo06</bpmn:outgoing>
     </bpmn:userTask>
@@ -46,16 +53,12 @@
       <bpmn:outgoing>Flow_030ip6d</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_11jbo06" sourceRef="Activity_05io0ms" targetRef="Gateway_0a6ta6w" />
-    <bpmn:sequenceFlow id="Flow_1jjdscy" name="No" sourceRef="Gateway_0a6ta6w" targetRef="Event_13i3d1l" />
-    <bpmn:sequenceFlow id="Flow_030ip6d" name="Yes" sourceRef="Gateway_0a6ta6w" targetRef="Activity_08gahch" />
-    <bpmn:serviceTask id="Activity_08gahch" name="Update payment as finished">
-      <bpmn:incoming>Flow_030ip6d</bpmn:incoming>
-      <bpmn:outgoing>Flow_0jkt9al</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_00d1oia">
-        <bpmn:targetRef>DataStoreReference_0j7ds2s</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:dataStoreReference id="DataStoreReference_0j7ds2s" name="Invoice Management" />
+    <bpmn:sequenceFlow id="Flow_1jjdscy" name="No" sourceRef="Gateway_0a6ta6w" targetRef="Event_13i3d1l">
+      <bpmn:conditionExpression>varPaymentSuccessfull != true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_030ip6d" name="Yes" sourceRef="Gateway_0a6ta6w" targetRef="Activity_08gahch">
+      <bpmn:conditionExpression>varPaymentSuccessfull == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:endEvent id="Event_1rtkdew" name="Payment sent">
       <bpmn:incoming>Flow_0jkt9al</bpmn:incoming>
     </bpmn:endEvent>
@@ -65,7 +68,9 @@
     </bpmn:endEvent>
     <bpmn:boundaryEvent id="Event_0z1l7pw" name="Every 3 days" cancelActivity="false" attachedToRef="Activity_05io0ms">
       <bpmn:outgoing>Flow_15mjwi4</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_0qv8dm1" />
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0qv8dm1">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">"R/P3D"</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_15mjwi4" sourceRef="Event_0z1l7pw" targetRef="Activity_1ifg82r" />
     <bpmn:sequenceFlow id="Flow_0qa7luo" sourceRef="Activity_1ifg82r" targetRef="Event_16aqcq4" />
@@ -76,6 +81,14 @@
     <bpmn:endEvent id="Event_16aqcq4" name="Reminder sent out">
       <bpmn:incoming>Flow_0qa7luo</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:task id="Activity_1f7mgof" name="Generate bank transfer template">
+      <bpmn:incoming>Flow_1x1qu2r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_08gahch" name="Update invoice as payed">
+      <bpmn:incoming>Flow_030ip6d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jkt9al</bpmn:outgoing>
+    </bpmn:task>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_171wa98">
@@ -86,10 +99,6 @@
       <bpmndi:BPMNShape id="Event_1k9387b_di" bpmnElement="Event_1k9387b">
         <dc:Bounds x="-428" y="-8" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_04tjynr_di" bpmnElement="Activity_1f7mgof">
-        <dc:Bounds x="-340" y="-30" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uhit0z_di" bpmnElement="Activity_05io0ms">
         <dc:Bounds x="-180" y="-30" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -98,16 +107,6 @@
         <dc:Bounds x="-15" y="-15" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="-19" y="-52.5" width="58" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1p68rdt_di" bpmnElement="Activity_08gahch">
-        <dc:Bounds x="140" y="-30" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_0j7ds2s_di" bpmnElement="DataStoreReference_0j7ds2s">
-        <dc:Bounds x="165" y="-145" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="157" y="-182" width="66" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rtkdew_di" bpmnElement="Event_1rtkdew">
@@ -132,10 +131,22 @@
           <dc:Bounds x="334" y="235" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="DataInput-383219861-1">
+      <bpmndi:BPMNShape id="Activity_1rg0klj_di" bpmnElement="Activity_1f7mgof">
+        <dc:Bounds x="-340" y="-30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0a914f5_di" bpmnElement="Activity_08gahch">
+        <dc:Bounds x="140" y="-30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objPaymentDetails">
         <dc:Bounds x="-418" y="-145" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="-440" y="-89" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objPaymentConfirmation">
+        <dc:Bounds x="402" y="-165" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="392" y="-108" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00g46dn_di" bpmnElement="Event_0z1l7pw">
@@ -204,10 +215,10 @@
         <dc:Bounds x="-330" y="-170" width="100.0000039394464" height="55.077452667814114" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_00d1oia_di" bpmnElement="DataOutputAssociation_00d1oia">
-        <di:waypoint x="190" y="-30" />
-        <di:waypoint x="190" y="-95" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0bb5kbd_di" bpmnElement="TextAnnotation_0bb5kbd">
+        <dc:Bounds x="240" y="-110" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
         <di:waypoint x="-252" y="-30" />
         <di:waypoint x="-228" y="-55" />
@@ -219,6 +230,10 @@
       <bpmndi:BPMNEdge id="Association_1u4740c_di" bpmnElement="Association_1u4740c">
         <di:waypoint x="-382" y="-119" />
         <di:waypoint x="-330" y="-137" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_07ygvym_di" bpmnElement="Association_07ygvym">
+        <di:waypoint x="228" y="-30" />
+        <di:waypoint x="252" y="-55" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ajkdip_di" bpmnElement="Flow_0ajkdip">
         <di:waypoint x="-130" y="50" />

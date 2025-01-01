@@ -15,13 +15,49 @@
         },
         "invoice-received": {
             "correlation_properties": {},
+            "schema": {
+                "properties": {
+                    "digitalInvoice": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "digitalInvoice"
+                ],
+                "type": "object"
+            }
+        },
+        "invoice_processing_unsuccessful": {
+            "correlation_properties": {},
             "schema": {}
+        },
+        "invoice_received": {
+            "correlation_properties": {},
+            "schema": {
+                "properties": {
+                    "digitalInvoice": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "digitalInvoice"
+                ],
+                "type": "object"
+            }
         },
         "monitor-monthly-rent": {
             "correlation_properties": {},
             "schema": {}
         },
         "objection-monitoring-start": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "recieve_digital_invoice": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "request_digital_invoice": {
             "correlation_properties": {},
             "schema": {}
         },

@@ -1,0 +1,78 @@
+{
+  "title": "Invoice",
+  "type": "object",
+  "properties": {
+    "invoiceDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date of the invoice"
+    },
+    "invoiceAmount": {
+      "type": "number",
+      "description": "The amount of the invoice"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the invoice"
+    },
+    "receiver": {
+      "type": "string",
+      "description": "The receiver of the invoice"
+    },
+    "receiverIban": {
+      "type": "string",
+      "description": "The IBAN of the receiver"
+    },
+    "receiverBic": {
+      "type": "string",
+      "description": "The BIC of the receiver"
+    },
+    "invoiceCategory": {
+      "type": "object",
+      "properties": {
+        "invoiceCategoryId": {
+          "type": "integer",
+          "description": "The unique identifier for an invoice category"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the invoice category"
+        }
+      },
+      "required": [
+        "invoiceCategoryId",
+        "name"
+      ],
+      "description": "The category of the invoice"
+    },
+    "housingObject": {
+      "type": "object",
+      "properties": {
+        "housingObjectId": {
+          "type": "integer",
+          "description": "The unique identifier for a housing object"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the housing object"
+        },
+        "required": [
+          "housingObjectId",
+          "name"
+        ],
+        "description": "The housing object associated with the invoice"
+      }
+    },
+    "required": [
+      "invoiceDate",
+      "invoiceAmount",
+      "description",
+      "status",
+      "receiver",
+      "receiverIban",
+      "receiverBic",
+      "invoiceCategory",
+      "housingObject"
+    ]
+  }
+}
