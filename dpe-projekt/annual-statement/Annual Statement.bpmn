@@ -84,10 +84,7 @@
       <bpmn:incoming>Flow_1cstye6</bpmn:incoming>
       <bpmn:outgoing>Flow_0yglw5l</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:dataObjectReference id="DataObjectReference_0axosog" name="Invoices" dataObjectRef="objInvoices" />
     <bpmn:dataObjectReference id="DataObjectReference_00k3tbo" name="Invoice Categories" dataObjectRef="objInvoiceCategories" />
-    <bpmn:dataObjectReference id="DataObjectReference_0zr8nlz" name="Annual Statements" dataObjectRef="objAnnualStatements" />
-    <bpmn:dataObjectReference id="DataObjectReference_0aaw7oj" name="Statement Entries" dataObjectRef="objStatementEntries" />
     <bpmn:serviceTask id="Activity_05oq3wb" name="Get all invoices of housing object">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllInvoices">
@@ -230,14 +227,12 @@
       <bpmn:outgoing>Flow_0bnn5vg</bpmn:outgoing>
       <bpmn:outgoing>Flow_0mrkljf</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:dataObjectReference id="DataObjectReference_0axosog" name="Invoices" dataObjectRef="objInvoices" />
-    <bpmn:dataObjectReference id="DataObjectReference_00k3tbo" name="Invoice Categories" dataObjectRef="objInvoiceCategories" />
     <bpmn:sequenceFlow id="Flow_154uzur" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
     <bpmn:serviceTask id="Activity_062jx1j" name="Get relevant Rental Agreements of Housing Object">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-year/&#34;+str(varCurrentYear)" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -246,6 +241,8 @@
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
         <spiffworkflow:postScript>objRentalAgreements = getResponseAllRentalAgreements["body"]</spiffworkflow:postScript>
+        <spiffworkflow:preScript>#For Testing Purposes
+varCurrentYear = 2024</spiffworkflow:preScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yglw5l</bpmn:incoming>
       <bpmn:outgoing>Flow_154uzur</bpmn:outgoing>
@@ -266,10 +263,22 @@
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
         <dc:Bounds x="400" y="470" width="2470" height="680" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="DataOutputJustInCase">
-        <dc:Bounds x="2782" y="535" width="36" height="50" />
+      <bpmndi:BPMNShape id="DataObjectReference_0zr8nlz_di" bpmnElement="DataObjectReference_0zr8nlz">
+        <dc:Bounds x="1462" y="505" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2764" y="592" width="80" height="27" />
+          <dc:Bounds x="1452" y="562" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
+        <dc:Bounds x="1082" y="635" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1080" y="692" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0aaw7oj_di" bpmnElement="DataObjectReference_0aaw7oj">
+        <dc:Bounds x="1272" y="625" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1248" y="682" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rj5956_di" bpmnElement="Event_1rj5956">
@@ -278,25 +287,13 @@
           <dc:Bounds x="441" y="870" width="78" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
-        <dc:Bounds x="442" y="505" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="424" y="561" width="77" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18p65u2_di" bpmnElement="Activity_10uhudp">
         <dc:Bounds x="550" y="805" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_0zr8nlz_di" bpmnElement="DataObjectReference_0zr8nlz">
-        <dc:Bounds x="1462" y="505" width="36" height="50" />
+      <bpmndi:BPMNShape id="DataObjectReference_00k3tbo_di" bpmnElement="DataObjectReference_00k3tbo">
+        <dc:Bounds x="992" y="635" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1452" y="562" width="56" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_0aaw7oj_di" bpmnElement="DataObjectReference_0aaw7oj">
-        <dc:Bounds x="1272" y="625" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1248" y="682" width="88" height="14" />
+          <dc:Bounds x="983" y="692" width="54" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0e2z1c5_di" bpmnElement="Activity_05oq3wb">
@@ -352,26 +349,28 @@
       <bpmndi:BPMNShape id="Gateway_1h6lclh_di" bpmnElement="Gateway_1h6lclh" isMarkerVisible="true">
         <dc:Bounds x="1705" y="820" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
-        <dc:Bounds x="1082" y="635" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1080" y="692" width="41" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_00k3tbo_di" bpmnElement="DataObjectReference_00k3tbo">
-        <dc:Bounds x="992" y="635" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="983" y="692" width="54" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_09xrzjy_di" bpmnElement="Activity_062jx1j">
         <dc:Bounds x="720" y="805" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1x4wefn_di" bpmnElement="Association_1x4wefn">
-        <di:waypoint x="2080" y="813" />
-        <di:waypoint x="2067" y="821" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_1b5vgmf_di" bpmnElement="DataObjectReference_1b5vgmf">
+        <dc:Bounds x="842" y="635" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="831" y="692" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
+        <dc:Bounds x="442" y="505" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="424" y="561" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="DataOutputJustInCase">
+        <dc:Bounds x="2782" y="535" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2764" y="592" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
         <di:waypoint x="1030" y="845" />
         <di:waypoint x="1130" y="845" />
@@ -460,35 +459,45 @@
         <di:waypoint x="820" y="845" />
         <di:waypoint x="930" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="DataObjectReference_1b5vgmf_di" bpmnElement="DataObjectReference_1b5vgmf">
-        <dc:Bounds x="842" y="635" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="831" y="692" width="59" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1x4wefn_di" bpmnElement="Association_1x4wefn">
+        <di:waypoint x="2080" y="813" />
+        <di:waypoint x="2067" y="821" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
         <dc:Bounds x="400" y="310" width="2710" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_054kas9_di" bpmnElement="Association_054kas9">
-        <di:waypoint x="593" y="805" />
-        <di:waypoint x="584" y="751" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0rkk6e4_di" bpmnElement="Association_0rkk6e4">
-        <di:waypoint x="1028" y="636" />
-        <di:waypoint x="1039" y="620" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_06o2s9m_di" bpmnElement="TextAnnotation_06o2s9m">
         <dc:Bounds x="2050" y="780" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0dp95lw_di" bpmnElement="TextAnnotation_0dp95lw">
+        <dc:Bounds x="530" y="710" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1il3205_di" bpmnElement="TextAnnotation_1il3205">
+        <dc:Bounds x="1030" y="550" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1isijvf_di" bpmnElement="DataOutputAssociation_1isijvf">
         <di:waypoint x="1007" y="805" />
         <di:waypoint x="1089" y="685" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0054c87_di" bpmnElement="DataOutputAssociation_0054c87">
+        <di:waypoint x="986" y="805" />
+        <di:waypoint x="1004" y="685" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0yjm9bh_di" bpmnElement="DataInputAssociation_0yjm9bh">
         <di:waypoint x="1111" y="685" />
         <di:waypoint x="1163" y="805" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0ikndf4_di" bpmnElement="DataInputAssociation_0ikndf4">
+        <di:waypoint x="1028" y="682" />
+        <di:waypoint x="1133" y="809" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
+        <di:waypoint x="878" y="671" />
+        <di:waypoint x="1130" y="818" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_14qw5cg_di" bpmnElement="DataOutputAssociation_14qw5cg">
         <di:waypoint x="1201" y="805" />
@@ -497,6 +506,10 @@
       <bpmndi:BPMNEdge id="DataInputAssociation_0y1ygxu_di" bpmnElement="DataInputAssociation_0y1ygxu">
         <di:waypoint x="1301" y="675" />
         <di:waypoint x="1361" y="805" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0so8ea0_di" bpmnElement="DataInputAssociation_0so8ea0">
+        <di:waypoint x="878" y="666" />
+        <di:waypoint x="1320" y="818" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0qafqg7_di" bpmnElement="DataOutputAssociation_0qafqg7">
         <di:waypoint x="1384" y="805" />
@@ -526,6 +539,18 @@
         <di:waypoint x="1920" y="1010" />
         <di:waypoint x="2130" y="970" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_03sdi23_di" bpmnElement="DataOutputAssociation_03sdi23">
+        <di:waypoint x="790" y="805" />
+        <di:waypoint x="852" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_054kas9_di" bpmnElement="Association_054kas9">
+        <di:waypoint x="593" y="805" />
+        <di:waypoint x="584" y="751" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0rkk6e4_di" bpmnElement="Association_0rkk6e4">
+        <di:waypoint x="1028" y="636" />
+        <di:waypoint x="1039" y="620" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13isndv_di" bpmnElement="Flow_13isndv">
         <di:waypoint x="2060" y="805" />
         <di:waypoint x="2060" y="390" />
@@ -547,34 +572,6 @@
           <dc:Bounds x="2096" y="451" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_0dp95lw_di" bpmnElement="TextAnnotation_0dp95lw">
-        <dc:Bounds x="530" y="710" width="100" height="41" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0054c87_di" bpmnElement="DataOutputAssociation_0054c87">
-        <di:waypoint x="986" y="805" />
-        <di:waypoint x="1004" y="685" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0ikndf4_di" bpmnElement="DataInputAssociation_0ikndf4">
-        <di:waypoint x="1028" y="682" />
-        <di:waypoint x="1133" y="809" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_03sdi23_di" bpmnElement="DataOutputAssociation_03sdi23">
-        <di:waypoint x="790" y="805" />
-        <di:waypoint x="852" y="685" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0so8ea0_di" bpmnElement="DataInputAssociation_0so8ea0">
-        <di:waypoint x="878" y="666" />
-        <di:waypoint x="1320" y="818" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
-        <di:waypoint x="878" y="671" />
-        <di:waypoint x="1130" y="818" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1il3205_di" bpmnElement="TextAnnotation_1il3205">
-        <dc:Bounds x="1030" y="550" width="100" height="70" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
