@@ -81,14 +81,14 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
     <bpmn:endEvent id="Event_16aqcq4" name="Reminder sent out">
       <bpmn:incoming>Flow_0qa7luo</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:task id="Activity_1f7mgof" name="Generate bank transfer template">
-      <bpmn:incoming>Flow_1x1qu2r</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:task id="Activity_08gahch" name="Update invoice as payed">
       <bpmn:incoming>Flow_030ip6d</bpmn:incoming>
       <bpmn:outgoing>Flow_0jkt9al</bpmn:outgoing>
     </bpmn:task>
+    <bpmn:serviceTask id="Activity_1f7mgof" name="Generate bank transfer template">
+      <bpmn:incoming>Flow_1x1qu2r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_171wa98">
@@ -131,9 +131,6 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
           <dc:Bounds x="334" y="235" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1rg0klj_di" bpmnElement="Activity_1f7mgof">
-        <dc:Bounds x="-340" y="-30" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0a914f5_di" bpmnElement="Activity_08gahch">
         <dc:Bounds x="140" y="-30" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -148,6 +145,9 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="392" y="-108" width="63" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18t2ifs_di" bpmnElement="Activity_1f7mgof">
+        <dc:Bounds x="-340" y="-30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00g46dn_di" bpmnElement="Event_0z1l7pw">
         <dc:Bounds x="-118" y="32" width="36" height="36" />
