@@ -5,12 +5,12 @@
   </bpmn:collaboration>
   <bpmn:process id="Process_11ur3al">
     <bpmn:ioSpecification>
-      <bpmn:dataOutput id="DataOutput-691775243-1" name="Statement Entries" />
-      <bpmn:dataOutput id="DataOutput-416612294-1" name="Annual Statements per Apartments" />
+      <bpmn:dataOutput id="objRentalAgreement" name="Rental Agreement" />
+      <bpmn:dataOutput id="objAnnualStatement" name="Annual Statement" />
       <bpmn:inputSet />
       <bpmn:outputSet>
-        <bpmn:dataOutputRefs>DataOutput-691775243-1</bpmn:dataOutputRefs>
-        <bpmn:dataOutputRefs>DataOutput-416612294-1</bpmn:dataOutputRefs>
+        <bpmn:dataOutputRefs>objRentalAgreement</bpmn:dataOutputRefs>
+        <bpmn:dataOutputRefs>objAnnualStatement</bpmn:dataOutputRefs>
       </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:startEvent id="Event_07owbd4" name="Start of Annual Statement Creation">
@@ -39,19 +39,9 @@
       <bpmn:outgoing>Flow_0nizn8n</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1kxv6a3" sourceRef="Activity_1sjoo8b" targetRef="Gateway_009nfdh" />
-    <bpmn:sequenceFlow id="Flow_0nizn8n" sourceRef="Gateway_009nfdh" targetRef="Gateway_0ri6bfv" />
-    <bpmn:exclusiveGateway id="Gateway_0ri6bfv" name="Annual Statement created?">
+    <bpmn:sequenceFlow id="Flow_0nizn8n" sourceRef="Gateway_009nfdh" targetRef="Event_1efgmxa" />
+    <bpmn:endEvent id="Event_1efgmxa" name="Annual Statement created">
       <bpmn:incoming>Flow_0nizn8n</bpmn:incoming>
-      <bpmn:outgoing>Flow_0h9zj7n</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1vf1d0z</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0h9zj7n" sourceRef="Gateway_0ri6bfv" targetRef="Event_1efgmxa" />
-    <bpmn:sequenceFlow id="Flow_1vf1d0z" sourceRef="Gateway_0ri6bfv" targetRef="Event_0ygmhsk" />
-    <bpmn:endEvent id="Event_1efgmxa" name="Annual Statement creation has been successfull">
-      <bpmn:incoming>Flow_0h9zj7n</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="Event_0ygmhsk" name="Annual Statement creation failed">
-      <bpmn:incoming>Flow_1vf1d0z</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -82,34 +72,22 @@
       <bpmndi:BPMNShape id="Gateway_009nfdh_di" bpmnElement="Gateway_009nfdh" isMarkerVisible="true">
         <dc:Bounds x="445" y="45" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0ri6bfv_di" bpmnElement="Gateway_0ri6bfv" isMarkerVisible="true">
-        <dc:Bounds x="555" y="45" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="536" y="7.5" width="87" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1efgmxa_di" bpmnElement="Event_1efgmxa">
         <dc:Bounds x="682" y="52" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="656" y="95" width="88" height="40" />
+          <dc:Bounds x="656" y="95" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0ygmhsk_di" bpmnElement="Event_0ygmhsk">
-        <dc:Bounds x="682" y="152" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="657" y="195" width="87" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-691775243-1DI" bpmnElement="DataOutput-691775243-1">
+      <bpmndi:BPMNShape id="DataOutput-691775243-1DI" bpmnElement="objRentalAgreement">
         <dc:Bounds x="-38" y="-65" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-64" y="-8" width="88" height="14" />
+          <dc:Bounds x="-64" y="-8" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-416612294-1DI" bpmnElement="DataOutput-416612294-1">
+      <bpmndi:BPMNShape id="DataOutput-416612294-1DI" bpmnElement="objAnnualStatement">
         <dc:Bounds x="682" y="-85" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="662" y="-28" width="76" height="40" />
+          <dc:Bounds x="656" y="-28" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1jvxxtw_di" bpmnElement="Flow_1jvxxtw">
@@ -142,16 +120,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0nizn8n_di" bpmnElement="Flow_0nizn8n">
         <di:waypoint x="495" y="70" />
-        <di:waypoint x="555" y="70" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0h9zj7n_di" bpmnElement="Flow_0h9zj7n">
-        <di:waypoint x="605" y="70" />
         <di:waypoint x="682" y="70" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1vf1d0z_di" bpmnElement="Flow_1vf1d0z">
-        <di:waypoint x="580" y="95" />
-        <di:waypoint x="580" y="170" />
-        <di:waypoint x="682" y="170" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
