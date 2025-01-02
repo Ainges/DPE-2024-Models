@@ -2,6 +2,10 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0dfwb0v">
     <bpmn:participant id="Participant_06x5n6c" name="Create Annual Statement Process" processRef="Process_11ur3al" />
+    <bpmn:textAnnotation id="TextAnnotation_1wehy32">
+      <bpmn:text>Nicht die Entität sondern das PDF!</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1dz1xow" associationDirection="None" sourceRef="Activity_0ywd0ad" targetRef="TextAnnotation_1wehy32" />
   </bpmn:collaboration>
   <bpmn:process id="Process_11ur3al">
     <bpmn:ioSpecification>
@@ -24,7 +28,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1gyrhda" name="No" sourceRef="Gateway_13ozsvr" targetRef="Activity_0ywd0ad" />
     <bpmn:sequenceFlow id="Flow_04aewzo" name="Yes" sourceRef="Gateway_13ozsvr" targetRef="Activity_1sjoo8b" />
-    <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement">
+    <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement document">
       <bpmn:incoming>Flow_1gyrhda</bpmn:incoming>
       <bpmn:outgoing>Flow_07hke8b</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -64,6 +68,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_17g8wwe_di" bpmnElement="Activity_0ywd0ad">
         <dc:Bounds x="270" y="30" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1iv2fxc_di" bpmnElement="Activity_1sjoo8b">
         <dc:Bounds x="270" y="140" width="100" height="80" />
@@ -122,6 +127,14 @@
         <di:waypoint x="495" y="70" />
         <di:waypoint x="682" y="70" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
+        <di:waypoint x="358" y="30" />
+        <di:waypoint x="382" y="5" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1wehy32_di" bpmnElement="TextAnnotation_1wehy32">
+        <dc:Bounds x="370" y="-50" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

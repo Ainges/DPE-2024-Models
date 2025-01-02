@@ -13,6 +13,10 @@
       <bpmn:text>Brauchen wir das wirklich?</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_054kas9" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_0dp95lw" />
+    <bpmn:textAnnotation id="TextAnnotation_1il3205">
+      <bpmn:text>Muss noch im PostSkript implementiert werden</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0rkk6e4" associationDirection="None" sourceRef="DataObjectReference_00k3tbo" targetRef="TextAnnotation_1il3205" />
     <bpmn:correlationKey id="CorrelationKey_1rycmk0" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="false">
@@ -117,6 +121,10 @@
       </bpmn:dataInputAssociation>
       <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
         <bpmn:sourceRef>DataObjectReference_00k3tbo</bpmn:sourceRef>
+        <bpmn:targetRef>Property_18phufo</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_0zo88wu">
+        <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
         <bpmn:targetRef>Property_18phufo</bpmn:targetRef>
       </bpmn:dataInputAssociation>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_14qw5cg">
@@ -226,6 +234,19 @@
     <bpmn:dataObjectReference id="DataObjectReference_00k3tbo" name="Invoice Categories" dataObjectRef="objInvoiceCategories" />
     <bpmn:sequenceFlow id="Flow_154uzur" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
     <bpmn:serviceTask id="Activity_062jx1j" name="Get relevant Rental Agreements of Housing Object">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
+            <spiffworkflow:parameter id="params" type="any" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+            <spiffworkflow:parameter id="attempts" type="int" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+        <spiffworkflow:postScript>objRentalAgreements = getResponseAllRentalAgreements["body"]</spiffworkflow:postScript>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yglw5l</bpmn:incoming>
       <bpmn:outgoing>Flow_154uzur</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_03sdi23">
@@ -453,6 +474,10 @@
         <di:waypoint x="593" y="805" />
         <di:waypoint x="584" y="751" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0rkk6e4_di" bpmnElement="Association_0rkk6e4">
+        <di:waypoint x="1028" y="636" />
+        <di:waypoint x="1039" y="620" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_06o2s9m_di" bpmnElement="TextAnnotation_06o2s9m">
         <dc:Bounds x="2050" y="780" width="100" height="41" />
         <bpmndi:BPMNLabel />
@@ -542,6 +567,14 @@
         <di:waypoint x="878" y="666" />
         <di:waypoint x="1320" y="818" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
+        <di:waypoint x="878" y="671" />
+        <di:waypoint x="1130" y="818" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1il3205_di" bpmnElement="TextAnnotation_1il3205">
+        <dc:Bounds x="1030" y="550" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

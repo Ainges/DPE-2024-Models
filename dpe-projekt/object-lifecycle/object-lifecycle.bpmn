@@ -33,13 +33,6 @@
       <bpmn:outgoing>Flow_1ygv9au</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_13xg07y" sourceRef="Activity_07psk58" targetRef="Activity_15f5iod" />
-    <bpmn:userTask id="Activity_07psk58" name="Capture Housing Object">
-      <bpmn:incoming>Flow_1ygv9au</bpmn:incoming>
-      <bpmn:outgoing>Flow_13xg07y</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0suiahn">
-        <bpmn:targetRef>DataObjectReference_0anl30x</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:userTask>
     <bpmn:dataObject id="objHousingObject" name="Housing Object" />
     <bpmn:dataObjectReference id="DataObjectReference_0anl30x" name="Housing Object" dataObjectRef="objHousingObject" />
     <bpmn:sequenceFlow id="Flow_1rsjy39" sourceRef="Activity_1tkvx4m" targetRef="Event_05sb3xn" />
@@ -149,6 +142,13 @@ objHousingObject = {"housingObjectId":1}</spiffworkflow:postScript>
     <bpmn:endEvent id="Event_0oy8sfh" name="Annual Statement completed">
       <bpmn:incoming>Flow_1h7ucyt</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:task id="Activity_07psk58" name="Capture Housing Object">
+      <bpmn:incoming>Flow_1ygv9au</bpmn:incoming>
+      <bpmn:outgoing>Flow_13xg07y</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0suiahn">
+        <bpmn:targetRef>DataObjectReference_0anl30x</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
     <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
@@ -163,10 +163,6 @@ objHousingObject = {"housingObjectId":1}</spiffworkflow:postScript>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="-37" y="385" width="77" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0384wy3_di" bpmnElement="Activity_07psk58">
-        <dc:Bounds x="70" y="320" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0anl30x_di" bpmnElement="DataObjectReference_0anl30x">
         <dc:Bounds x="172" y="205" width="36" height="50" />
@@ -251,6 +247,9 @@ objHousingObject = {"housingObjectId":1}</spiffworkflow:postScript>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1576" y="585" width="88" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u15mkv_di" bpmnElement="Activity_07psk58">
+        <dc:Bounds x="70" y="320" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1t8rd58_di" bpmnElement="Event_1uptr9d">
         <dc:Bounds x="792" y="582" width="36" height="36" />
