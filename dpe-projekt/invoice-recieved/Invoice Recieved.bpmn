@@ -75,7 +75,7 @@
     }</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="response">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8161/invoices&#34;" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="data" type="any" value="objInvoice" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
