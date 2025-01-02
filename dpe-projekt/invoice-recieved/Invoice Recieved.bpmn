@@ -11,7 +11,7 @@
       <bpmn:text>User can upload a pdf or take a picture and use OCR or enter details manually; Splitting of invoices to different Account transactions possible</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1mta0m7" associationDirection="None" sourceRef="Activity_1iqnvj8" targetRef="TextAnnotation_10augua" />
-    <bpmn:correlationKey id="CorrelationKey_17ft7zj" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_0aah9ma" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_19ks2hv" name="Invoice Handling" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0mmy1ix">
@@ -20,20 +20,17 @@
         <bpmn:flowNodeRef>Activity_0x66my7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1smo9zb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12msmpv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0cz5uef</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0guueiv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1jeup01</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1nnrlxk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0x9vlb2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0zwcbi5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1rj5956</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0kr3e9k</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_04h651x</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0m0m19e</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1iqnvj8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0bnxrbp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0cz5uef</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:sequenceFlow id="Flow_1tlji64" sourceRef="Event_1rj5956" targetRef="Gateway_0zwcbi5" />
     <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_0zwcbi5" targetRef="Gateway_0guueiv">
       <bpmn:conditionExpression>invoice_received["digitalInvoice"] == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -46,10 +43,9 @@
     <bpmn:sequenceFlow id="Flow_1d953uq" name="Yes" sourceRef="Gateway_1smo9zb" targetRef="Activity_12msmpv">
       <bpmn:conditionExpression>response["http_status"] == 201</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1u9ntme" name="No" sourceRef="Gateway_1smo9zb" targetRef="Gateway_0m0m19e">
+    <bpmn:sequenceFlow id="Flow_1u9ntme" name="No" sourceRef="Gateway_1smo9zb" targetRef="Activity_04h651x">
       <bpmn:conditionExpression>response["http_status"] != 201</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_19ovxru" sourceRef="Activity_12msmpv" targetRef="Gateway_0kr3e9k" />
     <bpmn:sequenceFlow id="Flow_11egqb3" sourceRef="Gateway_0guueiv" targetRef="Activity_1iqnvj8" />
     <bpmn:sequenceFlow id="Flow_059b81m" name="No" sourceRef="Gateway_03lrubp" targetRef="Gateway_0guueiv">
       <bpmn:conditionExpression>varDigitalInvoiceStatus != "received"</bpmn:conditionExpression>
@@ -71,7 +67,8 @@
     "description": objInvoice["description"],
     "receiver": objInvoice["receiver"],
     "receiverIban": objInvoice["receiverIban"],
-    "receiverBic": objInvoice["receiverBic"]
+    "receiverBic": objInvoice["receiverBic"],
+    "invoiceId": response["body"]["invoiceId"]
     }</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="response">
           <spiffworkflow:parameters>
@@ -106,16 +103,13 @@
 objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1d953uq</bpmn:incoming>
-      <bpmn:outgoing>Flow_19ovxru</bpmn:outgoing>
+      <bpmn:outgoing>Flow_11r2qnx</bpmn:outgoing>
       <bpmn:property id="Property_170psnh" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0cbwr4o">
         <bpmn:sourceRef>DataObjectReference_1es9ett</bpmn:sourceRef>
         <bpmn:targetRef>Property_170psnh</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:callActivity>
-    <bpmn:endEvent id="Event_0cz5uef" name="Invoice handled successfully">
-      <bpmn:incoming>Flow_0bpxbke</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:exclusiveGateway id="Gateway_0guueiv">
       <bpmn:incoming>Flow_0d63g4l</bpmn:incoming>
       <bpmn:incoming>Flow_059b81m</bpmn:incoming>
@@ -147,40 +141,15 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
     <bpmn:dataObjectReference id="DataObjectReference_0gs9m8z" name="Invoice" dataObjectRef="objInvoice" />
     <bpmn:sequenceFlow id="Flow_16cdcwu" sourceRef="Activity_04h651x" targetRef="Gateway_0guueiv" />
     <bpmn:exclusiveGateway id="Gateway_0zwcbi5" name="Digital Invoice?">
-      <bpmn:incoming>Flow_1tlji64</bpmn:incoming>
+      <bpmn:incoming>Flow_0thzzlt</bpmn:incoming>
       <bpmn:outgoing>Flow_0d63g4l</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ccxvlo</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:startEvent id="Event_1rj5956" name="New Invoice Recieved">
-      <bpmn:outgoing>Flow_1tlji64</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_07urjf2" messageRef="invoice_received">
-        <bpmn:extensionElements>
-          <spiffworkflow:messageVariable>invoice_received</spiffworkflow:messageVariable>
-        </bpmn:extensionElements>
-      </bpmn:messageEventDefinition>
-    </bpmn:startEvent>
-    <bpmn:exclusiveGateway id="Gateway_0kr3e9k" name="Payment completed?">
-      <bpmn:incoming>Flow_19ovxru</bpmn:incoming>
-      <bpmn:outgoing>Flow_0bpxbke</bpmn:outgoing>
-      <bpmn:outgoing>Flow_07hgbl4</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0bpxbke" name="Yes" sourceRef="Gateway_0kr3e9k" targetRef="Event_0cz5uef">
-      <bpmn:conditionExpression>objPaymentConfirmation["status"] == "successfull"</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
     <bpmn:sendTask id="Activity_04h651x" name="Notify landlord about failed invoice processing" messageRef="invoice_processing_unsuccessful">
       <bpmn:extensionElements />
-      <bpmn:incoming>Flow_0cr5dnl</bpmn:incoming>
+      <bpmn:incoming>Flow_1u9ntme</bpmn:incoming>
       <bpmn:outgoing>Flow_16cdcwu</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:exclusiveGateway id="Gateway_0m0m19e">
-      <bpmn:incoming>Flow_1u9ntme</bpmn:incoming>
-      <bpmn:incoming>Flow_07hgbl4</bpmn:incoming>
-      <bpmn:outgoing>Flow_0cr5dnl</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0cr5dnl" sourceRef="Gateway_0m0m19e" targetRef="Activity_04h651x" />
-    <bpmn:sequenceFlow id="Flow_07hgbl4" name="No" sourceRef="Gateway_0kr3e9k" targetRef="Gateway_0m0m19e">
-      <bpmn:conditionExpression>objPaymentConfirmation["status"] != "successfull"</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
     <bpmn:dataObject id="objPaymentDetails" name="Payment Details" />
     <bpmn:dataObjectReference id="DataObjectReference_1es9ett" name="Payment Details" dataObjectRef="objPaymentDetails" />
     <bpmn:userTask id="Activity_1iqnvj8" name="Enter invoice data">
@@ -189,21 +158,19 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
           <spiffworkflow:property name="formJsonSchemaFilename" value="enter-invoice-data-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="enter-invoice-data-uischema.json" />
         </spiffworkflow:properties>
-        <spiffworkflow:postScript>#For test purposes
-objInvoice={
-    "invoiceDate": datetime.now().isoformat(),
-    "invoiceAmount": 100.0,
-    "description": "Invoice for October",
-    "receiver": "John Doe",
-    "receiverIban": "DE89370400440532013000",
-    "receiverBic": "COBADEFFXXX",
+        <spiffworkflow:postScript>objInvoice={
+    "invoiceDate": invoiceDate, #datetime.now().isoformat(),
+    "invoiceAmount": invoiceAmount,
+    "description": description,
+    "receiver": receiver,
+    "receiverIban": receiverIban,
+    "receiverBic": receiverBic,
+    "status": "unpaid",
     "invoiceCategory": {
-        "invoiceCategoryId": 1,
-        "name": "Utilities"
+        "invoiceCategoryId": invoiceCategoryId
     },
     "housingObject": {
-        "housingObjectId": 1,
-        "name": "Apartment 101"
+        "housingObjectId": housingObjectId
     }
 }</spiffworkflow:postScript>
       </bpmn:extensionElements>
@@ -213,20 +180,33 @@ objInvoice={
         <bpmn:targetRef>DataObjectReference_0gs9m8z</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0thzzlt" sourceRef="Event_0bnxrbp" targetRef="Gateway_0zwcbi5" />
+    <bpmn:startEvent id="Event_0bnxrbp" name="New Invoice Recieved">
+      <bpmn:outgoing>Flow_0thzzlt</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1yxj739" messageRef="invoice_received">
+        <bpmn:extensionElements>
+          <spiffworkflow:messageVariable>invoice_received</spiffworkflow:messageVariable>
+        </bpmn:extensionElements>
+      </bpmn:messageEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_11r2qnx" sourceRef="Activity_12msmpv" targetRef="Event_0cz5uef" />
+    <bpmn:endEvent id="Event_0cz5uef" name="Invoice handled successfully">
+      <bpmn:incoming>Flow_11r2qnx</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="invoice-recieved" name="invoice-recieved" />
-  <bpmn:message id="invoice_received" name="invoice_received" />
   <bpmn:message id="request_digital_invoice" name="request_digital_invoice" />
   <bpmn:message id="recieve_digital_invoice" name="recieve_digital_invoice" />
   <bpmn:message id="invoice_processing_unsuccessful" name="invoice_processing_unsuccessful" />
+  <bpmn:message id="invoice_received" name="invoice_received" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
       <bpmndi:BPMNShape id="Participant_0sbn701_di" bpmnElement="Participant_0sbn701" isHorizontal="true">
-        <dc:Bounds x="370" y="400" width="1960" height="540" />
+        <dc:Bounds x="370" y="400" width="1800" height="540" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
-        <dc:Bounds x="400" y="400" width="1930" height="540" />
+        <dc:Bounds x="400" y="400" width="1770" height="540" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_03lrubp_di" bpmnElement="Gateway_03lrubp" isMarkerVisible="true">
         <dc:Bounds x="1035" y="750" width="50" height="50" />
@@ -247,12 +227,6 @@ objInvoice={
       <bpmndi:BPMNShape id="Activity_0mjqt1o_di" bpmnElement="Activity_12msmpv">
         <dc:Bounds x="1930" y="540" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0cz5uef_di" bpmnElement="Event_0cz5uef">
-        <dc:Bounds x="2242" y="562" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2221" y="606" width="78" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0guueiv_di" bpmnElement="Gateway_0guueiv" isMarkerVisible="true">
         <dc:Bounds x="1135" y="640" width="50" height="50" />
@@ -280,23 +254,8 @@ objInvoice={
           <dc:Bounds x="563" y="568" width="75" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0rp2ok6_di" bpmnElement="Event_1rj5956">
-        <dc:Bounds x="450" y="592" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="439" y="635" width="61" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0kr3e9k_di" bpmnElement="Gateway_0kr3e9k" isMarkerVisible="true">
-        <dc:Bounds x="2095" y="555" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2092" y="518" width="57" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uogqyz_di" bpmnElement="Activity_04h651x">
         <dc:Bounds x="1750" y="850" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0m0m19e_di" bpmnElement="Gateway_0m0m19e" isMarkerVisible="true">
-        <dc:Bounds x="1775" y="750" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_1es9ett_di" bpmnElement="DataObjectReference_1es9ett">
         <dc:Bounds x="1672" y="515" width="36" height="50" />
@@ -307,10 +266,18 @@ objInvoice={
       <bpmndi:BPMNShape id="Activity_0bqbiq1_di" bpmnElement="Activity_1iqnvj8">
         <dc:Bounds x="1280" y="625" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1tlji64_di" bpmnElement="Flow_1tlji64">
-        <di:waypoint x="486" y="610" />
-        <di:waypoint x="575" y="610" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1abcs1z_di" bpmnElement="Event_0bnxrbp">
+        <dc:Bounds x="432" y="592" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="635" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cz5uef_di" bpmnElement="Event_0cz5uef">
+        <dc:Bounds x="2092" y="562" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2071" y="606" width="78" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0d63g4l_di" bpmnElement="Flow_0d63g4l">
         <di:waypoint x="625" y="610" />
         <di:waypoint x="1160" y="610" />
@@ -345,14 +312,10 @@ objInvoice={
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1u9ntme_di" bpmnElement="Flow_1u9ntme">
         <di:waypoint x="1800" y="690" />
-        <di:waypoint x="1800" y="750" />
+        <di:waypoint x="1800" y="850" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1802" y="699" width="15" height="14" />
+          <dc:Bounds x="1812" y="723" width="15" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19ovxru_di" bpmnElement="Flow_19ovxru">
-        <di:waypoint x="2030" y="580" />
-        <di:waypoint x="2095" y="580" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11egqb3_di" bpmnElement="Flow_11egqb3">
         <di:waypoint x="1185" y="665" />
@@ -393,31 +356,20 @@ objInvoice={
         <di:waypoint x="1160" y="890" />
         <di:waypoint x="1160" y="690" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0bpxbke_di" bpmnElement="Flow_0bpxbke">
-        <di:waypoint x="2145" y="580" />
-        <di:waypoint x="2242" y="580" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2185" y="562" width="18" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="Flow_0thzzlt_di" bpmnElement="Flow_0thzzlt">
+        <di:waypoint x="468" y="610" />
+        <di:waypoint x="575" y="610" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0cr5dnl_di" bpmnElement="Flow_0cr5dnl">
-        <di:waypoint x="1800" y="800" />
-        <di:waypoint x="1800" y="850" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07hgbl4_di" bpmnElement="Flow_07hgbl4">
-        <di:waypoint x="2120" y="605" />
-        <di:waypoint x="2120" y="775" />
-        <di:waypoint x="1825" y="775" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2128" y="623" width="15" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="Flow_11r2qnx_di" bpmnElement="Flow_11r2qnx">
+        <di:waypoint x="2030" y="580" />
+        <di:waypoint x="2092" y="580" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0pq2fe1_di" bpmnElement="Participant_0kgb4l4" isHorizontal="true">
-        <dc:Bounds x="370" y="990" width="1960" height="60" />
+        <dc:Bounds x="370" y="990" width="1800" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_13j2vr1_di" bpmnElement="Participant_15sdrlb" isHorizontal="true">
-        <dc:Bounds x="370" y="310" width="1960" height="60" />
+        <dc:Bounds x="370" y="310" width="1800" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_10augua_di" bpmnElement="TextAnnotation_10augua">
         <dc:Bounds x="1210" y="730" width="170" height="110" />
@@ -461,7 +413,7 @@ objInvoice={
         <di:waypoint x="1760" y="850" />
         <di:waypoint x="1760" y="370" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1767" y="516" width="86" height="27" />
+          <dc:Bounds x="1667" y="796" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
