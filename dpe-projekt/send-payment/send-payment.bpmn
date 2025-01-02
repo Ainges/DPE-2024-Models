@@ -15,13 +15,10 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0mhcdrf" associationDirection="None" sourceRef="Activity_05io0ms" targetRef="TextAnnotation_0tjbkxd" />
     <bpmn:textAnnotation id="TextAnnotation_061e1py">
-      <bpmn:text>Reciever, Subject, Amount</bpmn:text>
+      <bpmn:text>Reciever, Subject, Amount,
+InvoiceID</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="objPaymentDetails" targetRef="TextAnnotation_061e1py" />
-    <bpmn:textAnnotation id="TextAnnotation_0bb5kbd">
-      <bpmn:text>Update Invoice record with status: paied</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_07ygvym" associationDirection="None" sourceRef="Activity_08gahch" targetRef="TextAnnotation_0bb5kbd" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1je984j" name="Send Payment" isExecutable="true">
     <bpmn:ioSpecification>
@@ -39,33 +36,17 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1x1qu2r" sourceRef="Event_1k9387b" targetRef="Activity_1f7mgof" />
     <bpmn:sequenceFlow id="Flow_1dmu8y8" sourceRef="Activity_1f7mgof" targetRef="Activity_05io0ms" />
-    <bpmn:userTask id="Activity_05io0ms" name="Make payment">
+    <bpmn:userTask id="Activity_05io0ms" name="Confirm payment">
       <bpmn:extensionElements>
-        <spiffworkflow:postScript>#For testing purposes
-varPaymentSuccessfull = true</spiffworkflow:postScript>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="confirm-payment-schema.json" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="confirm-payment-uischema.json" />
+        </spiffworkflow:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1dmu8y8</bpmn:incoming>
-      <bpmn:outgoing>Flow_11jbo06</bpmn:outgoing>
+      <bpmn:outgoing>Flow_177uhvu</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_0a6ta6w" name="Payment successful?">
-      <bpmn:incoming>Flow_11jbo06</bpmn:incoming>
-      <bpmn:outgoing>Flow_1jjdscy</bpmn:outgoing>
-      <bpmn:outgoing>Flow_030ip6d</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_11jbo06" sourceRef="Activity_05io0ms" targetRef="Gateway_0a6ta6w" />
-    <bpmn:sequenceFlow id="Flow_1jjdscy" name="No" sourceRef="Gateway_0a6ta6w" targetRef="Event_13i3d1l">
-      <bpmn:conditionExpression>varPaymentSuccessfull != true</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_030ip6d" name="Yes" sourceRef="Gateway_0a6ta6w" targetRef="Activity_08gahch">
-      <bpmn:conditionExpression>varPaymentSuccessfull == true</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:endEvent id="Event_1rtkdew" name="Payment sent">
-      <bpmn:incoming>Flow_0jkt9al</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0jkt9al" sourceRef="Activity_08gahch" targetRef="Event_1rtkdew" />
-    <bpmn:endEvent id="Event_13i3d1l" name="Payment not sent">
-      <bpmn:incoming>Flow_1jjdscy</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:boundaryEvent id="Event_0z1l7pw" name="Every 3 days" cancelActivity="false" attachedToRef="Activity_05io0ms">
       <bpmn:outgoing>Flow_15mjwi4</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0qv8dm1">
@@ -78,10 +59,7 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
       <bpmn:incoming>Flow_15mjwi4</bpmn:incoming>
       <bpmn:outgoing>Flow_0qa7luo</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:endEvent id="Event_16aqcq4" name="Reminder sent out">
-      <bpmn:incoming>Flow_0qa7luo</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1f7mgof" name="Generate bank transfer template">
+    <bpmn:task id="Activity_1f7mgof" name="Generate bank transfer template">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
           <spiffworkflow:parameters>
@@ -95,7 +73,8 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1x1qu2r</bpmn:incoming>
       <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
-    </bpmn:serviceTask>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_177uhvu" sourceRef="Activity_05io0ms" targetRef="Activity_08gahch" />
     <bpmn:serviceTask id="Activity_08gahch" name="Update invoice as payed">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/PutRequestV2" resultVariable="putResponse">
@@ -107,16 +86,29 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
+        <spiffworkflow:postScript>objPaymentConfirmation= {"status" : "successful"}</spiffworkflow:postScript>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_030ip6d</bpmn:incoming>
+      <bpmn:incoming>Flow_177uhvu</bpmn:incoming>
       <bpmn:outgoing>Flow_0jkt9al</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1rtkdew" name="Payment successful">
+      <bpmn:incoming>Flow_0jkt9al</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_16aqcq4" name="Reminder sent out">
+      <bpmn:incoming>Flow_0qa7luo</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_171wa98">
       <bpmndi:BPMNShape id="Participant_1lklo0z_di" bpmnElement="Participant_1lklo0z" isHorizontal="true">
-        <dc:Bounds x="-510" y="-200" width="1000" height="550" />
+        <dc:Bounds x="-510" y="-200" width="870" height="550" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objPaymentConfirmation">
+        <dc:Bounds x="272" y="-165" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="262" y="-108" width="63" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1k9387b_di" bpmnElement="Event_1k9387b">
         <dc:Bounds x="-428" y="-8" width="36" height="36" />
@@ -125,35 +117,11 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
         <dc:Bounds x="-180" y="-30" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0a6ta6w_di" bpmnElement="Gateway_0a6ta6w" isMarkerVisible="true">
-        <dc:Bounds x="-15" y="-15" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="-19" y="-52.5" width="58" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1rtkdew_di" bpmnElement="Event_1rtkdew">
-        <dc:Bounds x="352" y="-8" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="336" y="35" width="69" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_13i3d1l_di" bpmnElement="Event_13i3d1l">
-        <dc:Bounds x="352" y="92" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="327" y="135" width="87" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1jz1xbw_di" bpmnElement="Activity_1ifg82r">
         <dc:Bounds x="20" y="170" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_16aqcq4_di" bpmnElement="Event_16aqcq4">
-        <dc:Bounds x="352" y="192" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="334" y="235" width="73" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_18t2ifs_di" bpmnElement="Activity_1f7mgof">
+      <bpmndi:BPMNShape id="Activity_0pyj81d_di" bpmnElement="Activity_1f7mgof">
         <dc:Bounds x="-340" y="-30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objPaymentDetails">
@@ -162,14 +130,20 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
           <dc:Bounds x="-440" y="-89" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objPaymentConfirmation">
-        <dc:Bounds x="402" y="-165" width="36" height="50" />
+      <bpmndi:BPMNShape id="Activity_0napib9_di" bpmnElement="Activity_08gahch">
+        <dc:Bounds x="20" y="-30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1rtkdew_di" bpmnElement="Event_1rtkdew">
+        <dc:Bounds x="222" y="-8" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="392" y="-108" width="63" height="27" />
+          <dc:Bounds x="215" y="35" width="52" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0napib9_di" bpmnElement="Activity_08gahch">
-        <dc:Bounds x="140" y="-30" width="100" height="80" />
+      <bpmndi:BPMNShape id="Event_16aqcq4_di" bpmnElement="Event_16aqcq4">
+        <dc:Bounds x="222" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="204" y="235" width="73" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00g46dn_di" bpmnElement="Event_0z1l7pw">
         <dc:Bounds x="-118" y="32" width="36" height="36" />
@@ -185,28 +159,9 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
         <di:waypoint x="-240" y="10" />
         <di:waypoint x="-180" y="10" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_11jbo06_di" bpmnElement="Flow_11jbo06">
-        <di:waypoint x="-80" y="10" />
-        <di:waypoint x="-15" y="10" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1jjdscy_di" bpmnElement="Flow_1jjdscy">
-        <di:waypoint x="10" y="35" />
-        <di:waypoint x="10" y="110" />
-        <di:waypoint x="352" y="110" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="18" y="70" width="15" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_030ip6d_di" bpmnElement="Flow_030ip6d">
-        <di:waypoint x="35" y="10" />
-        <di:waypoint x="140" y="10" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="79" y="-8" width="18" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jkt9al_di" bpmnElement="Flow_0jkt9al">
-        <di:waypoint x="240" y="10" />
-        <di:waypoint x="352" y="10" />
+        <di:waypoint x="120" y="10" />
+        <di:waypoint x="222" y="10" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_15mjwi4_di" bpmnElement="Flow_15mjwi4">
         <di:waypoint x="-100" y="68" />
@@ -215,14 +170,18 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qa7luo_di" bpmnElement="Flow_0qa7luo">
         <di:waypoint x="120" y="210" />
-        <di:waypoint x="352" y="210" />
+        <di:waypoint x="222" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_177uhvu_di" bpmnElement="Flow_177uhvu">
+        <di:waypoint x="-80" y="10" />
+        <di:waypoint x="20" y="10" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1p2qwqt_di" bpmnElement="Participant_0cddu1x" isHorizontal="true">
-        <dc:Bounds x="-510" y="390" width="1000" height="60" />
+        <dc:Bounds x="-510" y="390" width="440" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0x4d30s_di" bpmnElement="Participant_1e2gqm4" isHorizontal="true">
-        <dc:Bounds x="-510" y="-310" width="1000" height="60" />
+        <dc:Bounds x="-30" y="390" width="390" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_12lhk0b_di" bpmnElement="TextAnnotation_12lhk0b">
@@ -234,11 +193,7 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_061e1py_di" bpmnElement="TextAnnotation_061e1py">
-        <dc:Bounds x="-330" y="-170" width="100.0000039394464" height="55.077452667814114" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0bb5kbd_di" bpmnElement="TextAnnotation_0bb5kbd">
-        <dc:Bounds x="240" y="-110" width="100" height="55" />
+        <dc:Bounds x="-330" y="-170" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
@@ -253,17 +208,13 @@ varPaymentSuccessfull = true</spiffworkflow:postScript>
         <di:waypoint x="-382" y="-119" />
         <di:waypoint x="-330" y="-137" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_07ygvym_di" bpmnElement="Association_07ygvym">
-        <di:waypoint x="228" y="-30" />
-        <di:waypoint x="252" y="-55" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ajkdip_di" bpmnElement="Flow_0ajkdip">
         <di:waypoint x="-130" y="50" />
         <di:waypoint x="-130" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0eveo5a_di" bpmnElement="Flow_0eveo5a">
-        <di:waypoint x="70" y="170" />
-        <di:waypoint x="70" y="-250" />
+        <di:waypoint x="70" y="250" />
+        <di:waypoint x="70" y="390" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

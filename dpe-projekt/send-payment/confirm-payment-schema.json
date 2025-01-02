@@ -1,0 +1,11 @@
+{
+  "title": "Checkbox",
+  "description": "Please confirm that the Invoice was paid",
+  "properties": {
+    "payment_confirmation": {
+      "type": "boolean",
+      "title": "Yes, I paied the Invoice",
+      "default": true
+    }
+  }
+}
