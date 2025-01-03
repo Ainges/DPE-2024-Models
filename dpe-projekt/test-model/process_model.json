@@ -1,9 +1,0 @@
-{
-    "description": "",
-    "display_name": "test-model",
-    "exception_notification_addresses": [],
-    "fault_or_suspend_on_exception": "fault",
-    "metadata_extraction_paths": null,
-    "primary_file_name": "test-model.bpmn",
-    "primary_process_id": "Process_test_model_bpyo0bw"
-}
