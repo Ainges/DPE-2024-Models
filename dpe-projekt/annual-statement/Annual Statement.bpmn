@@ -11,7 +11,7 @@
       <bpmn:text>Muss noch im PostSkript implementiert werden</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0rkk6e4" associationDirection="None" sourceRef="DataObjectReference_00k3tbo" targetRef="TextAnnotation_1il3205" />
-    <bpmn:correlationKey id="CorrelationKey_0dgvxid" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_0sdalv8" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="false">
     <bpmn:ioSpecification>
@@ -32,9 +32,9 @@
         <bpmn:flowNodeRef>Activity_0hau30o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1t848x1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_062jx1j</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1itc8qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_12e6e4l</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataObject id="objTenantPayments" name="Tenant Payments" isCollection="true" />
@@ -153,11 +153,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
     <bpmn:dataObjectReference id="DataObjectReference_1b5vgmf" name="Rental Agreements" dataObjectRef="objRentalAgreements" />
     <bpmn:sequenceFlow id="Flow_06nxwei" name="Yes" sourceRef="Gateway_08ktxg2" targetRef="Event_1itc8qn" />
     <bpmn:sequenceFlow id="Flow_1bqp99d" name="No" sourceRef="Gateway_08ktxg2" targetRef="Event_12e6e4l" />
-    <bpmn:exclusiveGateway id="Gateway_08ktxg2" name="Annual Statement handled">
-      <bpmn:incoming>Flow_0jf3y8d</bpmn:incoming>
-      <bpmn:outgoing>Flow_06nxwei</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1bqp99d</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:endEvent id="Event_1itc8qn" name="Annual Statement completed">
       <bpmn:incoming>Flow_06nxwei</bpmn:incoming>
     </bpmn:endEvent>
@@ -165,15 +160,20 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmn:incoming>Flow_1bqp99d</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0jf3y8d" sourceRef="Activity_1t848x1" targetRef="Gateway_08ktxg2" />
+    <bpmn:exclusiveGateway id="Gateway_08ktxg2" name="Annual Statement handled">
+      <bpmn:incoming>Flow_0jf3y8d</bpmn:incoming>
+      <bpmn:outgoing>Flow_06nxwei</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1bqp99d</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
       <bpmndi:BPMNShape id="Participant_0sbn701_di" bpmnElement="Participant_0sbn701" isHorizontal="true">
-        <dc:Bounds x="370" y="470" width="1810" height="680" />
+        <dc:Bounds x="370" y="470" width="1850" height="640" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
-        <dc:Bounds x="400" y="470" width="1780" height="680" />
+        <dc:Bounds x="400" y="470" width="1820" height="640" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
         <dc:Bounds x="1082" y="635" width="36" height="50" />
@@ -224,12 +224,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
           <dc:Bounds x="831" y="692" width="59" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_08ktxg2_di" bpmnElement="Gateway_08ktxg2" isMarkerVisible="true">
-        <dc:Bounds x="1615" y="820" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1596" y="756" width="88" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1itc8qn_di" bpmnElement="Event_1itc8qn">
         <dc:Bounds x="1902" y="827" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -240,6 +234,12 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <dc:Bounds x="1902" y="942" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1876" y="985" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_08ktxg2_di" bpmnElement="Gateway_08ktxg2" isMarkerVisible="true">
+        <dc:Bounds x="1545" y="820" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1526" y="756" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
@@ -275,26 +275,26 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <di:waypoint x="930" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_06nxwei_di" bpmnElement="Flow_06nxwei">
-        <di:waypoint x="1665" y="845" />
+        <di:waypoint x="1595" y="845" />
         <di:waypoint x="1902" y="845" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1780" y="827" width="18" height="14" />
+          <dc:Bounds x="1747" y="827" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1bqp99d_di" bpmnElement="Flow_1bqp99d">
-        <di:waypoint x="1640" y="870" />
-        <di:waypoint x="1640" y="960" />
+        <di:waypoint x="1570" y="870" />
+        <di:waypoint x="1570" y="960" />
         <di:waypoint x="1902" y="960" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1648" y="912" width="15" height="14" />
+          <dc:Bounds x="1578" y="912" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jf3y8d_di" bpmnElement="Flow_0jf3y8d">
         <di:waypoint x="1420" y="845" />
-        <di:waypoint x="1615" y="845" />
+        <di:waypoint x="1545" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
-        <dc:Bounds x="400" y="310" width="1990" height="80" />
+        <dc:Bounds x="370" y="310" width="1850" height="100" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0dp95lw_di" bpmnElement="TextAnnotation_0dp95lw">
