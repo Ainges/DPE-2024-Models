@@ -3,7 +3,9 @@
   <bpmn:collaboration id="Collaboration_0dfwb0v">
     <bpmn:participant id="Participant_06x5n6c" name="Create and handle Annual Statement Process" processRef="Process_11ur3al" />
     <bpmn:participant id="Participant_09b49h8" name="Tenant" />
-    <bpmn:participant id="Participant_19plp0k" name="Annual Statement Objection Monitoring Process" />
+    <bpmn:participant id="Participant_19plp0k" name="Annual Statement Objection Monitoring Process">
+      <bpmn:participantMultiplicity />
+    </bpmn:participant>
     <bpmn:messageFlow id="Flow_1709fte" name="Annual Statement" sourceRef="Activity_1v5ox0t" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_041juhp" name="Annual Statement and Payment information" sourceRef="Activity_1lb879v" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_1g156j7" name="Payment information request" sourceRef="Activity_0bs29ut" targetRef="Participant_09b49h8" />
@@ -361,6 +363,18 @@
         <di:waypoint x="341" y="190" />
         <di:waypoint x="552" y="-83" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0m1fajn_di" bpmnElement="DataInputAssociation_0m1fajn">
+        <di:waypoint x="588" y="-99" />
+        <di:waypoint x="1410" y="-43" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_16ka22s_di" bpmnElement="DataInputAssociation_16ka22s">
+        <di:waypoint x="588" y="-94" />
+        <di:waypoint x="1290" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0kwq9no_di" bpmnElement="DataInputAssociation_0kwq9no">
+        <di:waypoint x="588" y="-97" />
+        <di:waypoint x="1560" y="43" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
         <di:waypoint x="328" y="30" />
         <di:waypoint x="342" y="-35" />
@@ -392,18 +406,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="775" y="316" width="60" height="53" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0m1fajn_di" bpmnElement="DataInputAssociation_0m1fajn">
-        <di:waypoint x="588" y="-99" />
-        <di:waypoint x="1410" y="-43" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0kwq9no_di" bpmnElement="DataInputAssociation_0kwq9no">
-        <di:waypoint x="588" y="-97" />
-        <di:waypoint x="1560" y="43" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_16ka22s_di" bpmnElement="DataInputAssociation_16ka22s">
-        <di:waypoint x="588" y="-94" />
-        <di:waypoint x="1290" y="152" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
