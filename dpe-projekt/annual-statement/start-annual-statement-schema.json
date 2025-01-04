@@ -1,0 +1,11 @@
+{
+  "title": "Start Annual Statement",
+  "description": "Start the Annual Statement by checking the box and submitting it",
+  "properties": {
+    "start": {
+      "type": "boolean",
+      "title": "Start?",
+      "default": false
+    }
+  }
+}
