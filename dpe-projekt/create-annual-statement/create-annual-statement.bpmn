@@ -13,12 +13,15 @@
   </bpmn:collaboration>
   <bpmn:process id="Process_11ur3al">
     <bpmn:ioSpecification>
-      <bpmn:dataOutput id="objRentalAgreement" name="Rental Agreement" />
-      <bpmn:dataOutput id="objAnnualStatement" name="Annual Statements" />
-      <bpmn:inputSet />
+      <bpmn:dataInput id="objRentalAgreement" name="Rental Agreement" />
+      <bpmn:dataInput id="objStatementEntries" name="Statement Entries" />
+      <bpmn:dataOutput id="objAnnualStatements" name="Annual Statements" />
+      <bpmn:inputSet>
+        <bpmn:dataInputRefs>objRentalAgreement</bpmn:dataInputRefs>
+        <bpmn:dataInputRefs>objStatementEntries</bpmn:dataInputRefs>
+      </bpmn:inputSet>
       <bpmn:outputSet>
-        <bpmn:dataOutputRefs>objRentalAgreement</bpmn:dataOutputRefs>
-        <bpmn:dataOutputRefs>objAnnualStatement</bpmn:dataOutputRefs>
+        <bpmn:dataOutputRefs>objAnnualStatements</bpmn:dataOutputRefs>
       </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:startEvent id="Event_07owbd4" name="Start of Annual Statement Creation">
@@ -35,6 +38,9 @@
     <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement document">
       <bpmn:incoming>Flow_1gyrhda</bpmn:incoming>
       <bpmn:outgoing>Flow_1agi8xa</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ebryrh">
+        <bpmn:targetRef>DataObjectReference_1pjk864</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1agi8xa" sourceRef="Activity_0ywd0ad" targetRef="Gateway_16bu7te" />
     <bpmn:exclusiveGateway id="Gateway_16bu7te">
@@ -64,8 +70,8 @@
       <bpmn:incoming>Flow_0jd7flz</bpmn:incoming>
       <bpmn:outgoing>Flow_0ouhx9e</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatement" />
-    <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" dataObjectRef="objAnnualStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatements" />
+    <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" dataObjectRef="objAnnualStatements" />
     <bpmn:sendTask id="Activity_0bs29ut" name="Send annual Statement to tenants with payment information request">
       <bpmn:incoming>Flow_0953n6s</bpmn:incoming>
       <bpmn:outgoing>Flow_18wb55g</bpmn:outgoing>
@@ -102,13 +108,24 @@
     <bpmn:callActivity id="Activity_1sjoo8b" name="Mid-year tenant change">
       <bpmn:incoming>Flow_04aewzo</bpmn:incoming>
       <bpmn:outgoing>Flow_0sdofnv</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1v4hai7">
+        <bpmn:targetRef>DataObjectReference_1pjk864</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:callActivity>
+    <bpmn:dataObject id="objAnnualStatement" name="Annual Statement" />
+    <bpmn:dataObjectReference id="DataObjectReference_1pjk864" name="Annual Statement" dataObjectRef="objAnnualStatement" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0dfwb0v">
       <bpmndi:BPMNShape id="Participant_06x5n6c_di" bpmnElement="Participant_06x5n6c" isHorizontal="true">
         <dc:Bounds x="-110" y="-160" width="1890" height="560" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="dataInput-691775244-1DI" bpmnElement="objStatementEntries">
+        <dc:Bounds x="72" y="-125" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="47" y="-68" width="88" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_07owbd4_di" bpmnElement="Event_07owbd4">
         <dc:Bounds x="-38" y="52" width="36" height="36" />
@@ -186,13 +203,19 @@
         <dc:Bounds x="260" y="190" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-691775243-1DI" bpmnElement="objRentalAgreement">
+      <bpmndi:BPMNShape id="DataObjectReference_1pjk864_di" bpmnElement="DataObjectReference_1pjk864">
+        <dc:Bounds x="552" y="-125" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="528" y="-68" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="dataInput-691775243-1DI" bpmnElement="objRentalAgreement">
         <dc:Bounds x="-48" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="-74" y="-68" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-416612294-1DI" bpmnElement="objAnnualStatement">
+      <bpmndi:BPMNShape id="DataOutput-416612294-1DI" bpmnElement="objAnnualStatements">
         <dc:Bounds x="1682" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1672" y="-68" width="57" height="27" />
@@ -296,6 +319,14 @@
         <dc:Bounds x="310" y="-90" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0ebryrh_di" bpmnElement="DataOutputAssociation_0ebryrh">
+        <di:waypoint x="369" y="36" />
+        <di:waypoint x="552" y="-91" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1v4hai7_di" bpmnElement="DataOutputAssociation_1v4hai7">
+        <di:waypoint x="341" y="190" />
+        <di:waypoint x="552" y="-83" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
         <di:waypoint x="328" y="30" />
         <di:waypoint x="342" y="-35" />
