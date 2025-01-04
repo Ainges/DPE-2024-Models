@@ -1,0 +1,5 @@
+{
+  "taskData": {
+    "distributionKeys": ["Area", "Tenants", "Apartments"]
+  }
+}

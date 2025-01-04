@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0j8vjry">
     <bpmn:participant id="Participant_0qogfp4" processRef="Process_statement_for_each_invoice_category_brzdcir" />
     <bpmn:textAnnotation id="TextAnnotation_00sy2fa">
@@ -31,6 +31,18 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_093fiux" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
     <bpmn:serviceTask id="Activity_1possjg" name="Calculate sum of invoice category">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/HeadRequestV2">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" />
+            <spiffworkflow:parameter id="headers" type="any" />
+            <spiffworkflow:parameter id="params" type="any" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+            <spiffworkflow:parameter id="attempts" type="int" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_093fiux</bpmn:incoming>
       <bpmn:outgoing>Flow_1eoh67a</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1w0zio9">
@@ -41,6 +53,12 @@
     <bpmn:dataObjectReference id="DataObjectReference_17i1thr" name="Sum of Invoice Category" dataObjectRef="objSumofInvoiceCategory" />
     <bpmn:dataObject id="objSumofInvoiceCategory" name="Sum of Invoice Category" isCollection="true" />
     <bpmn:userTask id="Activity_1uqkbi9" name="Select distribution key">
+      <bpmn:extensionElements>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="distribution-keys-schema.json" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="distribution-keys-uischema.json" />
+        </spiffworkflow:properties>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1eoh67a</bpmn:incoming>
       <bpmn:outgoing>Flow_1a8wg1w</bpmn:outgoing>
       <bpmn:property id="Property_0zizci1" name="__targetRef_placeholder" />

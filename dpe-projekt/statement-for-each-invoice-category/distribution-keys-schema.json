@@ -1,0 +1,16 @@
+{
+  "title": "Distribution Keys",
+  "description": "Decide on the appropriate Distribution Key based on how you want to split your Invoice Category and use it to create your Statement Entries",
+  "type": "object",
+  "properties": {
+    "distributionKeys": {
+      "title": "Choose your Distribution Key",
+      "type": "string",
+      "anyOf": [
+        { "const": "Area", "title": "Area" },
+        { "const": "Tenants", "title": "Tenants" },
+        { "const": "Apartments", "title": "Apartments" }
+      ]
+    }
+  }
+}
