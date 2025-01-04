@@ -1,6 +1,6 @@
 {
     "description": "",
-    "display_name": "Create Annual Statement",
+    "display_name": "Create and handle Annual Statement ",
     "exception_notification_addresses": [],
     "fault_or_suspend_on_exception": "fault",
     "metadata_extraction_paths": null,

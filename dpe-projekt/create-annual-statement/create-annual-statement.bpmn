@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0dfwb0v">
-    <bpmn:participant id="Participant_06x5n6c" name="Create Annual Statement Process" processRef="Process_11ur3al" />
+    <bpmn:participant id="Participant_06x5n6c" name="Create and handle Annual Statement Process" processRef="Process_11ur3al" />
     <bpmn:textAnnotation id="TextAnnotation_1wehy32">
       <bpmn:text>Nicht die Entität sondern das PDF!</bpmn:text>
     </bpmn:textAnnotation>
@@ -31,18 +31,11 @@
     <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement document">
       <bpmn:incoming>Flow_1gyrhda</bpmn:incoming>
       <bpmn:outgoing>Flow_1agi8xa</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0izml02">
-        <bpmn:targetRef>DataObjectReference_1me1mqe</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:callActivity id="Activity_1sjoo8b" name="Mid-year tenant change">
       <bpmn:incoming>Flow_04aewzo</bpmn:incoming>
       <bpmn:outgoing>Flow_0sdofnv</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_05p7lbl">
-        <bpmn:targetRef>DataObjectReference_1me1mqe</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
     </bpmn:callActivity>
-    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" name="Annual Statement " dataObjectRef="objAnnualStatement" />
     <bpmn:sequenceFlow id="Flow_1agi8xa" sourceRef="Activity_0ywd0ad" targetRef="Gateway_16bu7te" />
     <bpmn:exclusiveGateway id="Gateway_16bu7te">
       <bpmn:incoming>Flow_1agi8xa</bpmn:incoming>
@@ -79,6 +72,10 @@
     <bpmn:sendTask id="Activity_1lb879v" name="Send annual Statement to tenants with payment information">
       <bpmn:incoming>Flow_0jd7flz</bpmn:incoming>
     </bpmn:sendTask>
+    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatement" />
+    <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" name="Annual Statement" dataObjectRef="objAnnualStatement" />
+    <bpmn:dataObject id="objAnnualStatement" name="Annual Statement" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0dfwb0v">
@@ -105,12 +102,6 @@
       <bpmndi:BPMNShape id="Activity_1iv2fxc_di" bpmnElement="Activity_1sjoo8b">
         <dc:Bounds x="270" y="190" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_1me1mqe_di" bpmnElement="DataObjectReference_1me1mqe">
-        <dc:Bounds x="442" y="-75" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="420" y="-18" width="88" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_16bu7te_di" bpmnElement="Gateway_16bu7te" isMarkerVisible="true">
         <dc:Bounds x="455" y="45" width="50" height="50" />
@@ -143,15 +134,15 @@
         <dc:Bounds x="1080" y="-80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-691775243-1DI" bpmnElement="objRentalAgreement">
-        <dc:Bounds x="-38" y="-65" width="36" height="50" />
+        <dc:Bounds x="-48" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-64" y="-8" width="89" height="14" />
+          <dc:Bounds x="-74" y="-68" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-416612294-1DI" bpmnElement="objAnnualStatement">
-        <dc:Bounds x="1312" y="-85" width="36" height="50" />
+        <dc:Bounds x="1312" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1302" y="-28" width="57" height="27" />
+          <dc:Bounds x="1302" y="-68" width="57" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1jvxxtw_di" bpmnElement="Flow_1jvxxtw">
@@ -224,18 +215,13 @@
           <dc:Bounds x="873" y="-69" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0g7tnly_di" bpmnElement="DataObjectReference_0g7tnly">
+        <dc:Bounds x="462" y="-105" width="36" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1wehy32_di" bpmnElement="TextAnnotation_1wehy32">
         <dc:Bounds x="310" y="-90" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0izml02_di" bpmnElement="DataOutputAssociation_0izml02">
-        <di:waypoint x="366" y="32" />
-        <di:waypoint x="442" y="-32" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_05p7lbl_di" bpmnElement="DataOutputAssociation_05p7lbl">
-        <di:waypoint x="341" y="190" />
-        <di:waypoint x="451" y="-25" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
         <di:waypoint x="328" y="30" />
         <di:waypoint x="342" y="-35" />

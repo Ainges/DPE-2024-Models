@@ -31,7 +31,6 @@
         <bpmn:flowNodeRef>Activity_05oq3wb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0hau30o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1t848x1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0k1hrvh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_062jx1j</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02asx77</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
@@ -52,13 +51,10 @@
     <bpmn:dataObjectReference id="DataObjectReference_1365oyd" dataObjectRef="objTenantPayments" />
     <bpmn:dataObject id="objStatementEntries" name="Statement Entries" isCollection="true" />
     <bpmn:dataObjectReference id="DataObjectReference_0aaw7oj" name="Statement Entries" dataObjectRef="objStatementEntries" />
-    <bpmn:sequenceFlow id="Flow_19vu338" name="No" sourceRef="Gateway_0k1hrvh" targetRef="Event_1yq2iah" />
     <bpmn:startEvent id="Event_1rj5956" name="Time to prepare the Annual Statement has arrived">
       <bpmn:outgoing>Flow_1cstye6</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0p0yei6" name="Yes" sourceRef="Gateway_0k1hrvh" targetRef="Activity_02asx77" />
     <bpmn:dataObject id="objInvoices" name="Invoices" isCollection="true" />
-    <bpmn:sequenceFlow id="Flow_03ogqfu" sourceRef="Activity_1t848x1" targetRef="Gateway_0k1hrvh" />
     <bpmn:task id="Activity_10uhudp" name="Start Annual Statement creation">
       <bpmn:incoming>Flow_1cstye6</bpmn:incoming>
       <bpmn:outgoing>Flow_0yglw5l</bpmn:outgoing>
@@ -115,7 +111,6 @@
     </bpmn:callActivity>
     <bpmn:callActivity id="Activity_1t848x1" name="Create and handle  Annual Statement" calledElement="Process_11ur3al">
       <bpmn:incoming>Flow_0fs00a8</bpmn:incoming>
-      <bpmn:outgoing>Flow_03ogqfu</bpmn:outgoing>
       <bpmn:property id="Property_0q3s4aw" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0y1ygxu">
         <bpmn:sourceRef>DataObjectReference_0aaw7oj</bpmn:sourceRef>
@@ -132,11 +127,6 @@
         <bpmn:outputDataItem id="objAnnualStatement" name="objAnnualStatement" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
-    <bpmn:exclusiveGateway id="Gateway_0k1hrvh" name="Annual Statement created?">
-      <bpmn:incoming>Flow_03ogqfu</bpmn:incoming>
-      <bpmn:outgoing>Flow_19vu338</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0p0yei6</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_154uzur" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
     <bpmn:serviceTask id="Activity_062jx1j" name="Get relevant Rental Agreements of Housing Object">
       <bpmn:extensionElements>
@@ -163,7 +153,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
     <bpmn:dataObject id="objRentalAgreements" name="Rental Agreements" isCollection="true" />
     <bpmn:dataObjectReference id="DataObjectReference_1b5vgmf" name="Rental Agreements" dataObjectRef="objRentalAgreements" />
     <bpmn:callActivity id="Activity_02asx77" name="Handle Annual Statement" calledElement="Process_anual_statement_handeling_odf7s2o">
-      <bpmn:incoming>Flow_0p0yei6</bpmn:incoming>
       <bpmn:outgoing>Flow_0gs0s7q</bpmn:outgoing>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0gs0s7q" sourceRef="Activity_02asx77" targetRef="Gateway_08ktxg2" />
@@ -180,9 +169,7 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmn:incoming>Flow_1bqp99d</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1bqp99d" name="No" sourceRef="Gateway_08ktxg2" targetRef="Event_12e6e4l" />
-    <bpmn:endEvent id="Event_1yq2iah" name="Annual Statement creation failed">
-      <bpmn:incoming>Flow_19vu338</bpmn:incoming>
-    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_1yq2iah" name="Annual Statement creation failed" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -231,12 +218,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmndi:BPMNShape id="Activity_07avu6n_di" bpmnElement="Activity_1t848x1">
         <dc:Bounds x="1320" y="805" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0k1hrvh_di" bpmnElement="Gateway_0k1hrvh" isMarkerVisible="true">
-        <dc:Bounds x="1525" y="820" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1507" y="783" width="88" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_09xrzjy_di" bpmnElement="Activity_062jx1j">
         <dc:Bounds x="720" y="805" width="100" height="80" />
@@ -302,25 +283,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmndi:BPMNEdge id="Flow_0fs00a8_di" bpmnElement="Flow_0fs00a8">
         <di:waypoint x="1230" y="845" />
         <di:waypoint x="1320" y="845" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19vu338_di" bpmnElement="Flow_19vu338">
-        <di:waypoint x="1550" y="870" />
-        <di:waypoint x="1550" y="1090" />
-        <di:waypoint x="2112" y="1090" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1558" y="888" width="15" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0p0yei6_di" bpmnElement="Flow_0p0yei6">
-        <di:waypoint x="1575" y="845" />
-        <di:waypoint x="1630" y="845" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1595" y="813" width="18" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_03ogqfu_di" bpmnElement="Flow_03ogqfu">
-        <di:waypoint x="1420" y="845" />
-        <di:waypoint x="1525" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_154uzur_di" bpmnElement="Flow_154uzur">
         <di:waypoint x="820" y="845" />
