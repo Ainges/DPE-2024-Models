@@ -16,12 +16,12 @@
   <bpmn:process id="Process_18ks2hv" isExecutable="false">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objHousingObject" name="Housing Object" />
-      <bpmn:dataOutput id="DataOutputJustInCase" name="DataOutputJustInCase" />
+      <bpmn:dataOutput id="objAnnualStatements" name="Annual Statements" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objHousingObject</bpmn:dataInputRefs>
       </bpmn:inputSet>
       <bpmn:outputSet>
-        <bpmn:dataOutputRefs>DataOutputJustInCase</bpmn:dataOutputRefs>
+        <bpmn:dataOutputRefs>objAnnualStatements</bpmn:dataOutputRefs>
       </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:laneSet id="LaneSet_0mmy1ix">
@@ -113,7 +113,7 @@
         <bpmn:outputDataItem id="objStatementEntry" name="objStatementEntry" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
-    <bpmn:callActivity id="Activity_1t848x1" name="Create Annual Statement" calledElement="Process_11ur3al">
+    <bpmn:callActivity id="Activity_1t848x1" name="Create and handle  Annual Statement" calledElement="Process_11ur3al">
       <bpmn:incoming>Flow_0fs00a8</bpmn:incoming>
       <bpmn:outgoing>Flow_03ogqfu</bpmn:outgoing>
       <bpmn:property id="Property_0q3s4aw" name="__targetRef_placeholder" />
@@ -281,10 +281,10 @@ varCurrentYear = 2024</spiffworkflow:preScript>
           <dc:Bounds x="424" y="561" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="DataOutputJustInCase">
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objAnnualStatements">
         <dc:Bounds x="2282" y="495" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2264" y="552" width="80" height="27" />
+          <dc:Bounds x="2277" y="552" width="57" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
