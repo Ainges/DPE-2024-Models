@@ -43,8 +43,6 @@
     <bpmn:dataObject id="objTenantPayments" name="Tenant Payments" isCollection="true" />
     <bpmn:dataObject id="objInvoicedServices" name="Accounting Transactions" isCollection="true" />
     <bpmn:sequenceFlow id="Flow_07b15xc" sourceRef="Activity_05oq3wb" targetRef="Activity_0hau30o" />
-    <bpmn:dataObject id="objAnnualStatements" name="Annual Statements" isCollection="true" />
-    <bpmn:dataObjectReference id="DataObjectReference_0zr8nlz" name="Annual Statements" dataObjectRef="objAnnualStatements" />
     <bpmn:sequenceFlow id="Flow_1cstye6" sourceRef="Event_1rj5956" targetRef="Activity_10uhudp" />
     <bpmn:dataObjectReference id="DataObjectReference_1tbllew" dataObjectRef="objInvoicedServices" />
     <bpmn:sequenceFlow id="Flow_0yglw5l" sourceRef="Activity_10uhudp" targetRef="Activity_062jx1j" />
@@ -127,9 +125,6 @@
         <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
         <bpmn:targetRef>Property_0q3s4aw</bpmn:targetRef>
       </bpmn:dataInputAssociation>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0qafqg7">
-        <bpmn:targetRef>DataObjectReference_0zr8nlz</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
       <bpmn:multiInstanceLoopCharacteristics>
         <bpmn:loopDataInputRef>objRentalAgreements</bpmn:loopDataInputRef>
         <bpmn:loopDataOutputRef>objAnnualStatements</bpmn:loopDataOutputRef>
@@ -197,18 +192,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
         <dc:Bounds x="400" y="470" width="1990" height="680" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="DataOutputJustInCase">
-        <dc:Bounds x="2282" y="495" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2264" y="552" width="80" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_0zr8nlz_di" bpmnElement="DataObjectReference_0zr8nlz">
-        <dc:Bounds x="1462" y="505" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1452" y="562" width="56" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
         <dc:Bounds x="1082" y="635" width="36" height="50" />
@@ -296,6 +279,12 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <dc:Bounds x="442" y="505" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="424" y="561" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="DataOutputJustInCase">
+        <dc:Bounds x="2282" y="495" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2264" y="552" width="80" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
@@ -399,10 +388,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmndi:BPMNEdge id="DataInputAssociation_0so8ea0_di" bpmnElement="DataInputAssociation_0so8ea0">
         <di:waypoint x="878" y="666" />
         <di:waypoint x="1320" y="818" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0qafqg7_di" bpmnElement="DataOutputAssociation_0qafqg7">
-        <di:waypoint x="1384" y="805" />
-        <di:waypoint x="1473" y="555" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_03sdi23_di" bpmnElement="DataOutputAssociation_03sdi23">
         <di:waypoint x="790" y="805" />
