@@ -35,7 +35,6 @@
         <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1itc8qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_12e6e4l</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_02asx77</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataObject id="objTenantPayments" name="Tenant Payments" isCollection="true" />
@@ -166,7 +165,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmn:incoming>Flow_1bqp99d</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0jf3y8d" sourceRef="Activity_1t848x1" targetRef="Gateway_08ktxg2" />
-    <bpmn:callActivity id="Activity_02asx77" name="Handle Annual Statement" calledElement="Process_anual_statement_handeling_odf7s2o" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -255,9 +253,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2067" y="552" width="57" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1nzl4rx_di" bpmnElement="Activity_02asx77">
-        <dc:Bounds x="1810" y="600" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_07b15xc_di" bpmnElement="Flow_07b15xc">
         <di:waypoint x="1030" y="845" />
