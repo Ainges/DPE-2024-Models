@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Annual Statement preparation Reminder SCIL",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "annual-statement-preparation-reminder-scil.bpmn",
+    "primary_process_id": "Process_annual_statement_preparation_reminder_scil_h1vjf06"
+}

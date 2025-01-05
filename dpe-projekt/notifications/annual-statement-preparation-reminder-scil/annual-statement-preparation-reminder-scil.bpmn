@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_1ab9a89">
+    <bpmn:participant id="Participant_09d9pjx" name="Annual Statement preparation Reminder SCIL Process" processRef="Process_annual_statement_preparation_reminder_scil_h1vjf06" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_annual_statement_preparation_reminder_scil_h1vjf06" isExecutable="true">
+    <bpmn:startEvent id="Event_1llyl7q" name="Annual Statement perparation reminder received">
+      <bpmn:outgoing>Flow_1u3sxzn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1u3sxzn" sourceRef="Event_1llyl7q" targetRef="Activity_0q4er2z" />
+    <bpmn:exclusiveGateway id="Gateway_0wq1uqb" name="Message Successfully sent?" default="Flow_1mtqfcj">
+      <bpmn:incoming>Flow_121f0so</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mtqfcj</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1er88wg</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_121f0so" sourceRef="Activity_0q4er2z" targetRef="Gateway_0wq1uqb" />
+    <bpmn:endEvent id="Event_0rfoxbo">
+      <bpmn:incoming>Flow_1mtqfcj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1mtqfcj" name="Yes" sourceRef="Gateway_0wq1uqb" targetRef="Event_0rfoxbo" />
+    <bpmn:endEvent id="Event_1t48hr2">
+      <bpmn:incoming>Flow_1er88wg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1er88wg" name="No" sourceRef="Gateway_0wq1uqb" targetRef="Event_1t48hr2" />
+    <bpmn:serviceTask id="Activity_0q4er2z" name="Send Annual Statement preparation reminder">
+      <bpmn:incoming>Flow_1u3sxzn</bpmn:incoming>
+      <bpmn:outgoing>Flow_121f0so</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1ab9a89">
+      <bpmndi:BPMNShape id="Participant_09d9pjx_di" bpmnElement="Participant_09d9pjx" isHorizontal="true">
+        <dc:Bounds x="-10" y="30" width="600" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1llyl7q_di" bpmnElement="Event_1llyl7q">
+        <dc:Bounds x="72" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="46" y="185" width="89" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0wq1uqb_di" bpmnElement="Gateway_0wq1uqb" isMarkerVisible="true">
+        <dc:Bounds x="315" y="135" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="389" y="150" width="62" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rfoxbo_di" bpmnElement="Event_0rfoxbo">
+        <dc:Bounds x="462" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1t48hr2_di" bpmnElement="Event_1t48hr2">
+        <dc:Bounds x="462" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ter09y_di" bpmnElement="Activity_0q4er2z">
+        <dc:Bounds x="160" y="120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1u3sxzn_di" bpmnElement="Flow_1u3sxzn">
+        <di:waypoint x="108" y="160" />
+        <di:waypoint x="160" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_121f0so_di" bpmnElement="Flow_121f0so">
+        <di:waypoint x="260" y="160" />
+        <di:waypoint x="315" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mtqfcj_di" bpmnElement="Flow_1mtqfcj">
+        <di:waypoint x="340" y="135" />
+        <di:waypoint x="340" y="90" />
+        <di:waypoint x="462" y="90" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="346" y="110" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1er88wg_di" bpmnElement="Flow_1er88wg">
+        <di:waypoint x="340" y="185" />
+        <di:waypoint x="340" y="210" />
+        <di:waypoint x="462" y="210" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="348" y="195" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
