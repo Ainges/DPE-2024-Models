@@ -9,7 +9,7 @@
       <bpmn:text>Und/oder Content based routing</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1nrox9a">
-      <bpmn:text>Creates all statement entries per housing object: Aber pro einer Instanz doch nur für eine Kategorie?</bpmn:text>
+      <bpmn:text>Creates all statement entries per category per housing object:</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
     <bpmn:association id="Association_1q33vjj" associationDirection="None" sourceRef="TextAnnotation_00sy2fa" targetRef="Activity_1uqkbi9" />
@@ -17,7 +17,7 @@
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objInvoiceCategory" name="Invoice Category" />
-      <bpmn:dataOutput id="objStatementEntry" name="Statement Entries per Category" />
+      <bpmn:dataOutput id="objStatementEntry" name="Placeholder Object" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objInvoiceCategory</bpmn:dataInputRefs>
       </bpmn:inputSet>
@@ -73,7 +73,7 @@
     <bpmn:endEvent id="Event_0b78qo4">
       <bpmn:incoming>Flow_0n8y2b0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1xwfml1" name="Create Statement entry">
+    <bpmn:serviceTask id="Activity_1xwfml1" name="Create Statement Entries for invoice Category">
       <bpmn:incoming>Flow_07cyprg</bpmn:incoming>
       <bpmn:outgoing>Flow_0n8y2b0</bpmn:outgoing>
       <bpmn:property id="Property_076t5z6" name="__targetRef_placeholder" />
@@ -122,7 +122,7 @@
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objStatementEntry">
         <dc:Bounds x="652" y="5" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="629" y="62" width="88" height="27" />
+          <dc:Bounds x="643" y="62" width="60" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_093fiux_di" bpmnElement="Flow_093fiux">
@@ -145,16 +145,16 @@
         <di:waypoint x="465" y="230" />
         <di:waypoint x="475" y="260" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
-        <di:waypoint x="489" y="150" />
-        <di:waypoint x="510" y="124" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
         <dc:Bounds x="320" y="40" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_14ffqqy_di" bpmnElement="TextAnnotation_14ffqqy">
         <dc:Bounds x="430" y="260" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
+        <dc:Bounds x="510" y="40" width="100.0000064179975" height="84.12197686645635" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1w0zio9_di" bpmnElement="DataOutputAssociation_1w0zio9">
@@ -169,14 +169,14 @@
         <di:waypoint x="278" y="79" />
         <di:waypoint x="420" y="150" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
+        <di:waypoint x="489" y="150" />
+        <di:waypoint x="510" y="124" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1q33vjj_di" bpmnElement="Association_1q33vjj">
         <di:waypoint x="345" y="110" />
         <di:waypoint x="317" y="150" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
-        <dc:Bounds x="510" y="40" width="100" height="127" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
