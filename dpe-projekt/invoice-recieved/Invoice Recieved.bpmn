@@ -29,6 +29,7 @@
         <bpmn:flowNodeRef>Activity_1iqnvj8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0bnxrbp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0cz5uef</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_05305i8</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_0zwcbi5" targetRef="Gateway_0guueiv">
@@ -189,10 +190,26 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_11r2qnx" sourceRef="Activity_12msmpv" targetRef="Event_0cz5uef" />
+    <bpmn:sequenceFlow id="Flow_11r2qnx" sourceRef="Activity_12msmpv" targetRef="Activity_05305i8" />
     <bpmn:endEvent id="Event_0cz5uef" name="Invoice handled successfully">
-      <bpmn:incoming>Flow_11r2qnx</bpmn:incoming>
+      <bpmn:incoming>Flow_13o5muf</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_13o5muf" sourceRef="Activity_05305i8" targetRef="Event_0cz5uef" />
+    <bpmn:serviceTask id="Activity_05305i8" name="Update invoice as payed">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/PutRequestV2" resultVariable="putResponse">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/&#34;+str(objPaymentDetails[&#34;invoiceId&#34;])" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="{&#34;status&#34;: &#34;paid&#34;}" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11r2qnx</bpmn:incoming>
+      <bpmn:outgoing>Flow_13o5muf</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="invoice-recieved" name="invoice-recieved" />
   <bpmn:message id="request_digital_invoice" name="request_digital_invoice" />
@@ -202,11 +219,11 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
       <bpmndi:BPMNShape id="Participant_0sbn701_di" bpmnElement="Participant_0sbn701" isHorizontal="true">
-        <dc:Bounds x="370" y="400" width="1800" height="540" />
+        <dc:Bounds x="370" y="400" width="1960" height="540" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
-        <dc:Bounds x="400" y="400" width="1770" height="540" />
+        <dc:Bounds x="400" y="400" width="1930" height="540" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_03lrubp_di" bpmnElement="Gateway_03lrubp" isMarkerVisible="true">
         <dc:Bounds x="1035" y="750" width="50" height="50" />
@@ -273,10 +290,14 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0cz5uef_di" bpmnElement="Event_0cz5uef">
-        <dc:Bounds x="2092" y="562" width="36" height="36" />
+        <dc:Bounds x="2252" y="562" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2071" y="606" width="78" height="27" />
+          <dc:Bounds x="2231" y="606" width="78" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mz90aw_di" bpmnElement="Activity_05305i8">
+        <dc:Bounds x="2090" y="540" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0d63g4l_di" bpmnElement="Flow_0d63g4l">
         <di:waypoint x="625" y="610" />
@@ -362,14 +383,18 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11r2qnx_di" bpmnElement="Flow_11r2qnx">
         <di:waypoint x="2030" y="580" />
-        <di:waypoint x="2092" y="580" />
+        <di:waypoint x="2090" y="580" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13o5muf_di" bpmnElement="Flow_13o5muf">
+        <di:waypoint x="2190" y="580" />
+        <di:waypoint x="2252" y="580" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0pq2fe1_di" bpmnElement="Participant_0kgb4l4" isHorizontal="true">
-        <dc:Bounds x="370" y="990" width="1800" height="60" />
+        <dc:Bounds x="370" y="990" width="1960" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_13j2vr1_di" bpmnElement="Participant_15sdrlb" isHorizontal="true">
-        <dc:Bounds x="370" y="310" width="1800" height="60" />
+        <dc:Bounds x="370" y="310" width="1960" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_10augua_di" bpmnElement="TextAnnotation_10augua">
         <dc:Bounds x="1210" y="730" width="170" height="110" />
@@ -399,14 +424,14 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         <di:waypoint x="930" y="990" />
         <di:waypoint x="930" y="815" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="935" y="886" width="69" height="27" />
+          <dc:Bounds x="936" y="886" width="68" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hsd7at_di" bpmnElement="Flow_1hsd7at">
         <di:waypoint x="740" y="815" />
         <di:waypoint x="740" y="990" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="745" y="886" width="89" height="27" />
+          <dc:Bounds x="745" y="886" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1xlbrmd_di" bpmnElement="Flow_1xlbrmd">
