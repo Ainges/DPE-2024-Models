@@ -3,10 +3,6 @@
   <bpmn:collaboration id="Collaboration_0g6wv93">
     <bpmn:participant id="Participant_0sbn701" name="Annual Statement" processRef="Process_18ks2hv" />
     <bpmn:participant id="Participant_1968i74" name="Tenant" />
-    <bpmn:textAnnotation id="TextAnnotation_0dp95lw">
-      <bpmn:text>Brauchen wir das wirklich?</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_054kas9" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_0dp95lw" />
     <bpmn:textAnnotation id="TextAnnotation_1il3205">
       <bpmn:text>Muss noch im PostSkript implementiert werden</bpmn:text>
     </bpmn:textAnnotation>
@@ -127,7 +123,7 @@
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_154uzur" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
-    <bpmn:serviceTask id="Activity_062jx1j" name="Get relevant Rental Agreements of Housing Object">
+    <bpmn:serviceTask id="Activity_062jx1j" name="Get all Rental Agreements of Housing Object">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
           <spiffworkflow:parameters>
@@ -307,16 +303,12 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <dc:Bounds x="370" y="310" width="1850" height="100" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
-        <di:waypoint x="615" y="885" />
-        <di:waypoint x="644" y="960" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_0dp95lw_di" bpmnElement="TextAnnotation_0dp95lw">
-        <dc:Bounds x="530" y="710" width="100" height="41" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1il3205_di" bpmnElement="TextAnnotation_1il3205">
         <dc:Bounds x="1030" y="550" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1puwn4l_di" bpmnElement="TextAnnotation_1puwn4l">
+        <dc:Bounds x="600" y="960" width="99.99419305018122" height="40.74509240990522" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1isijvf_di" bpmnElement="DataOutputAssociation_1isijvf">
@@ -355,18 +347,14 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <di:waypoint x="790" y="805" />
         <di:waypoint x="852" y="685" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_054kas9_di" bpmnElement="Association_054kas9">
-        <di:waypoint x="593" y="805" />
-        <di:waypoint x="584" y="751" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0rkk6e4_di" bpmnElement="Association_0rkk6e4">
         <di:waypoint x="1028" y="636" />
         <di:waypoint x="1039" y="620" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1puwn4l_di" bpmnElement="TextAnnotation_1puwn4l">
-        <dc:Bounds x="600" y="960" width="99.99419305018122" height="40.74509240990522" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
+        <di:waypoint x="615" y="885" />
+        <di:waypoint x="644" y="960" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

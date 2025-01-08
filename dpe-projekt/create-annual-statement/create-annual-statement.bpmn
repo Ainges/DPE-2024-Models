@@ -39,7 +39,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1gyrhda" name="No" sourceRef="Gateway_13ozsvr" targetRef="Activity_0ywd0ad" />
     <bpmn:sequenceFlow id="Flow_04aewzo" name="Yes" sourceRef="Gateway_13ozsvr" targetRef="Activity_1sjoo8b" />
-    <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement document">
+    <bpmn:serviceTask id="Activity_0ywd0ad" name="Create Annual Statement Entity">
       <bpmn:incoming>Flow_1gyrhda</bpmn:incoming>
       <bpmn:outgoing>Flow_1agi8xa</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0ebryrh">

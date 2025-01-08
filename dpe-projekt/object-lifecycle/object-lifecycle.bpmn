@@ -62,11 +62,11 @@
         <bpmn:targetRef>Property_01no2an</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:callActivity>
-    <bpmn:sendTask id="Activity_0c9uuou" name="Annual Statement preparation Reminder">
+    <bpmn:sendTask id="Activity_0c9uuou" name="Send Annual Statement preparation Reminder">
       <bpmn:incoming>Flow_0p94gh0</bpmn:incoming>
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Activity_0qzjcs8" name="Delayed Annual Statement">
+    <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement reminder">
       <bpmn:incoming>Flow_04atias</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
     </bpmn:sendTask>
@@ -382,13 +382,13 @@
         <di:waypoint x="1058" y="1035" />
         <di:waypoint x="1146" y="1110" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_01l347i_di" bpmnElement="DataInputAssociation_01l347i">
-        <di:waypoint x="208" y="250" />
-        <di:waypoint x="272" y="320" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0suiahn_di" bpmnElement="DataOutputAssociation_0suiahn">
         <di:waypoint x="142" y="320" />
         <di:waypoint x="178" y="255" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_01l347i_di" bpmnElement="DataInputAssociation_01l347i">
+        <di:waypoint x="208" y="250" />
+        <di:waypoint x="272" y="320" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1x4vmd8_di" bpmnElement="Association_1x4vmd8">
         <di:waypoint x="3" y="342" />
