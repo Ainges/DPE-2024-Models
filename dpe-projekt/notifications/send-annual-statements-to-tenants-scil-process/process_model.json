@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Send Annual Statements to tenants SCIL Process",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "send-annual-statements-to-tenants-scil-process.bpmn",
+    "primary_process_id": "Process_send_annual_statements_to_tenants_scil_process_uf1jil7"
+}

@@ -66,7 +66,7 @@
       <bpmn:incoming>Flow_0p94gh0</bpmn:incoming>
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement reminder">
+    <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement Reminder">
       <bpmn:incoming>Flow_04atias</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
     </bpmn:sendTask>

@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Annual Statement with payment information SCIL Process",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "annual-statement-with-payment-information-scil-process.bpmn",
+    "primary_process_id": "Process_annual_statement_with_payment_information_scil_process_hgiyv2n"
+}

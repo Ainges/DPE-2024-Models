@@ -80,7 +80,7 @@
     </bpmn:callActivity>
     <bpmn:dataObject id="objAnnualStatement" name="Annual Statement" />
     <bpmn:dataObjectReference id="DataObjectReference_1pjk864" name="Annual Statement" dataObjectRef="objAnnualStatement" />
-    <bpmn:sendTask id="Activity_1lb879v" name="Send annual Statement to tenants with payment information">
+    <bpmn:sendTask id="Activity_1lb879v" name="Send Annual Statement to tenants with payment information">
       <bpmn:incoming>Flow_0jd7flz</bpmn:incoming>
       <bpmn:outgoing>Flow_0ouhx9e</bpmn:outgoing>
       <bpmn:property id="Property_0d55vhq" name="__targetRef_placeholder" />
@@ -102,7 +102,7 @@
       <bpmn:incoming>Flow_0ouhx9e</bpmn:incoming>
       <bpmn:outgoing>Flow_0mgkdhc</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:sendTask id="Activity_1v5ox0t" name="Send annual Statements to tenants">
+    <bpmn:sendTask id="Activity_1v5ox0t" name="Send Annual Statements to tenants">
       <bpmn:incoming>Flow_1orw3ez</bpmn:incoming>
       <bpmn:outgoing>Flow_0fa9ocq</bpmn:outgoing>
       <bpmn:property id="Property_16c845t" name="__targetRef_placeholder" />
@@ -183,9 +183,11 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0fugzmg_di" bpmnElement="Activity_1lb879v">
         <dc:Bounds x="1410" y="-80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_15kfwcv_di" bpmnElement="Activity_0bs29ut">
         <dc:Bounds x="1290" y="130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0k2awia_di" bpmnElement="Activity_1i43hk8">
         <dc:Bounds x="1700" y="-80" width="100" height="80" />
@@ -193,6 +195,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1bvf40o_di" bpmnElement="Activity_1v5ox0t">
         <dc:Bounds x="1560" y="30" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0vsz342_di" bpmnElement="Event_0vsz342">
         <dc:Bounds x="1892" y="-58" width="36" height="36" />

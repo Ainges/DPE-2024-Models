@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Delayed Annual Statement Reminder SCIL Prozess",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "delayed-annual-statement-reminder-scil-prozess.bpmn",
+    "primary_process_id": "Process_delayed_annual_statement_reminder_scil_prozess_86iesw5"
+}
