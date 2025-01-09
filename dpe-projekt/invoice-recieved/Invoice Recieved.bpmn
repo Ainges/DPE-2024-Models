@@ -21,7 +21,6 @@
         <bpmn:flowNodeRef>Gateway_1smo9zb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12msmpv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0guueiv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_1jeup01</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1nnrlxk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0x9vlb2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_isDigitalInvoice</bpmn:flowNodeRef>
@@ -30,6 +29,7 @@
         <bpmn:flowNodeRef>Event_0bnxrbp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0cz5uef</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_05305i8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1jeup01</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_isDigitalInvoice" targetRef="Gateway_0guueiv">
@@ -53,7 +53,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1ulleny" sourceRef="Gateway_1jeup01" targetRef="Activity_0x66my7" />
     <bpmn:sequenceFlow id="Flow_1flwypj" name="Yes" sourceRef="Gateway_03lrubp" targetRef="Gateway_1jeup01">
-      <bpmn:conditionExpression>varDigitalInvoiceStatus "= "received"</bpmn:conditionExpression>
+      <bpmn:conditionExpression>varDigitalInvoiceStatus == "received"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1l0x4ez" sourceRef="Activity_1iqnvj8" targetRef="Gateway_1jeup01" />
     <bpmn:exclusiveGateway id="Gateway_03lrubp" name="Invoice details recieved?">
@@ -117,11 +117,6 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
       <bpmn:incoming>Flow_16cdcwu</bpmn:incoming>
       <bpmn:outgoing>Flow_11egqb3</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="Gateway_1jeup01">
-      <bpmn:incoming>Flow_1flwypj</bpmn:incoming>
-      <bpmn:incoming>Flow_1l0x4ez</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ulleny</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1yg9r4r" sourceRef="Activity_1nnrlxk" targetRef="Activity_0x9vlb2" />
     <bpmn:sendTask id="Activity_1nnrlxk" name="Request digital invoice data" messageRef="request_digital_invoice">
       <bpmn:extensionElements>
@@ -132,12 +127,15 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
     </bpmn:sendTask>
     <bpmn:receiveTask id="Activity_0x9vlb2" name="Get digital invoice data" messageRef="receive_digital_invoice">
       <bpmn:extensionElements>
-        <spiffworkflow:messageVariable>recieve_digital_invoice</spiffworkflow:messageVariable>
+        <spiffworkflow:messageVariable>objInvoice</spiffworkflow:messageVariable>
         <spiffworkflow:postScript># Until EDI Interface is implemented
 varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1yg9r4r</bpmn:incoming>
       <bpmn:outgoing>Flow_1d4c5gh</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1p9e8su">
+        <bpmn:targetRef>DataObjectReference_0gs9m8z</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:receiveTask>
     <bpmn:dataObjectReference id="DataObjectReference_0gs9m8z" name="Invoice" dataObjectRef="objInvoice" />
     <bpmn:sequenceFlow id="Flow_16cdcwu" sourceRef="Activity_04h651x" targetRef="Gateway_0guueiv" />
@@ -210,6 +208,11 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       <bpmn:incoming>Flow_11r2qnx</bpmn:incoming>
       <bpmn:outgoing>Flow_13o5muf</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1jeup01">
+      <bpmn:incoming>Flow_1flwypj</bpmn:incoming>
+      <bpmn:incoming>Flow_1l0x4ez</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ulleny</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmn:message id="invoice-recieved" name="invoice-recieved" />
   <bpmn:message id="request_digital_invoice" name="request_digital_invoice" />
@@ -228,7 +231,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       <bpmndi:BPMNShape id="Gateway_03lrubp_di" bpmnElement="Gateway_03lrubp" isMarkerVisible="true">
         <dc:Bounds x="1035" y="750" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1083.5" y="761" width="71" height="27" />
+          <dc:Bounds x="1025" y="809.5" width="70" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0542qjz_di" bpmnElement="Activity_0x66my7">
@@ -247,9 +250,6 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0guueiv_di" bpmnElement="Gateway_0guueiv" isMarkerVisible="true">
         <dc:Bounds x="1135" y="640" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1jeup01_di" bpmnElement="Gateway_1jeup01" isMarkerVisible="true">
-        <dc:Bounds x="1415" y="825" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07o0u91_di" bpmnElement="Activity_1nnrlxk">
         <dc:Bounds x="690" y="735" width="100" height="80" />
@@ -299,6 +299,9 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       <bpmndi:BPMNShape id="Activity_0mz90aw_di" bpmnElement="Activity_05305i8">
         <dc:Bounds x="2090" y="540" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1jeup01_di" bpmnElement="Gateway_1jeup01" isMarkerVisible="true">
+        <dc:Bounds x="1415" y="750" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0d63g4l_di" bpmnElement="Flow_0d63g4l">
         <di:waypoint x="625" y="610" />
@@ -352,22 +355,22 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ulleny_di" bpmnElement="Flow_1ulleny">
-        <di:waypoint x="1465" y="850" />
-        <di:waypoint x="1630" y="850" />
-        <di:waypoint x="1630" y="705" />
+        <di:waypoint x="1465" y="775" />
+        <di:waypoint x="1510" y="775" />
+        <di:waypoint x="1510" y="665" />
+        <di:waypoint x="1580" y="665" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1flwypj_di" bpmnElement="Flow_1flwypj">
-        <di:waypoint x="1060" y="800" />
-        <di:waypoint x="1060" y="850" />
-        <di:waypoint x="1415" y="850" />
+        <di:waypoint x="1085" y="775" />
+        <di:waypoint x="1415" y="775" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1071" y="813" width="18" height="14" />
+          <dc:Bounds x="1091" y="748" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1l0x4ez_di" bpmnElement="Flow_1l0x4ez">
         <di:waypoint x="1380" y="665" />
         <di:waypoint x="1440" y="665" />
-        <di:waypoint x="1440" y="825" />
+        <di:waypoint x="1440" y="750" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1yg9r4r_di" bpmnElement="Flow_1yg9r4r">
         <di:waypoint x="790" y="775" />
@@ -398,7 +401,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         <dc:Bounds x="370" y="310" width="1960" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_10augua_di" bpmnElement="TextAnnotation_10augua">
-        <dc:Bounds x="1210" y="730" width="170" height="110" />
+        <dc:Bounds x="1070" y="400" width="170" height="110" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_1elkucr_di" bpmnElement="DataInputAssociation_1elkucr">
@@ -413,13 +416,18 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         <di:waypoint x="1708" y="541" />
         <di:waypoint x="1930" y="558" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1p9e8su_di" bpmnElement="DataOutputAssociation_1p9e8su">
+        <di:waypoint x="930" y="735" />
+        <di:waypoint x="930" y="545" />
+        <di:waypoint x="1422" y="545" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1az4in1_di" bpmnElement="DataOutputAssociation_1az4in1">
         <di:waypoint x="1367" y="625" />
         <di:waypoint x="1423" y="565" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1mta0m7_di" bpmnElement="Association_1mta0m7">
-        <di:waypoint x="1301" y="705" />
-        <di:waypoint x="1284" y="730" />
+        <di:waypoint x="1286" y="626" />
+        <di:waypoint x="1165" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1khiaqh_di" bpmnElement="Flow_1khiaqh">
         <di:waypoint x="930" y="990" />
