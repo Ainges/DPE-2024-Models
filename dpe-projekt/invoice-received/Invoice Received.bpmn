@@ -56,7 +56,7 @@
       <bpmn:conditionExpression>varDigitalInvoiceStatus == "received"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1l0x4ez" sourceRef="Activity_1iqnvj8" targetRef="Gateway_1jeup01" />
-    <bpmn:exclusiveGateway id="Gateway_03lrubp" name="Invoice details recieved?">
+    <bpmn:exclusiveGateway id="Gateway_03lrubp" name="Invoice details received?">
       <bpmn:incoming>Flow_1d4c5gh</bpmn:incoming>
       <bpmn:outgoing>Flow_059b81m</bpmn:outgoing>
       <bpmn:outgoing>Flow_1flwypj</bpmn:outgoing>
@@ -180,7 +180,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0thzzlt" sourceRef="Event_0bnxrbp" targetRef="Gateway_isDigitalInvoice" />
-    <bpmn:startEvent id="Event_0bnxrbp" name="New Invoice Recieved">
+    <bpmn:startEvent id="Event_0bnxrbp" name="New Invoice Received">
       <bpmn:outgoing>Flow_0thzzlt</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1yxj739" messageRef="invoice_received">
         <bpmn:extensionElements>
@@ -214,7 +214,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       <bpmn:outgoing>Flow_1ulleny</bpmn:outgoing>
     </bpmn:exclusiveGateway>
   </bpmn:process>
-  <bpmn:message id="invoice-recieved" name="invoice-recieved" />
+  <bpmn:message id="invoice-received" name="invoice-received" />
   <bpmn:message id="request_digital_invoice" name="request_digital_invoice" />
   <bpmn:message id="invoice_processing_unsuccessful" name="invoice_processing_unsuccessful" />
   <bpmn:message id="invoice_received" name="invoice_received" />
