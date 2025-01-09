@@ -1,17 +1,12 @@
 {
   "title": "Start Annual Statement",
-  "description": "Start the Annual Statement by checking the box, selecting the year, and submitting it",
+  "description": "Start the Annual Statement by selecting the year, and submitting it",
   "properties": {
-    "start": {
-      "type": "boolean",
-      "title": "Start?",
-      "default": false
-    },
-    "currentYear": {
-      "type": "integer",
+    "varCurrentYear": {
+      "type": "string",
       "title": "Select Year",
-      "enum": [2023, 2024, 2025],
-      "default": 2025
+      "enum": ["2023", "2024", "2025"],
+      "default": "2025"
     }
   }
 }

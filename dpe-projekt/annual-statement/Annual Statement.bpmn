@@ -10,7 +10,6 @@
     <bpmn:textAnnotation id="TextAnnotation_1puwn4l">
       <bpmn:text>Form ist implimented</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1av1rc8" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_1puwn4l" />
     <bpmn:correlationKey id="CorrelationKey_0sdalv8" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="true">
@@ -34,6 +33,7 @@
         <bpmn:flowNodeRef>Event_1itc8qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_12e6e4l</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_14127xw</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_10uhudp</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
@@ -42,7 +42,6 @@
     <bpmn:sequenceFlow id="Flow_07b15xc" sourceRef="Activity_05oq3wb" targetRef="Activity_0hau30o" />
     <bpmn:sequenceFlow id="Flow_1cstye6" sourceRef="Event_1rj5956" targetRef="Activity_10uhudp" />
     <bpmn:dataObjectReference id="DataObjectReference_1tbllew" dataObjectRef="objInvoicedServices" />
-    <bpmn:sequenceFlow id="Flow_0yglw5l" sourceRef="Activity_10uhudp" targetRef="Activity_062jx1j" />
     <bpmn:dataObject id="objInvoiceCategories" name="Invoice Categories" isCollection="true" />
     <bpmn:dataObjectReference id="DataObjectReference_0axosog" name="Invoices" dataObjectRef="objInvoices" />
     <bpmn:sequenceFlow id="Flow_0fs00a8" sourceRef="Activity_0hau30o" targetRef="Activity_1t848x1" />
@@ -68,7 +67,6 @@
         </spiffworkflow:serviceTaskOperator>
         <spiffworkflow:postScript>objInvoices = getResponseAllInvoices["body"]</spiffworkflow:postScript>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_154uzur</bpmn:incoming>
       <bpmn:outgoing>Flow_07b15xc</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1isijvf">
         <bpmn:targetRef>DataObjectReference_0axosog</bpmn:targetRef>
@@ -122,7 +120,6 @@
         <bpmn:outputDataItem id="objAnnualStatement" name="objAnnualStatement" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
-    <bpmn:sequenceFlow id="Flow_154uzur" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
     <bpmn:serviceTask id="Activity_062jx1j" name="Get all Rental Agreements of Housing Object">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
@@ -137,10 +134,10 @@
         </spiffworkflow:serviceTaskOperator>
         <spiffworkflow:postScript>objRentalAgreements = getResponseAllRentalAgreements["body"]</spiffworkflow:postScript>
         <spiffworkflow:preScript>#For Testing Purposes
-varCurrentYear = 2024</spiffworkflow:preScript>
+#varCurrentYear= varCurrentYear</spiffworkflow:preScript>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0yglw5l</bpmn:incoming>
-      <bpmn:outgoing>Flow_154uzur</bpmn:outgoing>
+      <bpmn:incoming>Flow_0l6n19y</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vgxvjp</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_03sdi23">
         <bpmn:targetRef>DataObjectReference_1b5vgmf</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
@@ -161,16 +158,23 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmn:outgoing>Flow_06nxwei</bpmn:outgoing>
       <bpmn:outgoing>Flow_1bqp99d</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_10uhudp" name="Start Annual Statement creation">
+    <bpmn:endEvent id="Event_14127xw">
+      <bpmn:incoming>Flow_0vgxvjp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0vgxvjp" sourceRef="Activity_062jx1j" targetRef="Event_14127xw" />
+    <bpmn:sequenceFlow id="Flow_0l6n19y" sourceRef="Activity_10uhudp" targetRef="Activity_062jx1j" />
+    <bpmn:userTask id="Activity_10uhudp" name="Start Annual Statement creation and select year">
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="start-annual-statement-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="start-annual-statement-uischema.json" />
         </spiffworkflow:properties>
+        <spiffworkflow:postScript>varCurrentYear= varCurrentYear</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1cstye6</bpmn:incoming>
-      <bpmn:outgoing>Flow_0yglw5l</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0l6n19y</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:association id="Association_1av1rc8" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_1puwn4l" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -245,7 +249,10 @@ varCurrentYear = 2024</spiffworkflow:preScript>
           <dc:Bounds x="1526" y="756" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00lgdb8_di" bpmnElement="Activity_10uhudp">
+      <bpmndi:BPMNShape id="Event_14127xw_di" bpmnElement="Event_14127xw">
+        <dc:Bounds x="852" y="827" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0m4tctd_di" bpmnElement="Activity_10uhudp">
         <dc:Bounds x="550" y="805" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
@@ -268,17 +275,9 @@ varCurrentYear = 2024</spiffworkflow:preScript>
         <di:waypoint x="498" y="845" />
         <di:waypoint x="550" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0yglw5l_di" bpmnElement="Flow_0yglw5l">
-        <di:waypoint x="650" y="845" />
-        <di:waypoint x="720" y="845" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0fs00a8_di" bpmnElement="Flow_0fs00a8">
         <di:waypoint x="1230" y="845" />
         <di:waypoint x="1320" y="845" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_154uzur_di" bpmnElement="Flow_154uzur">
-        <di:waypoint x="820" y="845" />
-        <di:waypoint x="930" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_06nxwei_di" bpmnElement="Flow_06nxwei">
         <di:waypoint x="1595" y="845" />
@@ -298,6 +297,18 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmndi:BPMNEdge id="Flow_0jf3y8d_di" bpmnElement="Flow_0jf3y8d">
         <di:waypoint x="1420" y="845" />
         <di:waypoint x="1545" y="845" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vgxvjp_di" bpmnElement="Flow_0vgxvjp">
+        <di:waypoint x="820" y="845" />
+        <di:waypoint x="852" y="845" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l6n19y_di" bpmnElement="Flow_0l6n19y">
+        <di:waypoint x="650" y="845" />
+        <di:waypoint x="720" y="845" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
+        <di:waypoint x="615" y="885" />
+        <di:waypoint x="644" y="960" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
         <dc:Bounds x="370" y="310" width="1850" height="100" />
@@ -350,10 +361,6 @@ varCurrentYear = 2024</spiffworkflow:preScript>
       <bpmndi:BPMNEdge id="Association_0rkk6e4_di" bpmnElement="Association_0rkk6e4">
         <di:waypoint x="1028" y="636" />
         <di:waypoint x="1039" y="620" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
-        <di:waypoint x="615" y="885" />
-        <di:waypoint x="644" y="960" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
