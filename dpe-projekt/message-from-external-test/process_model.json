@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Message from external Test",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "message-from-external-test.bpmn",
+    "primary_process_id": "Process_message_from_external_test_vn6vc0y"
+}

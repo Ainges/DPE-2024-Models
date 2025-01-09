@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_0pn88ut" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.0.0">
-  <bpmn:collaboration id="Collaboration_0g6wv93">
+  <bpmn:collaboration id="Collaboration_0g6wv9f">
     <bpmn:participant id="Participant_0sbn701" name="Invoice Handling" processRef="Process_19ks2hv" />
     <bpmn:participant id="Participant_0kgb4l4" name="External EDI Provider" />
     <bpmn:participant id="Participant_15sdrlb" name="Landlord" />
@@ -11,7 +11,7 @@
       <bpmn:text>User can upload a pdf or take a picture and use OCR or enter details manually; Splitting of invoices to different Account transactions possible</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1mta0m7" associationDirection="None" sourceRef="Activity_1iqnvj8" targetRef="TextAnnotation_10augua" />
-    <bpmn:correlationKey id="CorrelationKey_0aah9ma" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_0mtp3jd" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_19ks2hv" name="Invoice Handling" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0mmy1ix">
@@ -24,7 +24,7 @@
         <bpmn:flowNodeRef>Gateway_1jeup01</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1nnrlxk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0x9vlb2</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0zwcbi5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_isDigitalInvoice</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_04h651x</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1iqnvj8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0bnxrbp</bpmn:flowNodeRef>
@@ -32,10 +32,10 @@
         <bpmn:flowNodeRef>Activity_05305i8</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_0zwcbi5" targetRef="Gateway_0guueiv">
+    <bpmn:sequenceFlow id="Flow_0d63g4l" name="No" sourceRef="Gateway_isDigitalInvoice" targetRef="Gateway_0guueiv">
       <bpmn:conditionExpression>invoice_received["digitalInvoice"] == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1ccxvlo" name="Yes" sourceRef="Gateway_0zwcbi5" targetRef="Activity_1nnrlxk">
+    <bpmn:sequenceFlow id="Flow_1ccxvlo" name="Yes" sourceRef="Gateway_isDigitalInvoice" targetRef="Activity_1nnrlxk">
       <bpmn:conditionExpression>invoice_received["digitalInvoice"] == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1d4c5gh" sourceRef="Activity_0x9vlb2" targetRef="Gateway_03lrubp" />
@@ -130,7 +130,7 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
       <bpmn:incoming>Flow_1ccxvlo</bpmn:incoming>
       <bpmn:outgoing>Flow_1yg9r4r</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:receiveTask id="Activity_0x9vlb2" name="Get digital invoice data" messageRef="recieve_digital_invoice">
+    <bpmn:receiveTask id="Activity_0x9vlb2" name="Get digital invoice data" messageRef="receive_digital_invoice">
       <bpmn:extensionElements>
         <spiffworkflow:messageVariable>recieve_digital_invoice</spiffworkflow:messageVariable>
         <spiffworkflow:postScript># Until EDI Interface is implemented
@@ -141,7 +141,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
     </bpmn:receiveTask>
     <bpmn:dataObjectReference id="DataObjectReference_0gs9m8z" name="Invoice" dataObjectRef="objInvoice" />
     <bpmn:sequenceFlow id="Flow_16cdcwu" sourceRef="Activity_04h651x" targetRef="Gateway_0guueiv" />
-    <bpmn:exclusiveGateway id="Gateway_0zwcbi5" name="Digital Invoice?">
+    <bpmn:exclusiveGateway id="Gateway_isDigitalInvoice" name="Digital Invoice?">
       <bpmn:incoming>Flow_0thzzlt</bpmn:incoming>
       <bpmn:outgoing>Flow_0d63g4l</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ccxvlo</bpmn:outgoing>
@@ -181,7 +181,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
         <bpmn:targetRef>DataObjectReference_0gs9m8z</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_0thzzlt" sourceRef="Event_0bnxrbp" targetRef="Gateway_0zwcbi5" />
+    <bpmn:sequenceFlow id="Flow_0thzzlt" sourceRef="Event_0bnxrbp" targetRef="Gateway_isDigitalInvoice" />
     <bpmn:startEvent id="Event_0bnxrbp" name="New Invoice Recieved">
       <bpmn:outgoing>Flow_0thzzlt</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1yxj739" messageRef="invoice_received">
@@ -213,11 +213,11 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
   </bpmn:process>
   <bpmn:message id="invoice-recieved" name="invoice-recieved" />
   <bpmn:message id="request_digital_invoice" name="request_digital_invoice" />
-  <bpmn:message id="recieve_digital_invoice" name="recieve_digital_invoice" />
   <bpmn:message id="invoice_processing_unsuccessful" name="invoice_processing_unsuccessful" />
   <bpmn:message id="invoice_received" name="invoice_received" />
+  <bpmn:message id="receive_digital_invoice" name="receive_digital_invoice" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv9f">
       <bpmndi:BPMNShape id="Participant_0sbn701_di" bpmnElement="Participant_0sbn701" isHorizontal="true">
         <dc:Bounds x="370" y="400" width="1960" height="540" />
         <bpmndi:BPMNLabel />
@@ -265,7 +265,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
           <dc:Bounds x="1423" y="572" width="36" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1plw8no_di" bpmnElement="Gateway_0zwcbi5" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_1plw8no_di" bpmnElement="Gateway_isDigitalInvoice" isMarkerVisible="true">
         <dc:Bounds x="575" y="585" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="563" y="568" width="75" height="14" />

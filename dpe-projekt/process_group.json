@@ -57,6 +57,10 @@
             "correlation_properties": {},
             "schema": {}
         },
+        "receive_digital_invoice": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "recieve_digital_invoice": {
             "correlation_properties": {},
             "schema": {}
@@ -66,6 +70,10 @@
             "schema": {}
         },
         "tenant-objection": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "test-message": {
             "correlation_properties": {},
             "schema": {}
         }
