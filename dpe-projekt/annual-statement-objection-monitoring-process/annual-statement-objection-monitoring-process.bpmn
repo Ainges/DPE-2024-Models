@@ -90,6 +90,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ogsqvg_di" bpmnElement="Activity_0jdpv6h">
         <dc:Bounds x="640" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_06t0svt_di" bpmnElement="Event_06t0svt">
         <dc:Bounds x="1212" y="132" width="36" height="36" />

@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Notify failed invoice processing SCIL",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "notify-failed-invoice-processing-scil.bpmn",
+    "primary_process_id": "Process_notify_failed_invoice_processing_scil_t3zlrt9"
+}

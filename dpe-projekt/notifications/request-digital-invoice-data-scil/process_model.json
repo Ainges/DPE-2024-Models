@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Request digital invoice data SCIL",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "request-digital-invoice-data-scil.bpmn",
+    "primary_process_id": "Process_request_digital_invoice_data_scil_00aj1zf"
+}

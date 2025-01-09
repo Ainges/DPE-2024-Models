@@ -273,6 +273,7 @@ varDigitalInvoiceStatus = "received"</spiffworkflow:postScript>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uogqyz_di" bpmnElement="Activity_04h651x">
         <dc:Bounds x="1750" y="850" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_1es9ett_di" bpmnElement="DataObjectReference_1es9ett">
         <dc:Bounds x="1672" y="515" width="36" height="50" />
