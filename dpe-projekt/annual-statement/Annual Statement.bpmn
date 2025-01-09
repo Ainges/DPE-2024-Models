@@ -13,7 +13,7 @@
     <bpmn:association id="Association_1av1rc8" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_1puwn4l" />
     <bpmn:correlationKey id="CorrelationKey_0sdalv8" name="MainCorrelationKey" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_18ks2hv" isExecutable="false">
+  <bpmn:process id="Process_18ks2hv" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objHousingObject" name="Housing Object" />
       <bpmn:dataOutput id="objAnnualStatements" name="Annual Statements" />
@@ -127,7 +127,7 @@
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-year/&#34;+str(varCurrentYear)" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-housing-object-and-year/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])+&#34;/&#34;+str(varCurrentYear)" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
