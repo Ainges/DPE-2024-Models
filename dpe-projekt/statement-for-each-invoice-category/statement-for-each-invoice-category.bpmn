@@ -38,7 +38,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_1possjg" name="Calculate sum of invoice category">
       <bpmn:extensionElements>
-        <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="SumOfInvoiceCategory">
+        <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="ResponseSumOfInvoiceCategory">
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/sum/&#34;+str(objRentalAgreements[0][&#34;apartment&#34;][&#34;housingObject&#34;][&#34;housingObjectId&#34;])+&#34;/&#34;+str(objInvoiceCategory[&#34;invoiceCategoryId&#34;])+&#34;/&#34;+str(varYear)" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
@@ -48,7 +48,7 @@
             <spiffworkflow:parameter id="attempts" type="int" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:postScript>objSumofInvoiceCategory = SumOfInvoiceCategory</spiffworkflow:postScript>
+        <spiffworkflow:postScript>objSumofInvoiceCategory = ResponseSumOfInvoiceCategory</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1plx322</bpmn:incoming>
       <bpmn:outgoing>Flow_1gq8nvv</bpmn:outgoing>
