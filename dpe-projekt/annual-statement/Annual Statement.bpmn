@@ -136,7 +136,7 @@ for invoice in objInvoices:
 </spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_05vlmtj</bpmn:incoming>
-      <bpmn:outgoing>Flow_05bg6mw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1dyjapw</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1isijvf">
         <bpmn:targetRef>DataObjectReference_0axosog</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
@@ -144,8 +144,8 @@ for invoice in objInvoices:
         <bpmn:targetRef>DataObjectReference_00k3tbo</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:callActivity id="Activity_0hau30o" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir">
-      <bpmn:incoming>Flow_05bg6mw</bpmn:incoming>
+    <bpmn:callActivity id="Activity_0hau30o" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir" spiffworkflow:isOutputSynced="false">
+      <bpmn:incoming>Flow_1dyjapw</bpmn:incoming>
       <bpmn:outgoing>Flow_10qnfcw</bpmn:outgoing>
       <bpmn:property id="Property_18phufo" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
@@ -188,7 +188,7 @@ for invoice in objInvoices:
       <bpmn:incoming>Flow_10qnfcw</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_10qnfcw" sourceRef="Activity_0hau30o" targetRef="Event_1yjjqtd" />
-    <bpmn:sequenceFlow id="Flow_05bg6mw" sourceRef="Activity_05oq3wb" targetRef="Activity_0hau30o" />
+    <bpmn:sequenceFlow id="Flow_1dyjapw" sourceRef="Activity_05oq3wb" targetRef="Activity_0hau30o" />
     <bpmn:association id="Association_1av1rc8" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_1puwn4l" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -319,9 +319,9 @@ for invoice in objInvoices:
         <di:waypoint x="1180" y="880" />
         <di:waypoint x="1180" y="942" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_05bg6mw_di" bpmnElement="Flow_05bg6mw">
-        <di:waypoint x="990" y="846" />
-        <di:waypoint x="1130" y="849" />
+      <bpmndi:BPMNEdge id="Flow_1dyjapw_di" bpmnElement="Flow_1dyjapw">
+        <di:waypoint x="990" y="845" />
+        <di:waypoint x="1130" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
         <di:waypoint x="615" y="885" />
@@ -355,6 +355,10 @@ for invoice in objInvoices:
         <di:waypoint x="878" y="671" />
         <di:waypoint x="1130" y="814" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0rhflzz_di" bpmnElement="DataInputAssociation_0rhflzz">
+        <di:waypoint x="1111" y="685" />
+        <di:waypoint x="1162" y="800" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_14qw5cg_di" bpmnElement="DataOutputAssociation_14qw5cg">
         <di:waypoint x="1209" y="800" />
         <di:waypoint x="1313" y="665" />
@@ -362,10 +366,6 @@ for invoice in objInvoices:
       <bpmndi:BPMNEdge id="DataInputAssociation_0y1ygxu_di" bpmnElement="DataInputAssociation_0y1ygxu">
         <di:waypoint x="1338" y="665" />
         <di:waypoint x="1385" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0rhflzz_di" bpmnElement="DataInputAssociation_0rhflzz">
-        <di:waypoint x="1111" y="685" />
-        <di:waypoint x="1162" y="800" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
