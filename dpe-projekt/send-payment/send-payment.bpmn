@@ -19,6 +19,7 @@ InvoiceID</bpmn:text>
       <bpmn:text>Nachricht so nicht richtig ist nur info für uns</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1xazo7o" associationDirection="None" sourceRef="Activity_05io0ms" targetRef="TextAnnotation_19z87rh" />
+    <bpmn:correlationKey id="CorrelationKey_1mvxdee" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1je984j" name="Send Payment" isExecutable="true">
     <bpmn:ioSpecification>
@@ -54,7 +55,8 @@ InvoiceID</bpmn:text>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_15mjwi4" sourceRef="Event_0z1l7pw" targetRef="Activity_1ifg82r" />
     <bpmn:sequenceFlow id="Flow_0qa7luo" sourceRef="Activity_1ifg82r" targetRef="Event_16aqcq4" />
-    <bpmn:sendTask id="Activity_1ifg82r" name="Send Payment Reminder">
+    <bpmn:sendTask id="Activity_1ifg82r" name="Send Payment Reminder" messageRef="SendPaymentReminder">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_15mjwi4</bpmn:incoming>
       <bpmn:outgoing>Flow_0qa7luo</bpmn:outgoing>
     </bpmn:sendTask>
@@ -81,6 +83,7 @@ InvoiceID</bpmn:text>
       <bpmn:outgoing>Flow_1dmu8y8</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
+  <bpmn:message id="SendPaymentReminder" name="SendPaymentReminder" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_06jodrc">
       <bpmndi:BPMNShape id="Participant_1lklo0z_di" bpmnElement="Participant_1lklo0z" isHorizontal="true">
