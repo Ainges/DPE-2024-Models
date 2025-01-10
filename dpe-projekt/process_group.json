@@ -5,6 +5,10 @@
     "description": "",
     "display_name": "DPE Projekt",
     "messages": {
+        "SendPaymentReminder": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "Tenant-objection": {
             "correlation_properties": {},
             "schema": {}

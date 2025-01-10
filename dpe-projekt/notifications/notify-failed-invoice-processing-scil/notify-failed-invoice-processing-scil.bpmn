@@ -2,11 +2,9 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1r7g7sx">
     <bpmn:participant id="Participant_1at7y6s" name="Notify landlord about failed invoice processing SCIL Prozess" processRef="Process_notify_failed_invoice_processing_scil_t3zlrt9" />
+    <bpmn:correlationKey id="CorrelationKey_0jc5y8x" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_notify_failed_invoice_processing_scil_t3zlrt9" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" name="Notification about failed invoice processing received">
-      <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:endEvent id="EndEvent_1">
       <bpmn:incoming>Flow_12pkbxb</bpmn:incoming>
     </bpmn:endEvent>
@@ -25,24 +23,31 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
       <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1" name="Notification about failed invoice processing received">
+      <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_15sojeu" messageRef="invoice_processing_unsuccessful">
+        <bpmn:extensionElements />
+      </bpmn:messageEventDefinition>
+    </bpmn:startEvent>
   </bpmn:process>
+  <bpmn:message id="invoice_processing_unsuccessful" name="invoice_processing_unsuccessful" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1r7g7sx">
       <bpmndi:BPMNShape id="Participant_1at7y6s_di" bpmnElement="Participant_1at7y6s" isHorizontal="true">
         <dc:Bounds x="70" y="40" width="600" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="159" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="154" y="202" width="86" height="53" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
         <dc:Bounds x="432" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uutakg_di" bpmnElement="Activity_0qpzdpu">
         <dc:Bounds x="270" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16h3dmz_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="202" width="86" height="53" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
         <di:waypoint x="215" y="177" />
