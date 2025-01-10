@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Send Payment Reminder SCIL Prozess",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "payment-reminder-scil.bpmn",
+    "primary_process_id": "Process_payment_reminder_scil_zcjebt6"
+}
