@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Dummy_Prozess_HousingObject",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "dummy-prozess-housingobject.bpmn",
+    "primary_process_id": "Process_dummy_prozess_housingobject_q2hzhgs"
+}
