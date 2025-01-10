@@ -14,7 +14,8 @@
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objInvoiceCategory" name="Invoice Category" />
       <bpmn:dataInput id="objRentalAgreements" name="Rental Agreements" />
-      <bpmn:dataInput id="objInvoices" name="Invoices"/>
+      <bpmn:dataInput id="objInvoices" name="Invoices" />
+      <bpmn:dataInput id="varYear" name="Year" />
       <bpmn:dataOutput id="objStatementEntry" name="Statement Entry" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objInvoiceCategory</bpmn:dataInputRefs>
@@ -25,32 +26,36 @@
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objInvoices</bpmn:dataInputRefs>
       </bpmn:inputSet>
+      <bpmn:inputSet>
+        <bpmn:dataInputRefs>varYear</bpmn:dataInputRefs>
+      </bpmn:inputSet>
       <bpmn:outputSet>
         <bpmn:dataOutputRefs>objStatementEntry</bpmn:dataOutputRefs>
       </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:startEvent id="Event_143vwhb">
-      <bpmn:outgoing>Flow_1ultau5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1plx322</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_1possjg" name="Calculate sum of invoice category">
       <bpmn:extensionElements>
-        <spiffworkflow:serviceTaskOperator id="http/HeadRequestV2">
+        <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="SumOfInvoiceCategory">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" />
-            <spiffworkflow:parameter id="headers" type="any" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/sum/&#34;+str(objRentalAgreements[0][&#34;apartment&#34;][&#34;housingObject&#34;][&#34;housingObjectId&#34;])+&#34;/&#34;+str(objInvoiceCategory[&#34;invoiceCategoryId&#34;])+&#34;/&#34;+str(varYear)" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
             <spiffworkflow:parameter id="attempts" type="int" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
+        <spiffworkflow:postScript>objSumofInvoiceCategory = SumOfInvoiceCategory</spiffworkflow:postScript>
       </bpmn:extensionElements>
-      <bpmn:outgoing>Flow_1eoh67a</bpmn:outgoing>
+      <bpmn:incoming>Flow_1plx322</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gq8nvv</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1w0zio9">
         <bpmn:targetRef>DataObjectReference_17i1thr</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1eoh67a" sourceRef="Activity_1possjg" targetRef="Activity_1uqkbi9" />
     <bpmn:dataObjectReference id="DataObjectReference_17i1thr" name="Sum of Invoice Category" dataObjectRef="objSumofInvoiceCategory" />
     <bpmn:dataObject id="objSumofInvoiceCategory" name="Sum of Invoice Category" isCollection="true" />
     <bpmn:userTask id="Activity_1uqkbi9" name="Select distribution key">
@@ -60,7 +65,6 @@
           <spiffworkflow:property name="formUiSchemaFilename" value="distribution-keys-uischema.json" />
         </spiffworkflow:properties>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1eoh67a</bpmn:incoming>
       <bpmn:outgoing>Flow_07cyprg</bpmn:outgoing>
       <bpmn:property id="Property_0zizci1" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_1gk8e0r">
@@ -102,10 +106,11 @@
       <bpmn:outgoing>Flow_03bbixn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_03bbixn" sourceRef="Gateway_18rpa0v" targetRef="Event_0b78qo4" />
-    <bpmn:endEvent id="Event_07icg23">
-      <bpmn:incoming>Flow_1ultau5</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_1plx322" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
+    <bpmn:endEvent id="Event_007fftn">
+      <bpmn:incoming>Flow_1gq8nvv</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1ultau5" sourceRef="Event_143vwhb" targetRef="Event_07icg23" />
+    <bpmn:sequenceFlow id="Flow_1gq8nvv" sourceRef="Activity_1possjg" targetRef="Event_007fftn" />
     <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -113,24 +118,6 @@
       <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
         <dc:Bounds x="-50" y="-15" width="980" height="435" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
-        <dc:Bounds x="2" y="5" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="-19" y="62" width="83" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-676433916-1DI" bpmnElement="objRentalAgreements">
-        <dc:Bounds x="82" y="5" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="73" y="62" width="59" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-676433917-1DI" bpmnElement="objInvoices">
-        <dc:Bounds x="152" y="5" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="152" y="62" width="41" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
         <dc:Bounds x="12" y="172" width="36" height="36" />
@@ -168,8 +155,32 @@
       <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
         <dc:Bounds x="765" y="295" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_07icg23_di" bpmnElement="Event_07icg23">
-        <dc:Bounds x="12" y="262" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_007fftn_di" bpmnElement="Event_007fftn">
+        <dc:Bounds x="132" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
+        <dc:Bounds x="2" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-19" y="62" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433916-1DI" bpmnElement="objRentalAgreements">
+        <dc:Bounds x="102" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="78" y="62" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433917-1DI" bpmnElement="objInvoices">
+        <dc:Bounds x="172" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="175" y="62" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433918-1DI" bpmnElement="varYear">
+        <dc:Bounds x="422" y="-5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="52" width="63" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objStatementEntry">
         <dc:Bounds x="852" y="5" width="36" height="50" />
@@ -177,10 +188,6 @@
           <dc:Bounds x="836" y="62" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1eoh67a_di" bpmnElement="Flow_1eoh67a">
-        <di:waypoint x="200" y="190" />
-        <di:waypoint x="260" y="190" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0n8y2b0_di" bpmnElement="Flow_0n8y2b0">
         <di:waypoint x="650" y="190" />
         <di:waypoint x="790" y="190" />
@@ -214,9 +221,13 @@
         <di:waypoint x="860" y="320" />
         <di:waypoint x="860" y="208" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ultau5_di" bpmnElement="Flow_1ultau5">
-        <di:waypoint x="30" y="208" />
-        <di:waypoint x="30" y="262" />
+      <bpmndi:BPMNEdge id="Flow_1plx322_di" bpmnElement="Flow_1plx322">
+        <di:waypoint x="48" y="190" />
+        <di:waypoint x="100" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gq8nvv_di" bpmnElement="Flow_1gq8nvv">
+        <di:waypoint x="150" y="230" />
+        <di:waypoint x="150" y="272" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
         <di:waypoint x="577" y="150" />
