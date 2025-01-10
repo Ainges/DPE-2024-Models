@@ -9,6 +9,10 @@
       <bpmn:text>Creates all statement entries per category per housing object:</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1q33vjj" associationDirection="None" sourceRef="TextAnnotation_00sy2fa" targetRef="Activity_1uqkbi9" />
+    <bpmn:textAnnotation id="TextAnnotation_0d28dol">
+      <bpmn:text>Enweder im Script Task oder im Post Script die Logik für Tenant Change und nicht Tenant Change. Wenn Apartment Id zweimal drin ist, dann mit Tenant Change</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04kg0uo" associationDirection="None" sourceRef="Activity_1uqkbi9" targetRef="TextAnnotation_0d28dol" />
   </bpmn:collaboration>
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
@@ -22,9 +26,8 @@
       </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:startEvent id="Event_143vwhb">
-      <bpmn:outgoing>Flow_093fiux</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ultau5</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_093fiux" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
     <bpmn:serviceTask id="Activity_1possjg" name="Calculate sum of invoice category">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/HeadRequestV2">
@@ -38,7 +41,6 @@
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_093fiux</bpmn:incoming>
       <bpmn:outgoing>Flow_1eoh67a</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1w0zio9">
         <bpmn:targetRef>DataObjectReference_17i1thr</bpmn:targetRef>
@@ -96,6 +98,10 @@
       <bpmn:outgoing>Flow_03bbixn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_03bbixn" sourceRef="Gateway_18rpa0v" targetRef="Event_0b78qo4" />
+    <bpmn:endEvent id="Event_07icg23">
+      <bpmn:incoming>Flow_1ultau5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1ultau5" sourceRef="Event_143vwhb" targetRef="Event_07icg23" />
     <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -140,6 +146,9 @@
       <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
         <dc:Bounds x="765" y="295" width="50" height="50" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07icg23_di" bpmnElement="Event_07icg23">
+        <dc:Bounds x="12" y="262" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
         <dc:Bounds x="32" y="45" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -152,10 +161,6 @@
           <dc:Bounds x="836" y="62" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_093fiux_di" bpmnElement="Flow_093fiux">
-        <di:waypoint x="48" y="190" />
-        <di:waypoint x="100" y="190" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1eoh67a_di" bpmnElement="Flow_1eoh67a">
         <di:waypoint x="200" y="190" />
         <di:waypoint x="260" y="190" />
@@ -193,9 +198,17 @@
         <di:waypoint x="860" y="320" />
         <di:waypoint x="860" y="208" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ultau5_di" bpmnElement="Flow_1ultau5">
+        <di:waypoint x="30" y="208" />
+        <di:waypoint x="30" y="262" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
         <di:waypoint x="577" y="150" />
         <di:waypoint x="565" y="124" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_04kg0uo_di" bpmnElement="Association_04kg0uo">
+        <di:waypoint x="338" y="230" />
+        <di:waypoint x="359" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
         <dc:Bounds x="320" y="40" width="100" height="70" />
@@ -221,6 +234,10 @@
         <di:waypoint x="345" y="110" />
         <di:waypoint x="317" y="150" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0d28dol_di" bpmnElement="TextAnnotation_0d28dol">
+        <dc:Bounds x="320" y="260" width="100" height="185" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
