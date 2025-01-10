@@ -124,7 +124,7 @@
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllRentalAgreements">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/rental-agreements/by-housing-object-and-year/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])+&#34;/&#34;+str(varCurrentYear)" />
+            <spiffworkflow:parameter id="url" type="str" value="varGetUrl" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -133,8 +133,8 @@
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
         <spiffworkflow:postScript>objRentalAgreements = getResponseAllRentalAgreements["body"]</spiffworkflow:postScript>
-        <spiffworkflow:preScript>#For Testing Purposes
-#varCurrentYear= varCurrentYear</spiffworkflow:preScript>
+        <spiffworkflow:instructionsForEndUser></spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:preScript>varGetUrl= "http://host.docker.internal:8080/rental-agreements/by-housing-object-and-year/"+str(objHousingObject["housingObjectId"])+"/"+str(varCurrentYear)</spiffworkflow:preScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0l6n19y</bpmn:incoming>
       <bpmn:outgoing>Flow_0vgxvjp</bpmn:outgoing>
@@ -169,7 +169,7 @@
           <spiffworkflow:property name="formJsonSchemaFilename" value="start-annual-statement-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="start-annual-statement-uischema.json" />
         </spiffworkflow:properties>
-        <spiffworkflow:postScript>varCurrentYear= varCurrentYear</spiffworkflow:postScript>
+        <spiffworkflow:postScript>varCurrentYear = selectedYear</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1cstye6</bpmn:incoming>
       <bpmn:outgoing>Flow_0l6n19y</bpmn:outgoing>

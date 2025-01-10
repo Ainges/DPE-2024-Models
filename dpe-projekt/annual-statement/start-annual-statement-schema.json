@@ -1,12 +1,12 @@
 {
   "title": "Start Annual Statement",
-  "description": "Start the Annual Statement by selecting the year, and submitting it",
+  "description": "Start the Annual Statement by selecting the Annual Statement period and submitting it",
   "properties": {
-    "varCurrentYear": {
+    "selectedYear": {
       "type": "string",
       "title": "Select Year",
       "enum": ["2023", "2024", "2025"],
-      "default": "2025"
+      "default": "2024"
     }
   }
 }
