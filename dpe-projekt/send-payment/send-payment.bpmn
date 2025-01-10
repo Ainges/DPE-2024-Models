@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
-  <bpmn:collaboration id="Collaboration_171wa98">
+  <bpmn:collaboration id="Collaboration_06jodrc">
     <bpmn:participant id="Participant_1lklo0z" name="Send Payment" processRef="Process_1je984j" />
     <bpmn:participant id="Participant_0cddu1x" name="Payment Reciever" />
     <bpmn:participant id="Participant_1e2gqm4" name="Landlord" />
-    <bpmn:messageFlow id="Flow_0ajkdip" sourceRef="Activity_05io0ms" targetRef="Participant_0cddu1x" />
+    <bpmn:messageFlow id="Flow_0ajkdip" name="PaymentConfirmation" sourceRef="Activity_05io0ms" targetRef="Participant_0cddu1x" />
     <bpmn:messageFlow id="Flow_0eveo5a" sourceRef="Activity_1ifg82r" targetRef="Participant_1e2gqm4" />
     <bpmn:textAnnotation id="TextAnnotation_12lhk0b">
       <bpmn:text>e.g. QR code with prefilled information</bpmn:text>
@@ -15,6 +15,10 @@
 InvoiceID</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="objPaymentDetails" targetRef="TextAnnotation_061e1py" />
+    <bpmn:textAnnotation id="TextAnnotation_19z87rh">
+      <bpmn:text>Nachricht so nicht richtig ist nur info für uns</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1xazo7o" associationDirection="None" sourceRef="Activity_05io0ms" targetRef="TextAnnotation_19z87rh" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1je984j" name="Send Payment" isExecutable="true">
     <bpmn:ioSpecification>
@@ -78,7 +82,7 @@ InvoiceID</bpmn:text>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_171wa98">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_06jodrc">
       <bpmndi:BPMNShape id="Participant_1lklo0z_di" bpmnElement="Participant_1lklo0z" isHorizontal="true">
         <dc:Bounds x="-510" y="-200" width="870" height="550" />
         <bpmndi:BPMNLabel />
@@ -164,6 +168,10 @@ InvoiceID</bpmn:text>
         <dc:Bounds x="-330" y="-170" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_19z87rh_di" bpmnElement="TextAnnotation_19z87rh">
+        <dc:Bounds x="-80" y="-110" width="100" height="54.878048780487816" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
         <di:waypoint x="-252" y="-30" />
         <di:waypoint x="-228" y="-55" />
@@ -172,9 +180,16 @@ InvoiceID</bpmn:text>
         <di:waypoint x="-382" y="-119" />
         <di:waypoint x="-330" y="-137" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1xazo7o_di" bpmnElement="Association_1xazo7o">
+        <di:waypoint x="-92" y="-30" />
+        <di:waypoint x="-68" y="-55" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ajkdip_di" bpmnElement="Flow_0ajkdip">
         <di:waypoint x="-130" y="50" />
         <di:waypoint x="-130" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-158" y="217" width="89" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0eveo5a_di" bpmnElement="Flow_0eveo5a">
         <di:waypoint x="70" y="250" />
