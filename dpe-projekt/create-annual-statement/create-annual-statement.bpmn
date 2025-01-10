@@ -13,6 +13,7 @@
     <bpmn:textAnnotation id="TextAnnotation_1wehy32">
       <bpmn:text>Nicht die Entität sondern das PDF!</bpmn:text>
     </bpmn:textAnnotation>
+    <bpmn:correlationKey id="CorrelationKey_1yhmaew" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_11ur3al">
     <bpmn:ioSpecification>
@@ -63,7 +64,8 @@
         <bpmn:targetRef>Property_0w18djq</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Activity_1lb879v" name="Send Annual Statement with payment information">
+    <bpmn:sendTask id="Activity_1lb879v" name="Send Annual Statement with payment information" messageRef="ASwPI">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0jd7flz</bpmn:incoming>
       <bpmn:outgoing>Flow_0ouhx9e</bpmn:outgoing>
       <bpmn:property id="Property_0d55vhq" name="__targetRef_placeholder" />
@@ -72,7 +74,8 @@
         <bpmn:targetRef>Property_0d55vhq</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Activity_0bs29ut" name="Send annual Statement with payment information request">
+    <bpmn:sendTask id="Activity_0bs29ut" name="Send annual Statement with payment information request" messageRef="ASwPIR">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0953n6s</bpmn:incoming>
       <bpmn:outgoing>Flow_18wb55g</bpmn:outgoing>
       <bpmn:property id="Property_0tziwbx" name="__targetRef_placeholder" />
@@ -85,7 +88,8 @@
       <bpmn:incoming>Flow_0ouhx9e</bpmn:incoming>
       <bpmn:outgoing>Flow_0mgkdhc</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:sendTask id="Activity_1v5ox0t" name="Send Annual Statements">
+    <bpmn:sendTask id="Activity_1v5ox0t" name="Send Annual Statements" messageRef="AS">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1orw3ez</bpmn:incoming>
       <bpmn:outgoing>Flow_0fa9ocq</bpmn:outgoing>
       <bpmn:property id="Property_16c845t" name="__targetRef_placeholder" />
@@ -143,6 +147,9 @@
     <bpmn:sequenceFlow id="Flow_1wxcz2w" sourceRef="Activity_0bbyel0" targetRef="Activity_1two9x0" />
     <bpmn:association id="Association_1dz1xow" associationDirection="None" sourceRef="Activity_0ywd0ad" targetRef="TextAnnotation_1wehy32" />
   </bpmn:process>
+  <bpmn:message id="ASwPIR" name="ASwPIR" />
+  <bpmn:message id="ASwPI" name="ASwPI" />
+  <bpmn:message id="AS" name="AS" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0dfwb0v">
       <bpmndi:BPMNShape id="Participant_06x5n6c_di" bpmnElement="Participant_06x5n6c" isHorizontal="true">
@@ -354,6 +361,10 @@
         <di:waypoint x="430" y="52" />
         <di:waypoint x="832" y="-96" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0t774n0_di" bpmnElement="DataInputAssociation_0t774n0">
+        <di:waypoint x="832" y="-76" />
+        <di:waypoint x="751" y="30" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0m1fajn_di" bpmnElement="DataInputAssociation_0m1fajn">
         <di:waypoint x="868" y="-98" />
         <di:waypoint x="1500" y="-44" />
@@ -397,10 +408,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="865" y="317" width="61" height="53" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0t774n0_di" bpmnElement="DataInputAssociation_0t774n0">
-        <di:waypoint x="832" y="-76" />
-        <di:waypoint x="751" y="30" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

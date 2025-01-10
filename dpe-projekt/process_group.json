@@ -5,6 +5,26 @@
     "description": "",
     "display_name": "DPE Projekt",
     "messages": {
+        "AS": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "ASwPI": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "ASwPIR": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "AnnualStatementPreperationReminder": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "DelayedAnnualStatementReminder": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "SendPaymentReminder": {
             "correlation_properties": {},
             "schema": {}

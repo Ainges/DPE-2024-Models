@@ -17,7 +17,7 @@
       <bpmn:text>Hier muss aber trotzdem die Jahresabrechnung gegenüber des Gesetztgebers gemacht werden</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1bgd0zd" associationDirection="None" sourceRef="Event_08svpnq" targetRef="TextAnnotation_11uf3gh" />
-    <bpmn:correlationKey id="CorrelationKey_16l4k9e" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1vpzayl" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
     <bpmn:sequenceFlow id="Flow_1ygv9au" sourceRef="Event_16up0z3" targetRef="Activity_07psk58" />
@@ -62,11 +62,13 @@
         <bpmn:targetRef>Property_01no2an</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:callActivity>
-    <bpmn:sendTask id="Activity_0c9uuou" name="Send Annual Statement preparation Reminder">
+    <bpmn:sendTask id="Activity_0c9uuou" name="Send Annual Statement preparation Reminder" messageRef="AnnualStatementPreperationReminder">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0p94gh0</bpmn:incoming>
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement Reminder">
+    <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement Reminder" messageRef="DelayedAnnualStatementReminder">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_04atias</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
     </bpmn:sendTask>
@@ -163,6 +165,8 @@
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
   <bpmn:message id="end-of-accountability-for-the_object" name="end-of-accountability-for-the_object" />
+  <bpmn:message id="AnnualStatementPreperationReminder" name="AnnualStatementPreperationReminder" />
+  <bpmn:message id="DelayedAnnualStatementReminder" name="DelayedAnnualStatementReminder" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1f8ymqx">
       <bpmndi:BPMNShape id="Participant_1vyzkhg_di" bpmnElement="Participant_1vyzkhg" isHorizontal="true">
