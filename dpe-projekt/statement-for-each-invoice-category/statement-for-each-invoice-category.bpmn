@@ -9,17 +9,21 @@
       <bpmn:text>Creates all statement entries per category per housing object:</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1q33vjj" associationDirection="None" sourceRef="TextAnnotation_00sy2fa" targetRef="Activity_1uqkbi9" />
-    <bpmn:textAnnotation id="TextAnnotation_0d28dol">
-      <bpmn:text>Enweder im Script Task oder im Post Script die Logik für Tenant Change und nicht Tenant Change. Wenn Apartment Id zweimal drin ist, dann mit Tenant Change</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_04kg0uo" associationDirection="None" sourceRef="Activity_1uqkbi9" targetRef="TextAnnotation_0d28dol" />
   </bpmn:collaboration>
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objInvoiceCategory" name="Invoice Category" />
+      <bpmn:dataInput id="objRentalAgreements" name="Rental Agreements" />
+      <bpmn:dataInput id="objInvoices" name="Invoices"/>
       <bpmn:dataOutput id="objStatementEntry" name="Statement Entry" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objInvoiceCategory</bpmn:dataInputRefs>
+      </bpmn:inputSet>
+      <bpmn:inputSet>
+        <bpmn:dataInputRefs>objRentalAgreements</bpmn:dataInputRefs>
+      </bpmn:inputSet>
+      <bpmn:inputSet>
+        <bpmn:dataInputRefs>objInvoices</bpmn:dataInputRefs>
       </bpmn:inputSet>
       <bpmn:outputSet>
         <bpmn:dataOutputRefs>objStatementEntry</bpmn:dataOutputRefs>
@@ -110,6 +114,24 @@
         <dc:Bounds x="-50" y="-15" width="980" height="435" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
+        <dc:Bounds x="2" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-19" y="62" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433916-1DI" bpmnElement="objRentalAgreements">
+        <dc:Bounds x="82" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="73" y="62" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataInput-676433917-1DI" bpmnElement="objInvoices">
+        <dc:Bounds x="152" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="152" y="62" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
         <dc:Bounds x="12" y="172" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -148,12 +170,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_07icg23_di" bpmnElement="Event_07icg23">
         <dc:Bounds x="12" y="262" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
-        <dc:Bounds x="32" y="45" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="11" y="102" width="83" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objStatementEntry">
         <dc:Bounds x="852" y="5" width="36" height="50" />
@@ -206,10 +222,6 @@
         <di:waypoint x="577" y="150" />
         <di:waypoint x="565" y="124" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_04kg0uo_di" bpmnElement="Association_04kg0uo">
-        <di:waypoint x="338" y="230" />
-        <di:waypoint x="359" y="260" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
         <dc:Bounds x="320" y="40" width="100" height="70" />
         <bpmndi:BPMNLabel />
@@ -234,10 +246,6 @@
         <di:waypoint x="345" y="110" />
         <di:waypoint x="317" y="150" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_0d28dol_di" bpmnElement="TextAnnotation_0d28dol">
-        <dc:Bounds x="320" y="260" width="100" height="185" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

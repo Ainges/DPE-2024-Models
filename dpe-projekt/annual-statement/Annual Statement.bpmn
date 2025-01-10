@@ -56,7 +56,29 @@
             <spiffworkflow:parameter id="attempts" type="int" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:postScript>objRentalAgreements = getResponseAllRentalAgreements["body"]</spiffworkflow:postScript>
+        <spiffworkflow:postScript># Extrahiere die Mietverträge aus dem "body"-Feld
+objRentalAgreements = getResponseAllRentalAgreements["body"]
+
+# Initialisiere die Variable tenant_change
+tenant_change = False
+
+# Iteriere über alle Mietverträge
+for i, agreement1 in enumerate(objRentalAgreements):
+    for j, agreement2 in enumerate(objRentalAgreements):
+        # Vergleiche nur unterschiedliche Mietverträge
+        if i != j:
+            # Prüfe, ob beide Mietverträge zum gleichen Apartment gehören, aber unterschiedliche IDs haben
+            if (
+                agreement1["apartment"]["apartmentId"] == agreement2["apartment"]["apartmentId"]
+                and agreement1["rentalAgreementId"] != agreement2["rentalAgreementId"]
+            ):
+                tenant_change = True
+                break
+    if tenant_change:
+        break
+
+
+</spiffworkflow:postScript>
         <spiffworkflow:instructionsForEndUser />
         <spiffworkflow:preScript>#varUrl="http://host.docker.internal:8080/rental-agreements/by-housing-object-and-year/"+str(objHousingObject["housingObjectId"])+"/"+str(varCurrentYear)</spiffworkflow:preScript>
       </bpmn:extensionElements>
@@ -161,16 +183,16 @@ for invoice in objInvoices:
       <bpmn:incoming>Flow_07mbf7c</bpmn:incoming>
       <bpmn:outgoing>Flow_00jp480</bpmn:outgoing>
       <bpmn:property id="Property_1lgrewt" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_0zo88wu">
-        <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
       <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
         <bpmn:sourceRef>DataObjectReference_00k3tbo</bpmn:sourceRef>
         <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
       </bpmn:dataInputAssociation>
       <bpmn:dataInputAssociation id="DataInputAssociation_0rhflzz">
         <bpmn:sourceRef>DataObjectReference_0axosog</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_07xcs31">
+        <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
         <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
       </bpmn:dataInputAssociation>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1ll9o7n">
@@ -266,6 +288,9 @@ for invoice in objInvoices:
         <dc:Bounds x="1080" y="800" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07acif9_di" bpmnElement="Event_07acif9">
+        <dc:Bounds x="1242" y="822" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
         <dc:Bounds x="442" y="505" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -277,9 +302,6 @@ for invoice in objInvoices:
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2067" y="552" width="57" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_07acif9_di" bpmnElement="Event_07acif9">
-        <dc:Bounds x="1242" y="822" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1cstye6_di" bpmnElement="Flow_1cstye6">
         <di:waypoint x="498" y="845" />
@@ -342,10 +364,6 @@ for invoice in objInvoices:
         <di:waypoint x="1338" y="665" />
         <di:waypoint x="1385" y="800" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
-        <di:waypoint x="878" y="671" />
-        <di:waypoint x="1130" y="799" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0ikndf4_di" bpmnElement="DataInputAssociation_0ikndf4">
         <di:waypoint x="1028" y="680" />
         <di:waypoint x="1136" y="800" />
@@ -361,6 +379,10 @@ for invoice in objInvoices:
       <bpmndi:BPMNEdge id="DataOutputAssociation_1yrndm8_di" bpmnElement="DataOutputAssociation_1yrndm8">
         <di:waypoint x="1169" y="800" />
         <di:waypoint x="1312" y="655" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_07xcs31_di" bpmnElement="DataInputAssociation_07xcs31">
+        <di:waypoint x="878" y="672" />
+        <di:waypoint x="1081" y="807" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
