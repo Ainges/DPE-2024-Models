@@ -3,9 +3,6 @@
   <bpmn:collaboration id="Collaboration_0g6wv93">
     <bpmn:participant id="Participant_0sbn701" name="Annual Statement" processRef="Process_18ks2hv" />
     <bpmn:participant id="Participant_1968i74" name="Tenant" />
-    <bpmn:textAnnotation id="TextAnnotation_1puwn4l">
-      <bpmn:text>Form ist implimented</bpmn:text>
-    </bpmn:textAnnotation>
     <bpmn:correlationKey id="CorrelationKey_0sdalv8" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="true">
@@ -28,9 +25,9 @@
         <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_10uhudp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_05oq3wb</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0hau30o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1t848x1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1yjjqtd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1a6vdew</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_07acif9</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataObject id="objTenantPayments" name="Tenant Payments" isCollection="true" />
@@ -136,7 +133,7 @@ for invoice in objInvoices:
 </spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_05vlmtj</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dyjapw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1lj70oe</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1isijvf">
         <bpmn:targetRef>DataObjectReference_0axosog</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
@@ -144,32 +141,6 @@ for invoice in objInvoices:
         <bpmn:targetRef>DataObjectReference_00k3tbo</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:callActivity id="Activity_0hau30o" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir" spiffworkflow:isOutputSynced="false">
-      <bpmn:incoming>Flow_1dyjapw</bpmn:incoming>
-      <bpmn:outgoing>Flow_10qnfcw</bpmn:outgoing>
-      <bpmn:property id="Property_18phufo" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
-        <bpmn:sourceRef>DataObjectReference_00k3tbo</bpmn:sourceRef>
-        <bpmn:targetRef>Property_18phufo</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataInputAssociation id="DataInputAssociation_0zo88wu">
-        <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
-        <bpmn:targetRef>Property_18phufo</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataInputAssociation id="DataInputAssociation_0rhflzz">
-        <bpmn:sourceRef>DataObjectReference_0axosog</bpmn:sourceRef>
-        <bpmn:targetRef>Property_18phufo</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_14qw5cg">
-        <bpmn:targetRef>DataObjectReference_0aaw7oj</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-      <bpmn:multiInstanceLoopCharacteristics>
-        <bpmn:loopDataInputRef>objInvoiceCategories</bpmn:loopDataInputRef>
-        <bpmn:loopDataOutputRef>objStatementEntries</bpmn:loopDataOutputRef>
-        <bpmn:inputDataItem id="objInvoiceCategory" name="objInvoiceCategory" />
-        <bpmn:outputDataItem id="objStatementEntry" name="objStatementEntry" />
-      </bpmn:multiInstanceLoopCharacteristics>
-    </bpmn:callActivity>
     <bpmn:callActivity id="Activity_1t848x1" name="Create and handle  Annual Statement" calledElement="Process_11ur3al">
       <bpmn:outgoing>Flow_0jf3y8d</bpmn:outgoing>
       <bpmn:property id="Property_0q3s4aw" name="__targetRef_placeholder" />
@@ -184,12 +155,40 @@ for invoice in objInvoices:
         <bpmn:outputDataItem id="objAnnualStatement" name="objAnnualStatement" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
-    <bpmn:endEvent id="Event_1yjjqtd">
-      <bpmn:incoming>Flow_10qnfcw</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_1lj70oe" sourceRef="Activity_05oq3wb" targetRef="Activity_1a6vdew" />
+    <bpmn:callActivity id="Activity_1a6vdew" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir">
+      <bpmn:incoming>Flow_1lj70oe</bpmn:incoming>
+      <bpmn:outgoing>Flow_00jp480</bpmn:outgoing>
+      <bpmn:property id="Property_1lgrewt" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0zo88wu">
+        <bpmn:sourceRef>DataObjectReference_1b5vgmf</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
+        <bpmn:sourceRef>DataObjectReference_00k3tbo</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_0rhflzz">
+        <bpmn:sourceRef>DataObjectReference_0axosog</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1lgrewt</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ll9o7n">
+        <bpmn:targetRef>DataObjectReference_0aaw7oj</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1yrndm8">
+        <bpmn:targetRef>DataObjectReference_0aaw7oj</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopDataInputRef>objInvoiceCategories</bpmn:loopDataInputRef>
+        <bpmn:loopDataOutputRef>objStatementEnries</bpmn:loopDataOutputRef>
+        <bpmn:inputDataItem id="objInvoiceCategory" name="objInvoiceCategory" />
+        <bpmn:outputDataItem id="objStatementEntry" name="objStatementEntry" />
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="Event_07acif9">
+      <bpmn:incoming>Flow_00jp480</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_10qnfcw" sourceRef="Activity_0hau30o" targetRef="Event_1yjjqtd" />
-    <bpmn:sequenceFlow id="Flow_1dyjapw" sourceRef="Activity_05oq3wb" targetRef="Activity_0hau30o" />
-    <bpmn:association id="Association_1av1rc8" associationDirection="None" sourceRef="Activity_10uhudp" targetRef="TextAnnotation_1puwn4l" />
+    <bpmn:sequenceFlow id="Flow_00jp480" sourceRef="Activity_1a6vdew" targetRef="Event_07acif9" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -259,16 +258,16 @@ for invoice in objInvoices:
         <dc:Bounds x="890" y="805" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ba0igt_di" bpmnElement="Activity_0hau30o">
-        <dc:Bounds x="1130" y="800" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07avu6n_di" bpmnElement="Activity_1t848x1">
         <dc:Bounds x="1340" y="800" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1yjjqtd_di" bpmnElement="Event_1yjjqtd">
-        <dc:Bounds x="1162" y="942" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_18u7u11_di" bpmnElement="Activity_1a6vdew">
+        <dc:Bounds x="1080" y="805" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07acif9_di" bpmnElement="Event_07acif9">
+        <dc:Bounds x="1272" y="827" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objHousingObject">
         <dc:Bounds x="442" y="505" width="36" height="50" />
@@ -315,24 +314,16 @@ for invoice in objInvoices:
         <di:waypoint x="820" y="845" />
         <di:waypoint x="890" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10qnfcw_di" bpmnElement="Flow_10qnfcw">
-        <di:waypoint x="1180" y="880" />
-        <di:waypoint x="1180" y="942" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1dyjapw_di" bpmnElement="Flow_1dyjapw">
+      <bpmndi:BPMNEdge id="Flow_1lj70oe_di" bpmnElement="Flow_1lj70oe">
         <di:waypoint x="990" y="845" />
-        <di:waypoint x="1130" y="845" />
+        <di:waypoint x="1080" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1av1rc8_di" bpmnElement="Association_1av1rc8">
-        <di:waypoint x="615" y="885" />
-        <di:waypoint x="644" y="960" />
+      <bpmndi:BPMNEdge id="Flow_00jp480_di" bpmnElement="Flow_00jp480">
+        <di:waypoint x="1180" y="845" />
+        <di:waypoint x="1272" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
         <dc:Bounds x="370" y="310" width="1850" height="100" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1puwn4l_di" bpmnElement="TextAnnotation_1puwn4l">
-        <dc:Bounds x="600" y="960" width="99.99419305018122" height="40.74509240990522" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_03sdi23_di" bpmnElement="DataOutputAssociation_03sdi23">
@@ -347,25 +338,29 @@ for invoice in objInvoices:
         <di:waypoint x="955" y="805" />
         <di:waypoint x="999" y="685" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0ikndf4_di" bpmnElement="DataInputAssociation_0ikndf4">
-        <di:waypoint x="1028" y="681" />
-        <di:waypoint x="1132" y="804" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
-        <di:waypoint x="878" y="671" />
-        <di:waypoint x="1130" y="814" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0rhflzz_di" bpmnElement="DataInputAssociation_0rhflzz">
-        <di:waypoint x="1111" y="685" />
-        <di:waypoint x="1162" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_14qw5cg_di" bpmnElement="DataOutputAssociation_14qw5cg">
-        <di:waypoint x="1209" y="800" />
-        <di:waypoint x="1313" y="665" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0y1ygxu_di" bpmnElement="DataInputAssociation_0y1ygxu">
         <di:waypoint x="1338" y="665" />
         <di:waypoint x="1385" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0zo88wu_di" bpmnElement="DataInputAssociation_0zo88wu">
+        <di:waypoint x="878" y="671" />
+        <di:waypoint x="1132" y="805" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0ikndf4_di" bpmnElement="DataInputAssociation_0ikndf4">
+        <di:waypoint x="1028" y="681" />
+        <di:waypoint x="1137" y="805" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0rhflzz_di" bpmnElement="DataInputAssociation_0rhflzz">
+        <di:waypoint x="1111" y="685" />
+        <di:waypoint x="1163" y="805" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1ll9o7n_di" bpmnElement="DataOutputAssociation_1ll9o7n">
+        <di:waypoint x="1168" y="805" />
+        <di:waypoint x="1312" y="656" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1yrndm8_di" bpmnElement="DataOutputAssociation_1yrndm8">
+        <di:waypoint x="1168" y="805" />
+        <di:waypoint x="1312" y="656" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
