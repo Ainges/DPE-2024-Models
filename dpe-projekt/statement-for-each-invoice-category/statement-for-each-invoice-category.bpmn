@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0j8vjry">
-    <bpmn:participant id="Participant_0qogfp4" processRef="Process_statement_for_each_invoice_category_brzdcir" />
+    <bpmn:participant id="Participant_0qogfp4" name="Statement Entry for Eeach" processRef="Process_statement_for_each_invoice_category_brzdcir" />
     <bpmn:textAnnotation id="TextAnnotation_00sy2fa">
       <bpmn:text>Anzahl Wohnungen, Fläache, Personen</bpmn:text>
     </bpmn:textAnnotation>
@@ -13,7 +13,7 @@
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objInvoiceCategory" name="Invoice Category" />
-      <bpmn:dataOutput id="objStatementEntry" name="Placeholder Object" />
+      <bpmn:dataOutput id="objStatementEntry" name="Statement Entry" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objInvoiceCategory</bpmn:dataInputRefs>
       </bpmn:inputSet>
@@ -102,6 +102,7 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
       <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
         <dc:Bounds x="-50" y="-15" width="980" height="435" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
         <dc:Bounds x="12" y="172" width="36" height="36" />
@@ -136,6 +137,9 @@
       <bpmndi:BPMNShape id="Activity_1vwvqo7_di" bpmnElement="Activity_0m6oo42">
         <dc:Bounds x="550" y="280" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
+        <dc:Bounds x="765" y="295" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
         <dc:Bounds x="32" y="45" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -145,11 +149,8 @@
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objStatementEntry">
         <dc:Bounds x="852" y="5" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="843" y="62" width="60" height="27" />
+          <dc:Bounds x="836" y="62" width="80" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
-        <dc:Bounds x="765" y="295" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_093fiux_di" bpmnElement="Flow_093fiux">
         <di:waypoint x="48" y="190" />
@@ -183,10 +184,6 @@
           <dc:Bounds x="456" y="265" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
-        <di:waypoint x="577" y="150" />
-        <di:waypoint x="565" y="124" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0staayp_di" bpmnElement="Flow_0staayp">
         <di:waypoint x="650" y="320" />
         <di:waypoint x="765" y="320" />
@@ -195,6 +192,10 @@
         <di:waypoint x="815" y="320" />
         <di:waypoint x="860" y="320" />
         <di:waypoint x="860" y="208" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
+        <di:waypoint x="577" y="150" />
+        <di:waypoint x="565" y="124" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
         <dc:Bounds x="320" y="40" width="100" height="70" />
