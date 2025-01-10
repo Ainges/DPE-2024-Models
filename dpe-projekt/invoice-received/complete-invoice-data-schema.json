@@ -1,0 +1,22 @@
+{
+  "title": "Add additional Data for the Received Invoice",
+  "description": "",
+  "type": "object",
+  "required": [
+    "housingObjectId",
+    "invoiceCategoryId"
+
+  ],
+  "properties": {
+    "housingObjectId": {
+      "type": "number",
+      "title": "HousingObjectId",
+      "dafault": 1
+    },
+    "invoiceCategoryId": {
+     "type": "number",
+      "title": "InvoiceCategoryId",
+      "dafault": 1
+    }
+  }
+}

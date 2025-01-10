@@ -1,4 +1,12 @@
 {
+  "invoiceDate": "",
+  "invoiceAmount": "",
+  "description": "",
+  "receiver": "",
+  "receiverIban": "DE75512108001245126199",
+  "receiverBic": "",
+  "invoiceCategoryId": "",
+  "housingObjectId": "",
   "invoiceCategory": {},
   "housingObject": {},
   "firstName": "Chuck",

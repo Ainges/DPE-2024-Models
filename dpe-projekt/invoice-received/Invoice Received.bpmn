@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_0pn88ut" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.0.0">
   <bpmn:collaboration id="Collaboration_0g6wv9f">
-    <bpmn:participant id="Participant_0sbn701" name="Invoice Handling" processRef="Process_19ks2hv" />
+    <bpmn:participant id="Participant_0sbn701" name="Invoice received process" processRef="Process_19ks2hv" />
     <bpmn:participant id="Participant_0kgb4l4" name="External EDI Provider" />
     <bpmn:participant id="Participant_15sdrlb" name="Landlord" />
     <bpmn:messageFlow id="Flow_0yqd0mj" sourceRef="Participant_0kgb4l4" targetRef="Event_0bnxrbp" />
@@ -17,11 +17,11 @@
         <bpmn:flowNodeRef>Activity_1iqnvj8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1jeup01</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0x66my7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0d35aog</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12msmpv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_05305i8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1g80j9f</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02jqtgr</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0d35aog</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataObject id="objInvoice" name="Invoice" />
@@ -46,8 +46,12 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_11r2qnx" sourceRef="Activity_12msmpv" targetRef="Activity_05305i8" />
     <bpmn:sequenceFlow id="Flow_13o5muf" sourceRef="Activity_05305i8" targetRef="Event_0cz5uef" />
-    <bpmn:sequenceFlow id="Flow_1br6n19" name="no" sourceRef="Gateway_isDigitalInvoice" targetRef="Activity_1iqnvj8" />
-    <bpmn:sequenceFlow id="Flow_1m102o0" name="yes" sourceRef="Gateway_isDigitalInvoice" targetRef="Activity_02jqtgr" />
+    <bpmn:sequenceFlow id="Flow_1br6n19" name="no" sourceRef="Gateway_isDigitalInvoice" targetRef="Activity_1iqnvj8">
+      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == False</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1m102o0" name="yes" sourceRef="Gateway_isDigitalInvoice" targetRef="Activity_02jqtgr">
+      <bpmn:conditionExpression>invoice_received["digitalInvoice"] == True</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1i9zdtf" sourceRef="Activity_02jqtgr" targetRef="Gateway_1jeup01" />
     <bpmn:sequenceFlow id="Flow_189fe3e" sourceRef="Activity_0x66my7" targetRef="Activity_12msmpv" />
     <bpmn:sequenceFlow id="Flow_0k6jz54" sourceRef="Event_0d35aog" targetRef="Event_1g80j9f" />
@@ -89,24 +93,38 @@
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_0x66my7" name="Save invoice data">
       <bpmn:extensionElements>
-        <spiffworkflow:postScript>objPaymentDetails = {
-    "amount": objInvoice["invoiceAmount"],
-    "description": objInvoice["description"],
-    "receiver": objInvoice["receiver"],
-    "receiverIban": objInvoice["receiverIban"],
-    "receiverBic": objInvoice["receiverBic"],
-    "invoiceId": response["body"]["invoiceId"]
-    }</spiffworkflow:postScript>
+        <spiffworkflow:postScript>#objPaymentDetails = {
+#    "amount": objInvoice["invoiceAmount"],
+#    "description": objInvoice["description"],
+#    "receiver": objInvoice["receiver"],
+#    "receiverIban": objInvoice["receiverIban"],
+#    "receiverBic": objInvoice["receiverBic"],
+#    "invoiceId": response["body"]["invoiceId"]
+#    }</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="response">
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
-            <spiffworkflow:parameter id="data" type="any" value="objInvoice" />
+            <spiffworkflow:parameter id="data" type="any" value="createInvoiceDto" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:preScript />
+        <spiffworkflow:preScript># Transformation
+createInvoiceDto = {
+    "invoiceDate": objInvoice.get("invoiceDate"),
+    "invoiceAmount": objInvoice.get("invoiceAmount"),
+    "description": objInvoice.get("description"),
+    "status": objInvoice.get("status"),
+    "receiver": objInvoice.get("receiver"),
+    "receiverIban": objInvoice.get("receiverIban"),
+    "receiverBic": objInvoice.get("receiverBic"),
+    "externalInvoiceNumber": objInvoice.get("externalInvoiceNumber"),
+    "invoiceCategoryId": str(objInvoice["invoiceCategory"]["invoiceCategoryId"])
+    if "invoiceCategory" in objInvoice else None,
+    "housingObjectId": str(objInvoice["housingObject"]["housingObjectId"])
+    if "housingObject" in objInvoice else None,
+}</spiffworkflow:preScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ulleny</bpmn:incoming>
       <bpmn:outgoing>Flow_189fe3e</bpmn:outgoing>
@@ -115,14 +133,7 @@
         <bpmn:sourceRef>DataObjectReference_0gs9m8z</bpmn:sourceRef>
         <bpmn:targetRef>Property_0rcfviy</bpmn:targetRef>
       </bpmn:dataInputAssociation>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1obybrx">
-        <bpmn:targetRef>DataObjectReference_1es9ett</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="Event_0d35aog" name="Invoice is already saved" attachedToRef="Activity_0x66my7">
-      <bpmn:outgoing>Flow_0k6jz54</bpmn:outgoing>
-      <bpmn:escalationEventDefinition id="EscalationEventDefinition_036hmmd" />
-    </bpmn:boundaryEvent>
     <bpmn:callActivity id="Activity_12msmpv" name="Send Payment" calledElement="Process_1je984j">
       <bpmn:extensionElements>
         <spiffworkflow:postScript>#Until Payment Process is implemented:
@@ -155,9 +166,39 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
       <bpmn:incoming>Flow_0k6jz54</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="Activity_02jqtgr" name="Complete invoice data">
+      <bpmn:extensionElements>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="complete-invoice-data-schema.json" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="complete-invoice-data-uischema.json" />
+        </spiffworkflow:properties>
+        <spiffworkflow:postScript>invoice = invoice_received["invoice"]
+objInvoice = {
+    "invoiceDate": invoice["invoiceDate"],
+    "invoiceAmount": invoice["invoiceAmount"],
+    "description": invoice["description"],
+    "receiver": invoice["receiver"],
+    "receiverIban": invoice["receiverIBAN"],
+    "receiverBic": invoice["receiverBIC"],
+    "status": "unpaid",
+    "invoiceCategory": {
+        "invoiceCategoryId": invoiceCategoryId
+    },
+    "housingObject": {
+        "housingObjectId": housingObjectId
+    }
+}
+</spiffworkflow:postScript>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1m102o0</bpmn:incoming>
       <bpmn:outgoing>Flow_1i9zdtf</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0k4sdpe">
+        <bpmn:targetRef>DataObjectReference_0gs9m8z</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:userTask>
+    <bpmn:boundaryEvent id="Event_0d35aog" name="Invoice is already saved" attachedToRef="Activity_0x66my7">
+      <bpmn:outgoing>Flow_0k6jz54</bpmn:outgoing>
+      <bpmn:escalationEventDefinition id="EscalationEventDefinition_036hmmd" />
+    </bpmn:boundaryEvent>
   </bpmn:process>
   <bpmn:message id="invoice-received" name="invoice-received" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -227,9 +268,9 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
         <dc:Bounds x="703" y="680" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_19ofhrk_di" bpmnElement="Event_0d35aog">
-        <dc:Bounds x="1021" y="632" width="36" height="36" />
+        <dc:Bounds x="1052" y="632" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1046" y="675" width="85" height="27" />
+          <dc:Bounds x="1077" y="675" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ulleny_di" bpmnElement="Flow_1ulleny">
@@ -277,8 +318,8 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
         <di:waypoint x="1202" y="610" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0k6jz54_di" bpmnElement="Flow_0k6jz54">
-        <di:waypoint x="1039" y="668" />
-        <di:waypoint x="1039" y="730" />
+        <di:waypoint x="1070" y="668" />
+        <di:waypoint x="1070" y="730" />
         <di:waypoint x="1562" y="730" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0pq2fe1_di" bpmnElement="Participant_0kgb4l4" isHorizontal="true">
@@ -296,13 +337,13 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
         <di:waypoint x="958" y="498" />
         <di:waypoint x="1029" y="570" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_1obybrx_di" bpmnElement="DataOutputAssociation_1obybrx">
-        <di:waypoint x="1103" y="570" />
-        <di:waypoint x="1162" y="502" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0cbwr4o_di" bpmnElement="DataInputAssociation_0cbwr4o">
         <di:waypoint x="1196" y="505" />
         <di:waypoint x="1238" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0k4sdpe_di" bpmnElement="DataOutputAssociation_0k4sdpe">
+        <di:waypoint x="784" y="680" />
+        <di:waypoint x="922" y="501" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0yqd0mj_di" bpmnElement="Flow_0yqd0mj">
         <di:waypoint x="450" y="850" />

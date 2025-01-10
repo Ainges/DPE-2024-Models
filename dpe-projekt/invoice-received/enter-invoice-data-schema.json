@@ -5,35 +5,43 @@
     "invoiceDate": {
       "type": "string",
       "format": "date-time",
-      "description": "The date of the invoice"
+      "description": "The date of the invoice",
+      "default": "01.01.2025"
     },
     "invoiceAmount": {
       "type": "number",
-      "description": "The amount of the invoice"
+      "description": "The amount of the invoice",
+      "default": "100"
     },
     "description": {
       "type": "string",
-      "description": "The description of the invoice"
+      "description": "The description of the invoice",
+      "default":"Invoice for xyz"
     },
     "receiver": {
       "type": "string",
-      "description": "The receiver of the invoice"
+      "description": "The receiver of the invoice",
+      "default": "John Doe"
     },
     "receiverIban": {
       "type": "string",
-      "description": "The IBAN of the receiver"
+      "description": "The IBAN of the receiver",
+      "default": "DE75512108001245126199"
     },
     "receiverBic": {
       "type": "string",
-      "description": "The BIC of the receiver"
+      "description": "The BIC of the receiver",
+      "default":"COBADEFFXXX"
     },
     "invoiceCategoryId": {
       "type": "integer",
-      "description": "The unique identifier for an invoice category"
+      "description": "The unique identifier for an invoice category",
+      "default":"1"
     },
     "housingObjectId": {
       "type": "integer",
-      "description": "The unique identifier for a housing object"
+      "description": "The unique identifier for a housing object",
+      "default": "1"
     },
     "required": [
       "invoiceDate",
