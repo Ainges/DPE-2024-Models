@@ -9,8 +9,13 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1wtwg6x" associationDirection="None" sourceRef="Activity_1f7mgof" targetRef="TextAnnotation_12lhk0b" />
     <bpmn:textAnnotation id="TextAnnotation_061e1py">
-      <bpmn:text>Reciever, Subject, Amount,
-InvoiceID</bpmn:text>
+      <bpmn:text>"receiver": "string",
+ "receiverIban": "string",
+ "invoiceAmount": 0,
+ "description": "string",
+ "country": "string",
+ "currency": "string",
+ "bic": "string"</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="objPaymentDetails" targetRef="TextAnnotation_061e1py" />
     <bpmn:correlationKey id="CorrelationKey_1mvxdee" name="MainCorrelationKey" />
@@ -37,6 +42,9 @@ InvoiceID</bpmn:text>
           <spiffworkflow:property name="formJsonSchemaFilename" value="confirm-payment-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="confirm-payment-uischema.json" />
         </spiffworkflow:properties>
+        <spiffworkflow:postScript>objPaymentConfirmation={
+    "payment_confirmation": payment_confirmation
+}</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1dmu8y8</bpmn:incoming>
       <bpmn:outgoing>Flow_177uhvu</bpmn:outgoing>
@@ -65,7 +73,7 @@ InvoiceID</bpmn:text>
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="qrCode">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/qrCodePayment/generate&#34;" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/qr-code-generator&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="data" type="any" value="objPaymentDetails" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -154,20 +162,20 @@ InvoiceID</bpmn:text>
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_12lhk0b_di" bpmnElement="TextAnnotation_12lhk0b">
-        <dc:Bounds x="-240" y="-110" width="100" height="55" />
+        <dc:Bounds x="-250" y="110" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_061e1py_di" bpmnElement="TextAnnotation_061e1py">
-        <dc:Bounds x="-330" y="-170" width="100" height="70" />
+        <dc:Bounds x="-340" y="-180" width="229.99136556854413" height="119.98538788522849" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
-        <di:waypoint x="-252" y="-30" />
-        <di:waypoint x="-228" y="-55" />
+        <di:waypoint x="-266" y="50" />
+        <di:waypoint x="-229" y="110" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1u4740c_di" bpmnElement="Association_1u4740c">
-        <di:waypoint x="-382" y="-119" />
-        <di:waypoint x="-330" y="-137" />
+        <di:waypoint x="-382" y="-121" />
+        <di:waypoint x="-340" y="-141" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0eveo5a_di" bpmnElement="Flow_0eveo5a">
         <di:waypoint x="70" y="250" />

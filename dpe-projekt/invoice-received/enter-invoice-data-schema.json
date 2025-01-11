@@ -43,16 +43,21 @@
       "description": "The unique identifier for a housing object",
       "default": "1"
     },
+    "currency": {
+      "type": "string",
+      "description": "The currency in ISO4217 Notation",
+      "default": "EUR"
+    },
     "required": [
       "invoiceDate",
       "invoiceAmount",
       "description",
-      "status",
       "receiver",
       "receiverIban",
       "receiverBic",
       "invoiceCategoryId",
-      "housingObjectId"
+      "housingObjectId",
+      "currency"
     ]
   }
 }
