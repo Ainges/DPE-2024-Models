@@ -73,6 +73,10 @@
                 "type": "object"
             }
         },
+        "monitor-and-manage-monthly-rent": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "monitor-monthly-rent": {
             "correlation_properties": {},
             "schema": {}
@@ -94,6 +98,10 @@
             "schema": {}
         },
         "tenant-objection": {
+            "correlation_properties": {},
+            "schema": {}
+        },
+        "termination-of-rental-contract_object": {
             "correlation_properties": {},
             "schema": {}
         },
