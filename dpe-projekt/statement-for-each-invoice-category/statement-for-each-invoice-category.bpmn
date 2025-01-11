@@ -2,13 +2,9 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0j8vjry">
     <bpmn:participant id="Participant_0qogfp4" name="Statement Entry for Eeach" processRef="Process_statement_for_each_invoice_category_brzdcir" />
-    <bpmn:textAnnotation id="TextAnnotation_00sy2fa">
-      <bpmn:text>Anzahl Wohnungen, Fläache, Personen</bpmn:text>
-    </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1nrox9a">
       <bpmn:text>Creates all statement entries per category per housing object:</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1q33vjj" associationDirection="None" sourceRef="TextAnnotation_00sy2fa" targetRef="Activity_1uqkbi9" />
   </bpmn:collaboration>
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
@@ -48,24 +44,28 @@
             <spiffworkflow:parameter id="attempts" type="int" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:postScript>objSumofInvoiceCategory = ResponseSumOfInvoiceCategory</spiffworkflow:postScript>
+        <spiffworkflow:postScript>objSumofInvoiceCategory = ResponseSumOfInvoiceCategory["body"]</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1plx322</bpmn:incoming>
-      <bpmn:outgoing>Flow_1gq8nvv</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0aq6950</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1w0zio9">
         <bpmn:targetRef>DataObjectReference_17i1thr</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:dataObjectReference id="DataObjectReference_17i1thr" name="Sum of Invoice Category" dataObjectRef="objSumofInvoiceCategory" />
-    <bpmn:dataObject id="objSumofInvoiceCategory" name="Sum of Invoice Category" isCollection="true" />
+    <bpmn:dataObject id="objSumofInvoiceCategory" name="Sum of Invoice Category" />
     <bpmn:userTask id="Activity_1uqkbi9" name="Select distribution key">
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="distribution-keys-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="distribution-keys-uischema.json" />
         </spiffworkflow:properties>
+        <spiffworkflow:instructionsForEndUser>
+This is the Sum of your Invoice Category&lt;br&gt;
+{{ objSumofInvoiceCategory ['1'] }} Euro </spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
-      <bpmn:outgoing>Flow_07cyprg</bpmn:outgoing>
+      <bpmn:incoming>Flow_0aq6950</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m3wqkh</bpmn:outgoing>
       <bpmn:property id="Property_0zizci1" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_1gk8e0r">
         <bpmn:sourceRef>DataObjectReference_17i1thr</bpmn:sourceRef>
@@ -75,48 +75,101 @@
     <bpmn:sequenceFlow id="Flow_0n8y2b0" sourceRef="Activity_1xwfml1" targetRef="Gateway_18rpa0v" />
     <bpmn:dataObjectReference id="DataObjectReference_1300f2u" dataObjectRef="objStatementEntry" />
     <bpmn:dataObjectReference id="z" dataObjectRef="objSumofInvoiceCategory" />
-    <bpmn:sequenceFlow id="Flow_07cyprg" sourceRef="Activity_1uqkbi9" targetRef="Gateway_1kd1jkd" />
-    <bpmn:serviceTask id="Activity_1xwfml1" name="Create Statement Entries for invoice Category">
-      <bpmn:incoming>Flow_18ocq9k</bpmn:incoming>
-      <bpmn:outgoing>Flow_0n8y2b0</bpmn:outgoing>
-      <bpmn:property id="Property_076t5z6" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_1dvsijv">
-        <bpmn:sourceRef>DataObjectReference_17i1thr</bpmn:sourceRef>
-        <bpmn:targetRef>Property_076t5z6</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0b78qo4">
-      <bpmn:incoming>Flow_03bbixn</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:exclusiveGateway id="Gateway_1kd1jkd" name="Mid year tenant change?">
-      <bpmn:incoming>Flow_07cyprg</bpmn:incoming>
-      <bpmn:outgoing>Flow_18ocq9k</bpmn:outgoing>
+    <bpmn:exclusiveGateway id="Gateway_1kd1jkd" name="Mid year tenant change?" default="Flow_0v01pmo">
+      <bpmn:incoming>Flow_0m3wqkh</bpmn:incoming>
       <bpmn:outgoing>Flow_0ij9myi</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0v01pmo</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_18ocq9k" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_1xwfml1" />
-    <bpmn:sequenceFlow id="Flow_0ij9myi" name="Yes" sourceRef="Gateway_1kd1jkd" targetRef="Activity_0m6oo42" />
-    <bpmn:serviceTask id="Activity_0m6oo42" name="Create Statement Entries for invoice Category for mid year tenant change">
-      <bpmn:incoming>Flow_0ij9myi</bpmn:incoming>
-      <bpmn:outgoing>Flow_0staayp</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ij9myi" name="Yes" sourceRef="Gateway_1kd1jkd" targetRef="Activity_0m6oo42">
+      <bpmn:conditionExpression>objRentalAgreements[0]["tenant_change"] == True</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0staayp" sourceRef="Activity_0m6oo42" targetRef="Gateway_18rpa0v" />
+    <bpmn:sequenceFlow id="Flow_03bbixn" sourceRef="Gateway_18rpa0v" targetRef="Event_0b78qo4" />
+    <bpmn:sequenceFlow id="Flow_1plx322" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
+    <bpmn:sequenceFlow id="Flow_0aq6950" sourceRef="Activity_1possjg" targetRef="Activity_1uqkbi9" />
+    <bpmn:sequenceFlow id="Flow_0m3wqkh" sourceRef="Activity_1uqkbi9" targetRef="Gateway_1kd1jkd" />
+    <bpmn:dataObject id="objCreateStatementEntry" name="Statement Entry Data" />
+    <bpmn:dataObjectReference id="DataObjectReference_0r86hjy" dataObjectRef="objCreateStatementEntry" />
+    <bpmn:dataObjectReference id="DataObjectReference_1xkz8fo" name="Statement Entry Data" dataObjectRef="objCreateStatementEntry" />
     <bpmn:exclusiveGateway id="Gateway_18rpa0v">
       <bpmn:incoming>Flow_0staayp</bpmn:incoming>
       <bpmn:incoming>Flow_0n8y2b0</bpmn:incoming>
       <bpmn:outgoing>Flow_03bbixn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_03bbixn" sourceRef="Gateway_18rpa0v" targetRef="Event_0b78qo4" />
-    <bpmn:sequenceFlow id="Flow_1plx322" sourceRef="Event_143vwhb" targetRef="Activity_1possjg" />
-    <bpmn:endEvent id="Event_007fftn">
-      <bpmn:incoming>Flow_1gq8nvv</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_0v01pmo" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_13r69gv" />
+    <bpmn:sequenceFlow id="Flow_0ji8zny" sourceRef="Activity_13r69gv" targetRef="Activity_1xwfml1" />
+    <bpmn:scriptTask id="Activity_13r69gv" name="Extract Data for Statement Entry">
+      <bpmn:extensionElements>
+        <spiffworkflow:preScript />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0v01pmo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ji8zny</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0fv328c">
+        <bpmn:targetRef>DataObjectReference_1xkz8fo</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:script>taskData = {
+    "distributionKey":distributionKeys,  # Zugriff auf "distributionKeys"
+    "invoiceCategoryName":objInvoiceCategory["name"], # Korrekt auf "objInvoiceCategory" zugreifen
+    "invoiceCategorySum": ResponseSumOfInvoiceCategory["body"]["1"],  # Wert aus objSumofInvoiceCategory
+    "annualStatementPeriod": varYear,  # Zugriff auf "varYear"
+    "housingObject": objRentalAgreements[0]["apartment"]["housingObject"],  # Wert aus objHRentalAgreements
+    "rentalAgreements": objRentalAgreements  # Vorhandene Liste direkt zuweisen
+}
+objCreateStatementEntry=taskData
+# Entferne tenant_change aus jedem Dictionary in der Liste rentalAgreements
+for agreement in objCreateStatementEntry["rentalAgreements"]:
+    agreement.pop("tenant_change", None)  # Entfernt tenant_change, falls es existiert</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="Activity_1xwfml1" name="Create Statement Entries for invoice Category">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="Response">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/create-statement-entries-service/no-tenant-change&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="objCreateStatementEntry" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+        <spiffworkflow:postScript />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ji8zny</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n8y2b0</bpmn:outgoing>
+      <bpmn:property id="Property_071rzgs" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_03ihyt9">
+        <bpmn:sourceRef>DataObjectReference_1xkz8fo</bpmn:sourceRef>
+        <bpmn:targetRef>Property_071rzgs</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0m6oo42" name="Create Statement Entries for invoice Category for mid year tenant change">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="ResponseStatementEntryCreationTenantChange">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/create-statement-entries-service/tenant-change&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="objCreateStatementEntry" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ij9myi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0staayp</bpmn:outgoing>
+      <bpmn:property id="Property_17rfx98" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_001pt16">
+        <bpmn:sourceRef>DataObjectReference_1xkz8fo</bpmn:sourceRef>
+        <bpmn:targetRef>Property_17rfx98</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0b78qo4">
+      <bpmn:incoming>Flow_03bbixn</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1gq8nvv" sourceRef="Activity_1possjg" targetRef="Event_007fftn" />
     <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
       <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
-        <dc:Bounds x="-50" y="-15" width="980" height="435" />
+        <dc:Bounds x="-50" y="-78" width="1120" height="498" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
@@ -136,107 +189,113 @@
         <dc:Bounds x="260" y="150" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1fugoeo_di" bpmnElement="Activity_1xwfml1">
-        <dc:Bounds x="550" y="150" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0b78qo4_di" bpmnElement="Event_0b78qo4">
-        <dc:Bounds x="842" y="172" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1kd1jkd_di" bpmnElement="Gateway_1kd1jkd" isMarkerVisible="true">
         <dc:Bounds x="425" y="165" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="412" y="135" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vwvqo7_di" bpmnElement="Activity_0m6oo42">
-        <dc:Bounds x="550" y="280" width="100" height="80" />
+      <bpmndi:BPMNShape id="DataObjectReference_1xkz8fo_di" bpmnElement="DataObjectReference_1xkz8fo">
+        <dc:Bounds x="852" y="25" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="830" y="82" width="80" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
-        <dc:Bounds x="765" y="295" width="50" height="50" />
+        <dc:Bounds x="905" y="295" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_007fftn_di" bpmnElement="Event_007fftn">
-        <dc:Bounds x="132" y="272" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_163np7j_di" bpmnElement="Activity_13r69gv">
+        <dc:Bounds x="560" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fugoeo_di" bpmnElement="Activity_1xwfml1">
+        <dc:Bounds x="740" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vwvqo7_di" bpmnElement="Activity_0m6oo42">
+        <dc:Bounds x="740" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0b78qo4_di" bpmnElement="Event_0b78qo4">
+        <dc:Bounds x="1012" y="302" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
-        <dc:Bounds x="2" y="5" width="36" height="50" />
+        <dc:Bounds x="12" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-19" y="62" width="83" height="14" />
+          <dc:Bounds x="-9" y="2" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433916-1DI" bpmnElement="objRentalAgreements">
-        <dc:Bounds x="102" y="5" width="36" height="50" />
+        <dc:Bounds x="112" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="78" y="62" width="89" height="14" />
+          <dc:Bounds x="103" y="2" width="59" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433917-1DI" bpmnElement="objInvoices">
-        <dc:Bounds x="172" y="5" width="36" height="50" />
+        <dc:Bounds x="232" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="175" y="62" width="36" height="14" />
+          <dc:Bounds x="233" y="2" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433918-1DI" bpmnElement="varYear">
-        <dc:Bounds x="422" y="-5" width="36" height="50" />
+        <dc:Bounds x="332" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="412" y="52" width="63" height="14" />
+          <dc:Bounds x="342" y="2" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataOutput-349703859-1DI" bpmnElement="objStatementEntry">
-        <dc:Bounds x="852" y="5" width="36" height="50" />
+        <dc:Bounds x="992" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="836" y="62" width="80" height="14" />
+          <dc:Bounds x="976" y="2" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0n8y2b0_di" bpmnElement="Flow_0n8y2b0">
-        <di:waypoint x="650" y="190" />
-        <di:waypoint x="790" y="190" />
-        <di:waypoint x="790" y="295" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07cyprg_di" bpmnElement="Flow_07cyprg">
-        <di:waypoint x="360" y="190" />
-        <di:waypoint x="425" y="190" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18ocq9k_di" bpmnElement="Flow_18ocq9k">
-        <di:waypoint x="475" y="190" />
-        <di:waypoint x="550" y="190" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="505" y="172" width="15" height="14" />
-        </bpmndi:BPMNLabel>
+        <di:waypoint x="840" y="190" />
+        <di:waypoint x="930" y="190" />
+        <di:waypoint x="930" y="295" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ij9myi_di" bpmnElement="Flow_0ij9myi">
         <di:waypoint x="450" y="215" />
         <di:waypoint x="450" y="320" />
-        <di:waypoint x="550" y="320" />
+        <di:waypoint x="740" y="320" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="456" y="265" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0staayp_di" bpmnElement="Flow_0staayp">
-        <di:waypoint x="650" y="320" />
-        <di:waypoint x="765" y="320" />
+        <di:waypoint x="840" y="320" />
+        <di:waypoint x="905" y="320" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_03bbixn_di" bpmnElement="Flow_03bbixn">
-        <di:waypoint x="815" y="320" />
-        <di:waypoint x="860" y="320" />
-        <di:waypoint x="860" y="208" />
+        <di:waypoint x="955" y="320" />
+        <di:waypoint x="1012" y="320" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1plx322_di" bpmnElement="Flow_1plx322">
         <di:waypoint x="48" y="190" />
         <di:waypoint x="100" y="190" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1gq8nvv_di" bpmnElement="Flow_1gq8nvv">
-        <di:waypoint x="150" y="230" />
-        <di:waypoint x="150" y="272" />
+      <bpmndi:BPMNEdge id="Flow_0aq6950_di" bpmnElement="Flow_0aq6950">
+        <di:waypoint x="200" y="190" />
+        <di:waypoint x="260" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m3wqkh_di" bpmnElement="Flow_0m3wqkh">
+        <di:waypoint x="360" y="190" />
+        <di:waypoint x="425" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v01pmo_di" bpmnElement="Flow_0v01pmo">
+        <di:waypoint x="475" y="190" />
+        <di:waypoint x="560" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="540" y="163" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ji8zny_di" bpmnElement="Flow_0ji8zny">
+        <di:waypoint x="660" y="190" />
+        <di:waypoint x="740" y="190" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
-        <di:waypoint x="577" y="150" />
-        <di:waypoint x="565" y="124" />
+        <di:waypoint x="740" y="170" />
+        <di:waypoint x="610" y="113" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_00sy2fa_di" bpmnElement="TextAnnotation_00sy2fa">
-        <dc:Bounds x="320" y="40" width="100" height="70" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
         <dc:Bounds x="510" y="40" width="100.0000064179975" height="84.12197686645635" />
         <bpmndi:BPMNLabel />
@@ -249,13 +308,17 @@
         <di:waypoint x="274" y="95" />
         <di:waypoint x="304" y="150" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_1dvsijv_di" bpmnElement="DataInputAssociation_1dvsijv">
-        <di:waypoint x="278" y="75" />
-        <di:waypoint x="551" y="156" />
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0fv328c_di" bpmnElement="DataOutputAssociation_0fv328c">
+        <di:waypoint x="660" y="162" />
+        <di:waypoint x="852" y="56" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1q33vjj_di" bpmnElement="Association_1q33vjj">
-        <di:waypoint x="345" y="110" />
-        <di:waypoint x="317" y="150" />
+      <bpmndi:BPMNEdge id="DataInputAssociation_03ihyt9_di" bpmnElement="DataInputAssociation_03ihyt9">
+        <di:waypoint x="856" y="75" />
+        <di:waypoint x="812" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_001pt16_di" bpmnElement="DataInputAssociation_001pt16">
+        <di:waypoint x="863" y="75" />
+        <di:waypoint x="810" y="280" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
