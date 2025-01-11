@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_19e8t09">
     <bpmn:participant id="Participant_15j1i9r" name="Tenant Lifesycle" processRef="Process_tenant_lifesycle_wg1vm62" />
     <bpmn:participant id="Participant_01dek9g" name="Landlord" />
@@ -22,9 +22,11 @@
       <bpmn:outgoing>Flow_1c7proh</bpmn:outgoing>
     </bpmn:receiveTask>
     <bpmn:sequenceFlow id="Flow_1c7proh" sourceRef="Activity_0irf9g2" targetRef="Event_0tlkfgj" />
-    <bpmn:boundaryEvent id="Event_0mofmzj" name="Monthly Rent between 28th-3rd of the months" cancelActivity="false" attachedToRef="Activity_0irf9g2">
+    <bpmn:boundaryEvent id="Event_0mofmzj" name="First day of Month" cancelActivity="false" attachedToRef="Activity_0irf9g2">
       <bpmn:outgoing>Flow_06ytex8</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_0aunirt" />
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0aunirt">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P30D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:endEvent id="Event_0tlkfgj" name="Rental contract terminated">
       <bpmn:incoming>Flow_1c7proh</bpmn:incoming>
@@ -34,7 +36,6 @@
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_06ytex8</bpmn:incoming>
       <bpmn:outgoing>Flow_0c515hs</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
     </bpmn:sendTask>
     <bpmn:endEvent id="Event_0sa1lfs" name="Monthly Rent Payment Monitoring Process started">
       <bpmn:incoming>Flow_0c515hs</bpmn:incoming>
@@ -81,7 +82,7 @@
       <bpmndi:BPMNShape id="Event_0ilcxkd_di" bpmnElement="Event_0mofmzj">
         <dc:Bounds x="172" y="-18" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="219" y="0" width="86" height="40" />
+          <dc:Bounds x="218" y="0" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0s7gpe4_di" bpmnElement="Flow_0s7gpe4">
