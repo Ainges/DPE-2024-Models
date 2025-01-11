@@ -20,9 +20,8 @@
     <bpmn:correlationKey id="CorrelationKey_1vpzayl" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
-    <bpmn:sequenceFlow id="Flow_1ygv9au" sourceRef="Event_16up0z3" targetRef="Activity_07psk58" />
     <bpmn:startEvent id="Event_16up0z3" name="Housing Object acquired">
-      <bpmn:outgoing>Flow_1ygv9au</bpmn:outgoing>
+      <bpmn:outgoing>Flow_070ui7i</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_13xg07y" sourceRef="Activity_07psk58" targetRef="Activity_15f5iod" />
     <bpmn:dataObject id="objHousingObject" name="Housing Object" />
@@ -68,7 +67,9 @@
       <bpmn:outgoing>Flow_1tycrh2</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:sendTask id="Activity_0qzjcs8" name="Send Delayed Annual Statement Reminder" messageRef="DelayedAnnualStatementReminder">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>objHousingObject</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_04atias</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
     </bpmn:sendTask>
@@ -133,7 +134,7 @@
           <spiffworkflow:property name="formUiSchemaFilename" value="capture-housing-object-uischema.json" />
         </spiffworkflow:properties>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1ygv9au</bpmn:incoming>
+      <bpmn:incoming>Flow_070ui7i</bpmn:incoming>
       <bpmn:outgoing>Flow_13xg07y</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0suiahn">
         <bpmn:targetRef>DataObjectReference_0anl30x</bpmn:targetRef>
@@ -161,6 +162,7 @@
         <bpmn:targetRef>Property_1fueylv</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_070ui7i" sourceRef="Event_16up0z3" targetRef="Activity_07psk58" />
     <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
@@ -176,7 +178,7 @@
       <bpmndi:BPMNShape id="Event_16up0z3_di" bpmnElement="Event_16up0z3">
         <dc:Bounds x="-18" y="342" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-37" y="385" width="77" height="27" />
+          <dc:Bounds x="-39" y="304.5" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0anl30x_di" bpmnElement="DataObjectReference_0anl30x">
@@ -283,10 +285,6 @@
           <dc:Bounds x="559" y="389" width="81" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1ygv9au_di" bpmnElement="Flow_1ygv9au">
-        <di:waypoint x="18" y="360" />
-        <di:waypoint x="70" y="360" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13xg07y_di" bpmnElement="Flow_13xg07y">
         <di:waypoint x="170" y="360" />
         <di:waypoint x="240" y="360" />
@@ -357,6 +355,10 @@
       <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
         <di:waypoint x="1607" y="348" />
         <di:waypoint x="1493" y="251" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_070ui7i_di" bpmnElement="Flow_070ui7i">
+        <di:waypoint x="18" y="360" />
+        <di:waypoint x="70" y="360" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0cmgtpw_di" bpmnElement="Participant_0jjp3ud" isHorizontal="true">
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />

@@ -127,12 +127,12 @@
           <dc:Bounds x="248" y="0" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_13ivezc_di" bpmnElement="Association_13ivezc">
+        <di:waypoint x="-105" y="-79" />
+        <di:waypoint x="-90" y="-92" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_17h9umu_di" bpmnElement="TextAnnotation_17h9umu">
         <dc:Bounds x="-50" y="20" width="160" height="70" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0apiswm_di" bpmnElement="TextAnnotation_0apiswm">
-        <dc:Bounds x="130" y="-250" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0eazluj_di" bpmnElement="DataOutputAssociation_0eazluj">
@@ -149,10 +149,10 @@
         <di:waypoint x="-100" y="-12" />
         <di:waypoint x="-41" y="20" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_13ivezc_di" bpmnElement="Association_13ivezc">
-        <di:waypoint x="-100" y="-70" />
-        <di:waypoint x="130" y="-205" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0apiswm_di" bpmnElement="TextAnnotation_0apiswm">
+        <dc:Bounds x="-90" y="-150" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
