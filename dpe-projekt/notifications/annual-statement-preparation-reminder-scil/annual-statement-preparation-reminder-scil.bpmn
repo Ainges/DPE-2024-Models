@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1ab9a89">
     <bpmn:participant id="Participant_09d9pjx" name="Annual Statement preparation Reminder SCIL Process" processRef="Process_annual_statement_preparation_reminder_scil_h1vjf06" />
     <bpmn:correlationKey id="CorrelationKey_0igydty" name="MainCorrelationKey" />
@@ -7,32 +7,45 @@
   <bpmn:process id="Process_annual_statement_preparation_reminder_scil_h1vjf06" isExecutable="true">
     <bpmn:sequenceFlow id="Flow_1u3sxzn" sourceRef="Event_1llyl7q" targetRef="Activity_0q4er2z" />
     <bpmn:serviceTask id="Activity_0q4er2z" name="Send Annual Statement preparation reminder">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8161/api/message/notification?type=queue&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;, &#34;Authorization&#34;:&#34;Basic YWRtaW46YWRtaW4=&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="payload" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+        <spiffworkflow:preScript>payload={"mailType":"AnnualStatementpreperationReminder",
+"data":data
+}</spiffworkflow:preScript>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1u3sxzn</bpmn:incoming>
       <bpmn:outgoing>Flow_1k7sedg</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0rfoxbo">
-      <bpmn:incoming>Flow_1k7sedg</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1k7sedg" sourceRef="Activity_0q4er2z" targetRef="Event_0rfoxbo" />
     <bpmn:startEvent id="Event_1llyl7q" name="Annual Statement perparation reminder received">
       <bpmn:outgoing>Flow_1u3sxzn</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0wusde3" messageRef="AnnualStatementPreperationReminder">
-        <bpmn:extensionElements />
+        <bpmn:extensionElements>
+          <spiffworkflow:messageVariable>data</spiffworkflow:messageVariable>
+        </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0rfoxbo">
+      <bpmn:incoming>Flow_1k7sedg</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="AnnualStatementPreperationReminder" name="AnnualStatementPreperationReminder" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1ab9a89">
       <bpmndi:BPMNShape id="Participant_09d9pjx_di" bpmnElement="Participant_09d9pjx" isHorizontal="true">
-        <dc:Bounds x="-10" y="30" width="600" height="250" />
+        <dc:Bounds x="-10" y="30" width="400" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ter09y_di" bpmnElement="Activity_0q4er2z">
         <dc:Bounds x="160" y="120" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0rfoxbo_di" bpmnElement="Event_0rfoxbo">
-        <dc:Bounds x="442" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0pk5kb8_di" bpmnElement="Event_1llyl7q">
         <dc:Bounds x="72" y="142" width="36" height="36" />
@@ -40,13 +53,16 @@
           <dc:Bounds x="46" y="185" width="89" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rfoxbo_di" bpmnElement="Event_0rfoxbo">
+        <dc:Bounds x="302" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1u3sxzn_di" bpmnElement="Flow_1u3sxzn">
         <di:waypoint x="108" y="160" />
         <di:waypoint x="160" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1k7sedg_di" bpmnElement="Flow_1k7sedg">
         <di:waypoint x="260" y="160" />
-        <di:waypoint x="442" y="160" />
+        <di:waypoint x="302" y="160" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -48,7 +48,7 @@ You can also change the text you are reading here by updating the *Instructions*
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0dqusra">
       <bpmndi:BPMNShape id="Participant_0oc5dx7_di" bpmnElement="Participant_0oc5dx7" isHorizontal="true">
-        <dc:Bounds x="90" y="90" width="600" height="250" />
+        <dc:Bounds x="90" y="90" width="400" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">

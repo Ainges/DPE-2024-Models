@@ -8,7 +8,7 @@
     </bpmn:participant>
     <bpmn:messageFlow id="Flow_1709fte" name="Annual Statement" sourceRef="Activity_1v5ox0t" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_041juhp" name="Annual Statement and Payment information" sourceRef="Activity_1lb879v" targetRef="Participant_09b49h8" />
-    <bpmn:messageFlow id="Flow_1g156j7" name="Payment information request" sourceRef="Activity_0bs29ut" targetRef="Participant_09b49h8" />
+    <bpmn:messageFlow id="Flow_1g156j7" sourceRef="Activity_0bs29ut" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_1thop6c" name="Start Tenant Objection Monitoring process" sourceRef="Event_0epx8pl" targetRef="Participant_19plp0k" />
     <bpmn:textAnnotation id="TextAnnotation_1wehy32">
       <bpmn:text>Nicht die Entität sondern das PDF!</bpmn:text>
@@ -86,7 +86,9 @@
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
     <bpmn:sendTask id="Activity_1lb879v" name="Send Annual Statement with payment information" messageRef="ASwPI">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>objAnnualStatement</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0jd7flz</bpmn:incoming>
       <bpmn:outgoing>Flow_0ouhx9e</bpmn:outgoing>
       <bpmn:property id="Property_0d55vhq" name="__targetRef_placeholder" />
@@ -96,7 +98,9 @@
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
     <bpmn:sendTask id="Activity_0bs29ut" name="Send annual Statement with payment information request" messageRef="ASwPIR">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>objAnnualStatement</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0953n6s</bpmn:incoming>
       <bpmn:outgoing>Flow_18wb55g</bpmn:outgoing>
       <bpmn:property id="Property_0tziwbx" name="__targetRef_placeholder" />
@@ -105,12 +109,14 @@
         <bpmn:targetRef>Property_0tziwbx</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
-    <bpmn:callActivity id="Activity_1i43hk8" name="Payment Received" calledElement="Process_1je984j">
+    <bpmn:callActivity id="Activity_1i43hk8" name="Received Payment" calledElement="Process_1je984j">
       <bpmn:incoming>Flow_0ouhx9e</bpmn:incoming>
       <bpmn:outgoing>Flow_0mgkdhc</bpmn:outgoing>
     </bpmn:callActivity>
     <bpmn:sendTask id="Activity_1v5ox0t" name="Send Annual Statements" messageRef="AS">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>objAnnualStatement</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1orw3ez</bpmn:incoming>
       <bpmn:outgoing>Flow_0fa9ocq</bpmn:outgoing>
       <bpmn:property id="Property_16c845t" name="__targetRef_placeholder" />
@@ -434,7 +440,7 @@
         <di:waypoint x="1430" y="130" />
         <di:waypoint x="1430" y="-270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1418" y="-73" width="55" height="40" />
+          <dc:Bounds x="1442" y="-130" width="55" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1thop6c_di" bpmnElement="Flow_1thop6c">

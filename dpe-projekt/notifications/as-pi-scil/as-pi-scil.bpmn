@@ -19,6 +19,18 @@
  * **Service Task** - communicate with an external API to fetch or update some data.
 
 You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:preScript>payload={"mailType":"annualStatementPaymentInformation",
+"data":data
+}</spiffworkflow:preScript>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8161/api/message/notification?type=queue&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;, &#34;Authorization&#34;:&#34;Basic YWRtaW46YWRtaW4=&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="payload" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
       <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
@@ -26,7 +38,9 @@ You can also change the text you are reading here by updating the *Instructions*
     <bpmn:startEvent id="StartEvent_1" name="Annual Statement with payment information received">
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0csepiw" messageRef="ASwPI">
-        <bpmn:extensionElements />
+        <bpmn:extensionElements>
+          <spiffworkflow:messageVariable>data</spiffworkflow:messageVariable>
+        </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
   </bpmn:process>
