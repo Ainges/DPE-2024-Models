@@ -93,14 +93,14 @@
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_0x66my7" name="Save invoice data">
       <bpmn:extensionElements>
-        <spiffworkflow:postScript>#objPaymentDetails = {
-#    "amount": objInvoice["invoiceAmount"],
-#    "description": objInvoice["description"],
-#    "receiver": objInvoice["receiver"],
-#    "receiverIban": objInvoice["receiverIban"],
-#    "receiverBic": objInvoice["receiverBic"],
-#    "invoiceId": response["body"]["invoiceId"]
-#    }</spiffworkflow:postScript>
+        <spiffworkflow:postScript>objPaymentDetails = {
+    "amount": createInvoiceDto["invoiceAmount"],
+    "description": createInvoiceDto["description"],
+    "receiver": createInvoiceDto["receiver"],
+    "receiverIban": createInvoiceDto["receiverIban"],
+    "receiverBic": createInvoiceDto["receiverBic"],
+    "invoiceId": response["body"]["invoiceId"]
+    }</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="response">
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices&#34;" />
@@ -133,6 +133,9 @@ createInvoiceDto = {
         <bpmn:sourceRef>DataObjectReference_0gs9m8z</bpmn:sourceRef>
         <bpmn:targetRef>Property_0rcfviy</bpmn:targetRef>
       </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_09f3vtf">
+        <bpmn:targetRef>DataObjectReference_1es9ett</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:callActivity id="Activity_12msmpv" name="Send Payment" calledElement="Process_1je984j">
       <bpmn:extensionElements>
@@ -352,6 +355,10 @@ objInvoice = {
       <bpmndi:BPMNEdge id="Flow_1llxou6_di" bpmnElement="Flow_1llxou6">
         <di:waypoint x="450" y="370" />
         <di:waypoint x="450" y="592" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_09f3vtf_di" bpmnElement="DataOutputAssociation_09f3vtf">
+        <di:waypoint x="1105" y="570" />
+        <di:waypoint x="1164" y="505" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
