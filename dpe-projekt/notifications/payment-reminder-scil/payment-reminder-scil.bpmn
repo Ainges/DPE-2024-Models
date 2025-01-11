@@ -19,6 +19,18 @@
  * **Service Task** - communicate with an external API to fetch or update some data.
 
 You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:preScript>payload={"mailType":"sendPaymentReminder",
+"data":data
+}</spiffworkflow:preScript>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8161/api/message/notification?type=queue&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;, &#34;Authorization&#34;:&#34;Basic YWRtaW46YWRtaW4=&#34;}" />
+            <spiffworkflow:parameter id="data" type="any" value="payload" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
       <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
@@ -26,7 +38,9 @@ You can also change the text you are reading here by updating the *Instructions*
     <bpmn:startEvent id="StartEvent_1" name="Payment Reminder received">
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0gutldh" messageRef="SendPaymentReminder">
-        <bpmn:extensionElements />
+        <bpmn:extensionElements>
+          <spiffworkflow:messageVariable>data</spiffworkflow:messageVariable>
+        </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
   </bpmn:process>
@@ -46,7 +60,7 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNShape id="Event_1tm135p_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="173" y="202" width="49" height="40" />
+          <dc:Bounds x="173" y="202" width="50" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">

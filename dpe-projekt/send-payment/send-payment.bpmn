@@ -70,7 +70,9 @@
       <bpmn:outgoing>Flow_177uhvu</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sendTask id="Activity_1ifg82r" name="Send Payment Reminder" messageRef="SendPaymentReminder">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>objPaymentDetails</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_15mjwi4</bpmn:incoming>
       <bpmn:outgoing>Flow_0qa7luo</bpmn:outgoing>
     </bpmn:sendTask>
@@ -124,18 +126,6 @@
           <dc:Bounds x="204" y="235" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objPaymentDetails">
-        <dc:Bounds x="-418" y="-145" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="-440" y="-89" width="81" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objPaymentConfirmation">
-        <dc:Bounds x="272" y="-165" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="262" y="-108" width="63" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0pvvfox_di" bpmnElement="Gateway_0pvvfox" isMarkerVisible="true">
         <dc:Bounds x="95" y="-15" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -156,10 +146,18 @@
       <bpmndi:BPMNShape id="Activity_1ivhych_di" bpmnElement="Activity_1f7mgof">
         <dc:Bounds x="-320" y="-30" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
-        <di:waypoint x="-252" y="50" />
-        <di:waypoint x="-225" y="110" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataInput-383219861-1DI" bpmnElement="objPaymentDetails">
+        <dc:Bounds x="-418" y="-145" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-440" y="-89" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objPaymentConfirmation">
+        <dc:Bounds x="272" y="-165" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="262" y="-108" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00g46dn_di" bpmnElement="Event_0z1l7pw">
         <dc:Bounds x="-38" y="32" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -207,6 +205,10 @@
           <dc:Bounds x="103" y="-37" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
+        <di:waypoint x="-252" y="50" />
+        <di:waypoint x="-225" y="110" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0x4d30s_di" bpmnElement="Participant_1e2gqm4" isHorizontal="true">
         <dc:Bounds x="-30" y="390" width="390" height="60" />
         <bpmndi:BPMNLabel />
@@ -216,7 +218,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_061e1py_di" bpmnElement="TextAnnotation_061e1py">
-        <dc:Bounds x="-340" y="-180" width="229.99136556854413" height="119.98538788522849" />
+        <dc:Bounds x="-340" y="-180" width="229.9890350877193" height="119.98144399460189" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1u4740c_di" bpmnElement="Association_1u4740c">
