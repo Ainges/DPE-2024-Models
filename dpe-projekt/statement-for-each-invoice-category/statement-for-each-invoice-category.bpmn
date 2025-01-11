@@ -146,6 +146,7 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         </spiffworkflow:serviceTaskOperator>
         <spiffworkflow:preScript># Entferne tenant_change aus jedem Dictionary in der Liste rentalAgreements
 </spiffworkflow:preScript>
+        <spiffworkflow:postScript>objStatementEntry = ResponseStatementEntryCreationTenantChange["body"]</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ij9myi</bpmn:incoming>
       <bpmn:outgoing>Flow_0staayp</bpmn:outgoing>
