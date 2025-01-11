@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1f8ymqx">
     <bpmn:participant id="Participant_1vyzkhg" name="Housing Object Lifecycle" processRef="Process_object_lifecycle_gv7yall" />
     <bpmn:participant id="Participant_0jjp3ud" name="Landlord" />
@@ -17,7 +17,7 @@
       <bpmn:text>Hier muss aber trotzdem die Jahresabrechnung gegenüber des Gesetztgebers gemacht werden</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1bgd0zd" associationDirection="None" sourceRef="Event_08svpnq" targetRef="TextAnnotation_11uf3gh" />
-    <bpmn:correlationKey id="CorrelationKey_1vpzayl" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1lix8cb" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
     <bpmn:startEvent id="Event_16up0z3" name="Housing Object acquired">
@@ -31,7 +31,6 @@
     <bpmn:sequenceFlow id="Flow_15cjvq0" sourceRef="Gateway_0llvysu" targetRef="Activity_0zcwtno" />
     <bpmn:sequenceFlow id="Flow_0p94gh0" sourceRef="Event_1uptr9d" targetRef="Activity_0c9uuou" />
     <bpmn:sequenceFlow id="Flow_1tycrh2" sourceRef="Activity_0c9uuou" targetRef="Event_1p9i0j3" />
-    <bpmn:sequenceFlow id="Flow_04atias" sourceRef="Event_08svpnq" targetRef="Activity_0qzjcs8" />
     <bpmn:sequenceFlow id="Flow_0zubdmh" sourceRef="Activity_0qzjcs8" targetRef="Event_1v5b3pe" />
     <bpmn:sequenceFlow id="Flow_0cznwe5" sourceRef="Gateway_0llvysu" targetRef="Activity_0pxb21n" />
     <bpmn:sequenceFlow id="Flow_168ubfo" sourceRef="Activity_0pxb21n" targetRef="Activity_0wpcx9k" />
@@ -44,7 +43,6 @@
       <bpmn:extensionElements>
         <spiffworkflow:messageVariable>end-of-accountability-for-the-object</spiffworkflow:messageVariable>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0t14a46</bpmn:incoming>
       <bpmn:outgoing>Flow_1rsjy39</bpmn:outgoing>
     </bpmn:receiveTask>
     <bpmn:parallelGateway id="Gateway_0llvysu">
@@ -70,8 +68,13 @@
       <bpmn:extensionElements>
         <spiffworkflow:messagePayload>objHousingObject</spiffworkflow:messagePayload>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_04atias</bpmn:incoming>
+      <bpmn:incoming>Flow_039ufy6</bpmn:incoming>
       <bpmn:outgoing>Flow_0zubdmh</bpmn:outgoing>
+      <bpmn:property id="Property_04b54w8" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1gznkny">
+        <bpmn:sourceRef>DataObjectReference_0anl30x</bpmn:sourceRef>
+        <bpmn:targetRef>Property_04b54w8</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
     </bpmn:sendTask>
     <bpmn:businessRuleTask id="Activity_0pxb21n" name="Get due cosmetic repairs">
       <bpmn:incoming>Flow_0cznwe5</bpmn:incoming>
@@ -112,17 +115,22 @@
     </bpmn:endEvent>
     <bpmn:boundaryEvent id="Event_0oppcdu" name="Every year on 1. January" cancelActivity="false" attachedToRef="Activity_1tkvx4m">
       <bpmn:outgoing>Flow_1b5csdy</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_0459r44" />
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0459r44">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P2s</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:boundaryEvent id="Event_08svpnq" name="12-month deadline for creation and sending  the annual statement" cancelActivity="false" attachedToRef="Activity_0zcwtno">
-      <bpmn:outgoing>Flow_04atias</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_05pytqx" />
+      <bpmn:outgoing>Flow_13cil6e</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_05pytqx">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P2S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:boundaryEvent id="Event_1uptr9d" name="Reminder: Prepare Annual Statement every 2 -month" cancelActivity="false" attachedToRef="Activity_0zcwtno">
       <bpmn:outgoing>Flow_0p94gh0</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_04wmaek" />
+      <bpmn:timerEventDefinition id="TimerEventDefinition_04wmaek">
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">P2S</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="Flow_0t14a46" sourceRef="Activity_15f5iod" targetRef="Activity_1tkvx4m" />
     <bpmn:sequenceFlow id="Flow_1h7ucyt" sourceRef="Activity_0zcwtno" targetRef="Event_0oy8sfh" />
     <bpmn:endEvent id="Event_0oy8sfh" name="Annual Statement completed">
       <bpmn:incoming>Flow_1h7ucyt</bpmn:incoming>
@@ -133,6 +141,14 @@
           <spiffworkflow:property name="formJsonSchemaFilename" value="capture-housing-object-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="capture-housing-object-uischema.json" />
         </spiffworkflow:properties>
+        <spiffworkflow:postScript>objHousingObject = {
+   "name": name,
+    "street": street,
+    "city": city,
+    "state": state,
+    "zipCode": zipCode,
+     "numberOfApartments": numberOfApartments
+}</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_070ui7i</bpmn:incoming>
       <bpmn:outgoing>Flow_13xg07y</bpmn:outgoing>
@@ -146,7 +162,7 @@
 #objHousingObject = {"housingObjectId":1}</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="housingObjectCreationResponse">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/housing-objects" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/housing-objects&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="data" type="any" value="objHousingObject" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -155,7 +171,7 @@
         </spiffworkflow:serviceTaskOperator>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_13xg07y</bpmn:incoming>
-      <bpmn:outgoing>Flow_0t14a46</bpmn:outgoing>
+      <bpmn:outgoing>Flow_039ufy6</bpmn:outgoing>
       <bpmn:property id="Property_1fueylv" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_01l347i">
         <bpmn:sourceRef>DataObjectReference_0anl30x</bpmn:sourceRef>
@@ -163,6 +179,11 @@
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_070ui7i" sourceRef="Event_16up0z3" targetRef="Activity_07psk58" />
+    <bpmn:sequenceFlow id="Flow_039ufy6" sourceRef="Activity_15f5iod" targetRef="Activity_0qzjcs8" />
+    <bpmn:sequenceFlow id="Flow_13cil6e" sourceRef="Event_08svpnq" targetRef="Event_0cdy9r6" />
+    <bpmn:endEvent id="Event_0cdy9r6">
+      <bpmn:incoming>Flow_13cil6e</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
@@ -267,6 +288,9 @@
       <bpmndi:BPMNShape id="Activity_1s3yn3t_di" bpmnElement="Activity_15f5iod">
         <dc:Bounds x="240" y="320" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cdy9r6_di" bpmnElement="Event_0cdy9r6">
+        <dc:Bounds x="1012" y="642" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1t8rd58_di" bpmnElement="Event_1uptr9d">
         <dc:Bounds x="792" y="582" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -312,11 +336,6 @@
         <di:waypoint x="1030" y="910" />
         <di:waypoint x="1602" y="910" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_04atias_di" bpmnElement="Flow_04atias">
-        <di:waypoint x="910" y="618" />
-        <di:waypoint x="910" y="700" />
-        <di:waypoint x="1230" y="700" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zubdmh_di" bpmnElement="Flow_0zubdmh">
         <di:waypoint x="1330" y="700" />
         <di:waypoint x="1602" y="700" />
@@ -344,21 +363,27 @@
         <di:waypoint x="1380" y="1210" />
         <di:waypoint x="1602" y="1210" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0t14a46_di" bpmnElement="Flow_0t14a46">
-        <di:waypoint x="340" y="360" />
-        <di:waypoint x="440" y="360" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1h7ucyt_di" bpmnElement="Flow_1h7ucyt">
         <di:waypoint x="910" y="560" />
         <di:waypoint x="1602" y="560" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
-        <di:waypoint x="1607" y="348" />
-        <di:waypoint x="1493" y="251" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_070ui7i_di" bpmnElement="Flow_070ui7i">
         <di:waypoint x="18" y="360" />
         <di:waypoint x="70" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_039ufy6_di" bpmnElement="Flow_039ufy6">
+        <di:waypoint x="290" y="400" />
+        <di:waypoint x="290" y="700" />
+        <di:waypoint x="1230" y="700" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13cil6e_di" bpmnElement="Flow_13cil6e">
+        <di:waypoint x="910" y="618" />
+        <di:waypoint x="910" y="660" />
+        <di:waypoint x="1012" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
+        <di:waypoint x="1607" y="348" />
+        <di:waypoint x="1493" y="251" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0cmgtpw_di" bpmnElement="Participant_0jjp3ud" isHorizontal="true">
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />
@@ -379,6 +404,10 @@
       <bpmndi:BPMNEdge id="DataInputAssociation_09n3rda_di" bpmnElement="DataInputAssociation_09n3rda">
         <di:waypoint x="208" y="239" />
         <di:waypoint x="810" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1gznkny_di" bpmnElement="DataInputAssociation_1gznkny">
+        <di:waypoint x="208" y="237" />
+        <di:waypoint x="1255" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0nlbk3d_di" bpmnElement="DataOutputAssociation_0nlbk3d">
         <di:waypoint x="943" y="1111" />

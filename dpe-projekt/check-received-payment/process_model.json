@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Check Received Payment",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "check-received-payment.bpmn",
+    "primary_process_id": "Process_check_received_payment_llxefjt"
+}

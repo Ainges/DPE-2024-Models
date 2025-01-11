@@ -4,5 +4,10 @@
     "data_store_specifications": {},
     "description": "",
     "display_name": "Notifications",
-    "messages": null
+    "messages": {
+        "external-invoice-received": {
+            "correlation_properties": {},
+            "schema": {}
+        }
+    }
 }
