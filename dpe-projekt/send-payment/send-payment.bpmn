@@ -13,10 +13,6 @@
 InvoiceID</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1u4740c" associationDirection="None" sourceRef="objPaymentDetails" targetRef="TextAnnotation_061e1py" />
-    <bpmn:textAnnotation id="TextAnnotation_19z87rh">
-      <bpmn:text>Nachricht so nicht richtig ist nur info für uns</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_1xazo7o" associationDirection="None" sourceRef="Activity_05io0ms" targetRef="TextAnnotation_19z87rh" />
     <bpmn:correlationKey id="CorrelationKey_1mvxdee" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1je984j" name="Send Payment" isExecutable="true">
@@ -165,10 +161,6 @@ InvoiceID</bpmn:text>
         <dc:Bounds x="-330" y="-170" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_19z87rh_di" bpmnElement="TextAnnotation_19z87rh">
-        <dc:Bounds x="-80" y="-110" width="100" height="54.878048780487816" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1wtwg6x_di" bpmnElement="Association_1wtwg6x">
         <di:waypoint x="-252" y="-30" />
         <di:waypoint x="-228" y="-55" />
@@ -176,10 +168,6 @@ InvoiceID</bpmn:text>
       <bpmndi:BPMNEdge id="Association_1u4740c_di" bpmnElement="Association_1u4740c">
         <di:waypoint x="-382" y="-119" />
         <di:waypoint x="-330" y="-137" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1xazo7o_di" bpmnElement="Association_1xazo7o">
-        <di:waypoint x="-92" y="-30" />
-        <di:waypoint x="-68" y="-55" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0eveo5a_di" bpmnElement="Flow_0eveo5a">
         <di:waypoint x="70" y="250" />
