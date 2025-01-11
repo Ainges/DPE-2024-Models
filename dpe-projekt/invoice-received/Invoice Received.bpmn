@@ -64,15 +64,15 @@
           <spiffworkflow:property name="formJsonSchemaFilename" value="enter-invoice-data-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="enter-invoice-data-uischema.json" />
         </spiffworkflow:properties>
-        <spiffworkflow:postScript>objInvoice={
-    "invoiceDate": invoiceDate, #datetime.now().isoformat(),
+        <spiffworkflow:postScript>objInvoice = {
+    "invoiceDate": invoiceDate,
     "invoiceAmount": invoiceAmount,
     "description": description,
     "receiver": receiver,
-    "receiverIban": receiverIban,
-    "receiverBic": receiverBic,
+    "receiverIban": receiverIBAN,
+    "receiverBic": receiverBIC,
     "currency": currency,
-    "externalInvoiceNumber": externalInvoiceNumber
+    "externalInvoiceNumber": externalInvoiceNumber,
     "status": "unpaid",
     "invoiceCategory": {
         "invoiceCategoryId": invoiceCategoryId
