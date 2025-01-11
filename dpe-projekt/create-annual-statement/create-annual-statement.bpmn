@@ -51,9 +51,9 @@
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="ResponseCreateAnnualStatementWholeYear">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/wholYear&#34;" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/wholeYear&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
-            <spiffworkflow:parameter id="data" type="any" />
+            <spiffworkflow:parameter id="data" type="any" value="objRentalAgreement" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
@@ -156,7 +156,7 @@
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/midYear&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
-            <spiffworkflow:parameter id="data" type="any" />
+            <spiffworkflow:parameter id="data" type="any" value="objRentalAgreement" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
@@ -372,13 +372,13 @@
         <di:waypoint x="898" y="70" />
         <di:waypoint x="1015" y="70" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
-        <di:waypoint x="371" y="30" />
-        <di:waypoint x="355" y="-35" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0v3j3jq_di" bpmnElement="Flow_0v3j3jq">
         <di:waypoint x="770" y="70" />
         <di:waypoint x="862" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1dz1xow_di" bpmnElement="Association_1dz1xow">
+        <di:waypoint x="371" y="30" />
+        <di:waypoint x="355" y="-35" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_16rby3p_di" bpmnElement="Participant_09b49h8" isHorizontal="true">
         <dc:Bounds x="-100" y="-340" width="1880" height="70" />
