@@ -60,13 +60,12 @@
           <spiffworkflow:property name="formJsonSchemaFilename" value="distribution-keys-schema.json" />
           <spiffworkflow:property name="formUiSchemaFilename" value="distribution-keys-uischema.json" />
         </spiffworkflow:properties>
-        <spiffworkflow:instructionsForEndUser>
-This is the Sum of your Invoice Category&lt;br&gt;
-{{ objSumofInvoiceCategory ['1'] }} Euro </spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:instructionsForEndUser>This is the Sum of the Invoice Category {{objInvoiceCategory["name"]}}&lt;br&gt;
+{{objSumofInvoiceCategory}} EUR</spiffworkflow:instructionsForEndUser>
         <spiffworkflow:postScript>taskData = {
     "distributionKey":distributionKeys,  # Zugriff auf "distributionKeys"
     "invoiceCategoryName":objInvoiceCategory["name"], # Korrekt auf "objInvoiceCategory" zugreifen
-    "invoiceCategorySum": ResponseSumOfInvoiceCategory["body"]["1"],  # Wert aus objSumofInvoiceCategory
+    "invoiceCategorySum": objSumofInvoiceCategory,  # Wert aus objSumofInvoiceCategory
     "annualStatementPeriod": varYear,  # Zugriff auf "varYear"
     "housingObject": objRentalAgreements[0]["apartment"]["housingObject"],  # Wert aus objHRentalAgreements
     "rentalAgreements": objRentalAgreements  # Vorhandene Liste direkt zuweisen

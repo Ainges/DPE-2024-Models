@@ -126,6 +126,26 @@ varYear = varCurrentYear</spiffworkflow:postScript>
         <spiffworkflow:postScript># Extrahiere das "body"-Feld (Liste von Rechnungen)
 objInvoices = getResponseAllInvoices["body"]
 
+#objInvoiceCategories = {invoice["invoiceCategory"]["invoiceCategoryId"]: invoice["invoiceCategory"] for invoice in objInvoices}.values()
+
+# Create an empty dictionary to store unique invoice categories
+unique_categories = {}
+
+    # Iterate over each invoice in the list of invoices
+for invoice in objInvoices:
+    # Extract the invoice category and its ID
+    invoice_category = invoice["invoiceCategory"]
+    invoice_category_id = invoice_category["invoiceCategoryId"]
+
+        # Add the invoice category to the dictionary if the ID is not already present
+    if invoice_category_id not in unique_categories:
+        unique_categories[invoice_category_id] = invoice_category
+
+    # Return the list of unique invoice categories
+objInvoiceCategories =  list(unique_categories.values())
+
+
+'''
 # Initialisiere eine leere Liste für die Kategorien
 objInvoiceCategories = []
 
@@ -136,7 +156,7 @@ for invoice in objInvoices:
     
     # Füge die Kategorie der Liste hinzu
     objInvoiceCategories.append(invoiceCategory)
-
+'''
 
 
 
