@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1ma0ck1">
-    <bpmn:participant id="Participant_1agtnk7" name="Check if payment was receved" processRef="Process_check_received_payment_llxefjt" />
+    <bpmn:participant id="Participant_1agtnk7" name="Check if payment was received" processRef="Process_check_received_payment_llxefjt" />
     <bpmn:participant id="Participant_0u5u82m" name="Bank provider" />
     <bpmn:messageFlow id="Flow_1l8bz5q" name="Inform about payment status" sourceRef="Participant_0u5u82m" targetRef="Activity_0qpzdpu" />
     <bpmn:correlationKey id="CorrelationKey_07hdzlu" name="MainCorrelationKey" />
