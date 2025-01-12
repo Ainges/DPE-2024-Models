@@ -25,6 +25,10 @@
             "correlation_properties": {},
             "schema": {}
         },
+        "ObjectionRejectionReason": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "SendPaymentReminder": {
             "correlation_properties": {},
             "schema": {}

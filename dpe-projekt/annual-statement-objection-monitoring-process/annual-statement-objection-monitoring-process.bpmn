@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0jhyf6n">
     <bpmn:participant id="Participant_02tkhqv" name="Annual Statement Objection Monitoring Process" processRef="Process_annual_statement_objection_monitoring_process_hythk68" />
     <bpmn:participant id="Participant_1g2ai9d" name="Tenant" />
     <bpmn:messageFlow id="Flow_1ow9ahd" name="Objection Rejection reason" sourceRef="Activity_0jdpv6h" targetRef="Participant_1g2ai9d" />
     <bpmn:messageFlow id="Flow_04sqv2e" sourceRef="Activity_0nvp5bv" targetRef="Participant_1g2ai9d" />
     <bpmn:messageFlow id="Flow_0wrp0me" sourceRef="Participant_1g2ai9d" targetRef="Event_00ohi3c" />
-    <bpmn:correlationKey id="CorrelationKey_0924g5x" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1ofaza2" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_annual_statement_objection_monitoring_process_hythk68" isExecutable="true">
     <bpmn:sequenceFlow id="Flow_13ts96t" sourceRef="Event_00ohi3c" targetRef="Activity_1dj7pet" />
-    <bpmn:dataObjectReference id="DataObjectReference_0je3nha" name="Annual Statement" dataObjectRef="ObjAnnualStatementsperApartments" />
+    <bpmn:dataObjectReference id="DataObjectReference_0je3nha" name="Annual Statement" dataObjectRef="ObjAnnualStatementsperApartments">
+      <bpmn:dataState id="DataState_DataObjectReference_0je3nha" />
+    </bpmn:dataObjectReference>
     <bpmn:dataObject id="ObjAnnualStatementsperApartments" name="Annual Statement" />
     <bpmn:userTask id="Activity_1dj7pet" name="Review Objection and Review Annual Statement">
       <bpmn:incoming>Flow_13ts96t</bpmn:incoming>
@@ -27,9 +29,17 @@
     <bpmn:sequenceFlow id="Flow_0xjxg67" sourceRef="Activity_1dj7pet" targetRef="Gateway_05rlfur" />
     <bpmn:sequenceFlow id="Flow_1wk9pk1" name="Yes" sourceRef="Gateway_05rlfur" targetRef="Activity_0gfd25g" />
     <bpmn:sequenceFlow id="Flow_062b5kj" name="No" sourceRef="Gateway_05rlfur" targetRef="Activity_0jdpv6h" />
-    <bpmn:sendTask id="Activity_0jdpv6h" name="Send Objection Rejection Reason">
+    <bpmn:sendTask id="Activity_0jdpv6h" name="Send Objection Rejection Reason" messageRef="ObjectionRejectionReason">
+      <bpmn:extensionElements>
+        <spiffworkflow:messagePayload>ObjAnnualStatementperArpartments</spiffworkflow:messagePayload>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_062b5kj</bpmn:incoming>
       <bpmn:outgoing>Flow_1y6noe4</bpmn:outgoing>
+      <bpmn:property id="Property_12vvb9o" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1lxvqb3">
+        <bpmn:sourceRef>DataObjectReference_0je3nha</bpmn:sourceRef>
+        <bpmn:targetRef>Property_12vvb9o</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
     </bpmn:sendTask>
     <bpmn:sequenceFlow id="Flow_0qvxk6e" sourceRef="Activity_0gfd25g" targetRef="Activity_0nvp5bv" />
     <bpmn:sequenceFlow id="Flow_16hef1x" sourceRef="Activity_0nvp5bv" targetRef="Event_06t0svt" />
@@ -63,9 +73,13 @@
     <bpmn:intermediateCatchEvent id="Event_00ohi3c" name="Tenant Objection  received">
       <bpmn:incoming>Flow_1ydtasv</bpmn:incoming>
       <bpmn:outgoing>Flow_13ts96t</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1trqvot" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1trqvot" messageRef="Tenant-objection">
+        <bpmn:extensionElements />
+      </bpmn:messageEventDefinition>
     </bpmn:intermediateCatchEvent>
   </bpmn:process>
+  <bpmn:message id="ObjectionRejectionReason" name="ObjectionRejectionReason" />
+  <bpmn:message id="Tenant-objection" name="Tenant-objection" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0jhyf6n">
       <bpmndi:BPMNShape id="Participant_02tkhqv_di" bpmnElement="Participant_02tkhqv" isHorizontal="true">
@@ -171,6 +185,10 @@
       <bpmndi:BPMNEdge id="DataOutputAssociation_19o4rky_di" bpmnElement="DataOutputAssociation_19o4rky">
         <di:waypoint x="378" y="180" />
         <di:waypoint x="432" y="103" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1lxvqb3_di" bpmnElement="DataInputAssociation_1lxvqb3">
+        <di:waypoint x="468" y="96" />
+        <di:waypoint x="643" y="254" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1gtlh3c_di" bpmnElement="DataInputAssociation_1gtlh3c">
         <di:waypoint x="468" y="83" />
