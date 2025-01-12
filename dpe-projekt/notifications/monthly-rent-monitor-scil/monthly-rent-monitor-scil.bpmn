@@ -2,15 +2,19 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0ivnptt">
     <bpmn:participant id="Participant_13u1rz5" name="Monthly rent monitor SCIL Process" processRef="Process_monthly_rent_monitor_scil_0urrsdu" />
+    <bpmn:participant id="Participant_078m8m9" name="Payment Backend Service" />
+    <bpmn:participant id="Participant_1juapdn" name="Receive payment" />
+    <bpmn:messageFlow id="Flow_0cif5n8" sourceRef="Participant_078m8m9" targetRef="StartEvent_1" />
+    <bpmn:messageFlow id="Flow_12h5u08" sourceRef="Activity_0qpzdpu" targetRef="Participant_1juapdn" />
     <bpmn:correlationKey id="CorrelationKey_1lxlgvq" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_monthly_rent_monitor_scil_0urrsdu" isExecutable="true">
-    <bpmn:endEvent id="EndEvent_1">
+    <bpmn:endEvent id="EndEvent_1" name="Payment confirmation sent">
       <bpmn:incoming>Flow_12pkbxb</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_17db3yp" sourceRef="StartEvent_1" targetRef="Activity_0qpzdpu" />
     <bpmn:sequenceFlow id="Flow_12pkbxb" sourceRef="Activity_0qpzdpu" targetRef="EndEvent_1" />
-    <bpmn:startEvent id="StartEvent_1" name="receive monthly rent payment confirmation">
+    <bpmn:startEvent id="StartEvent_1" name="receive payment confirmation">
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1rbbqfe" messageRef="external-monthly-rent-received">
         <bpmn:extensionElements>
@@ -18,7 +22,7 @@
         </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
-    <bpmn:sendTask id="Activity_0qpzdpu" name="Send monthly rent payment confirmation" messageRef="monitor-monthly-rent">
+    <bpmn:sendTask id="Activity_0qpzdpu" name="Send  payment confirmation" messageRef="monitor-monthly-rent">
       <bpmn:extensionElements>
         <spiffworkflow:instructionsForEndUser>This is an example **Manual Task**. A **Manual Task** is designed to allow someone to complete a task outside of the system and then report back that it is complete. You can click the *Continue* button to proceed. When you are done running this process, you can edit the **Process Model** to include a:
 
@@ -43,15 +47,19 @@ You can also change the text you are reading here by updating the *Instructions*
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
         <dc:Bounds x="432" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="202" width="85" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0or64jw_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="158" y="202" width="78" height="40" />
+          <dc:Bounds x="156" y="202" width="82" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0yevt6o_di" bpmnElement="Activity_0qpzdpu">
         <dc:Bounds x="270" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
         <di:waypoint x="215" y="177" />
@@ -60,6 +68,22 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNEdge id="Flow_12pkbxb_di" bpmnElement="Flow_12pkbxb">
         <di:waypoint x="370" y="177" />
         <di:waypoint x="432" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0yrzo9o_di" bpmnElement="Participant_078m8m9" isHorizontal="true">
+        <dc:Bounds x="50" y="-70" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1yj3kgk_di" bpmnElement="Participant_1juapdn" isHorizontal="true">
+        <dc:Bounds x="50" y="370" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0cif5n8_di" bpmnElement="Flow_0cif5n8">
+        <di:waypoint x="197" y="-10" />
+        <di:waypoint x="197" y="159" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12h5u08_di" bpmnElement="Flow_12h5u08">
+        <di:waypoint x="320" y="217" />
+        <di:waypoint x="320" y="370" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
