@@ -2,7 +2,6 @@
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_0pn88ut" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.0.0">
   <bpmn:collaboration id="Collaboration_0g6wv93">
     <bpmn:participant id="Participant_0sbn701" name="Annual Statement" processRef="Process_18ks2hv" />
-    <bpmn:participant id="Participant_1968i74" name="Tenant" />
     <bpmn:correlationKey id="CorrelationKey_0sdalv8" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18ks2hv" isExecutable="true">
@@ -20,12 +19,9 @@
       <bpmn:lane id="Lane_0blfeei">
         <bpmn:flowNodeRef>Event_1rj5956</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_062jx1j</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_12e6e4l</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_10uhudp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_05oq3wb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1a6vdew</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_08ktxg2</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1itc8qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1t848x1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0xeukwd</bpmn:flowNodeRef>
       </bpmn:lane>
@@ -89,11 +85,6 @@ for agreement1 in objRentalAgreements:
     </bpmn:serviceTask>
     <bpmn:dataObject id="objRentalAgreements" name="Rental Agreements" isCollection="true" />
     <bpmn:dataObjectReference id="DataObjectReference_1b5vgmf" name="Rental Agreements" dataObjectRef="objRentalAgreements" />
-    <bpmn:sequenceFlow id="Flow_06nxwei" name="Yes" sourceRef="Gateway_08ktxg2" targetRef="Event_1itc8qn" />
-    <bpmn:sequenceFlow id="Flow_1bqp99d" name="No" sourceRef="Gateway_08ktxg2" targetRef="Event_12e6e4l" />
-    <bpmn:endEvent id="Event_12e6e4l" name="Annual Statement handling failed">
-      <bpmn:incoming>Flow_1bqp99d</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0l6n19y" sourceRef="Activity_10uhudp" targetRef="Activity_062jx1j" />
     <bpmn:userTask id="Activity_10uhudp" name="Start Annual Statement creation and select year">
       <bpmn:extensionElements>
@@ -210,13 +201,6 @@ for invoice in objInvoices:
     </bpmn:callActivity>
     <bpmn:dataObjectReference id="DataObjectReference_0dse4xq" name="Year" dataObjectRef="varYear" />
     <bpmn:dataObject id="varYear" name="Year" />
-    <bpmn:exclusiveGateway id="Gateway_08ktxg2" name="Annual Statement handled">
-      <bpmn:outgoing>Flow_06nxwei</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1bqp99d</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="Event_1itc8qn" name="Annual Statement completed">
-      <bpmn:incoming>Flow_06nxwei</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:callActivity id="Activity_1t848x1" name="Create and handle  Annual Statement" calledElement="Process_11ur3al">
       <bpmn:incoming>Flow_0su7m1n</bpmn:incoming>
       <bpmn:outgoing>Flow_0x58d1o</bpmn:outgoing>
@@ -249,11 +233,17 @@ for invoice in objInvoices:
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
       <bpmndi:BPMNShape id="Participant_0sbn701_di" bpmnElement="Participant_0sbn701" isHorizontal="true">
-        <dc:Bounds x="370" y="470" width="1850" height="640" />
+        <dc:Bounds x="370" y="470" width="1408" height="640" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
-        <dc:Bounds x="400" y="470" width="1820" height="640" />
+        <dc:Bounds x="400" y="470" width="1378" height="640" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objAnnualStatements">
+        <dc:Bounds x="1722" y="495" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1717" y="552" width="57" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
         <dc:Bounds x="1082" y="635" width="36" height="50" />
@@ -289,12 +279,6 @@ for invoice in objInvoices:
           <dc:Bounds x="831" y="692" width="59" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_12e6e4l_di" bpmnElement="Event_12e6e4l">
-        <dc:Bounds x="1902" y="942" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1876" y="985" width="88" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0m4tctd_di" bpmnElement="Activity_10uhudp">
         <dc:Bounds x="550" y="805" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -310,18 +294,6 @@ for invoice in objInvoices:
         <dc:Bounds x="642" y="615" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="649" y="672" width="23" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_08ktxg2_di" bpmnElement="Gateway_08ktxg2" isMarkerVisible="true">
-        <dc:Bounds x="1545" y="810" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1526" y="746" width="88" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1itc8qn_di" bpmnElement="Event_1itc8qn">
-        <dc:Bounds x="1902" y="817" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1877" y="860" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07avu6n_di" bpmnElement="Activity_1t848x1">
@@ -340,30 +312,9 @@ for invoice in objInvoices:
           <dc:Bounds x="424" y="561" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objAnnualStatements">
-        <dc:Bounds x="2072" y="495" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2067" y="552" width="57" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1cstye6_di" bpmnElement="Flow_1cstye6">
         <di:waypoint x="498" y="845" />
         <di:waypoint x="550" y="845" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06nxwei_di" bpmnElement="Flow_06nxwei">
-        <di:waypoint x="1595" y="835" />
-        <di:waypoint x="1902" y="835" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1747" y="817" width="18" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1bqp99d_di" bpmnElement="Flow_1bqp99d">
-        <di:waypoint x="1570" y="860" />
-        <di:waypoint x="1570" y="960" />
-        <di:waypoint x="1902" y="960" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1578" y="907" width="15" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0l6n19y_di" bpmnElement="Flow_0l6n19y">
         <di:waypoint x="650" y="845" />
@@ -385,10 +336,6 @@ for invoice in objInvoices:
         <di:waypoint x="1180" y="840" />
         <di:waypoint x="1300" y="840" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_0ef4pf8_di" bpmnElement="Participant_1968i74" isHorizontal="true">
-        <dc:Bounds x="370" y="310" width="1850" height="100" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_03sdi23_di" bpmnElement="DataOutputAssociation_03sdi23">
         <di:waypoint x="790" y="805" />
         <di:waypoint x="852" y="685" />
