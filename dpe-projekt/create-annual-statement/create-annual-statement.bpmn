@@ -32,10 +32,10 @@
       <bpmn:conditionExpression>objAnnualStatement["difference"]==0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0953n6s" name="Tenant payed too much" sourceRef="Gateway_102zn7r" targetRef="Activity_0bs29ut">
-      <bpmn:conditionExpression>objAnnualStatement["difference"] = &lt; 0</bpmn:conditionExpression>
+      <bpmn:conditionExpression>objAnnualStatement["difference"] &lt; 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0jd7flz" name="Tenant payed less" sourceRef="Gateway_102zn7r" targetRef="Activity_1lb879v">
-      <bpmn:conditionExpression>objAnnualStatement["difference"] = &gt; 0</bpmn:conditionExpression>
+      <bpmn:conditionExpression>objAnnualStatement["difference"] &gt; 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatements" />
     <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" dataObjectRef="objAnnualStatements" />
@@ -89,7 +89,7 @@
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="ResponseCreateStatementPDF">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/wholeYear/&#34;+str(objAnnualStatement[&#34;annualStatementId&#34;])+&#34;/&#34;pdf" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/&#34;+str(objAnnualStatement[&#34;annualStatementId&#34;])+&#34;/pdf&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="data" type="any" value="objAnnualStatement" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -129,7 +129,7 @@
         <bpmn:targetRef>Property_0tziwbx</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
-    <bpmn:callActivity id="Activity_1i43hk8" name="Received Payment" calledElement="Process_1je984j">
+    <bpmn:callActivity id="Activity_1i43hk8" name="Received Payment" calledElement="Process_check_received_payment_llxefjt">
       <bpmn:incoming>Flow_0ouhx9e</bpmn:incoming>
       <bpmn:outgoing>Flow_0mgkdhc</bpmn:outgoing>
     </bpmn:callActivity>
