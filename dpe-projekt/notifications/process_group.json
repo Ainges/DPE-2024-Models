@@ -8,6 +8,10 @@
         "external-invoice-received": {
             "correlation_properties": {},
             "schema": {}
+        },
+        "external-monthly-rent-received": {
+            "correlation_properties": {},
+            "schema": {}
         }
     }
 }

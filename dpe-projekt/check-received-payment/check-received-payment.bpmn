@@ -2,17 +2,20 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1ma0ck1">
     <bpmn:participant id="Participant_1agtnk7" name="Check if payment was receved" processRef="Process_check_received_payment_llxefjt" />
+    <bpmn:participant id="Participant_0u5u82m" name="Bank provider" />
+    <bpmn:messageFlow id="Flow_1l8bz5q" name="Inform about payment status" sourceRef="Participant_0u5u82m" targetRef="Activity_0qpzdpu" />
+    <bpmn:correlationKey id="CorrelationKey_07hdzlu" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_check_received_payment_llxefjt" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:endEvent id="EndEvent_1">
+    <bpmn:endEvent id="EndEvent_1" name="Monthly rent Payment received">
       <bpmn:incoming>Flow_12pkbxb</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_17db3yp" sourceRef="StartEvent_1" targetRef="Activity_0qpzdpu" />
     <bpmn:sequenceFlow id="Flow_12pkbxb" sourceRef="Activity_0qpzdpu" targetRef="EndEvent_1" />
-    <bpmn:receiveTask id="Activity_0qpzdpu" name="Receive Payment">
+    <bpmn:receiveTask id="Activity_0qpzdpu" name="Receive Payment" messageRef="monitor-monthly-rent">
       <bpmn:extensionElements>
         <spiffworkflow:instructionsForEndUser>This is an example **Manual Task**. A **Manual Task** is designed to allow someone to complete a task outside of the system and then report back that it is complete. You can click the *Continue* button to proceed. When you are done running this process, you can edit the **Process Model** to include a:
 
@@ -21,11 +24,13 @@
  * **Service Task** - communicate with an external API to fetch or update some data.
 
 You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:messageVariable>data</spiffworkflow:messageVariable>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
       <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
     </bpmn:receiveTask>
   </bpmn:process>
+  <bpmn:message id="monitor-monthly-rent" name="monitor-monthly-rent" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1ma0ck1">
       <bpmndi:BPMNShape id="Participant_1agtnk7_di" bpmnElement="Participant_1agtnk7" isHorizontal="true">
@@ -37,6 +42,9 @@ You can also change the text you are reading here by updating the *Instructions*
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
         <dc:Bounds x="432" y="137" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="406" y="180" width="89" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0c0bvuo_di" bpmnElement="Activity_0qpzdpu">
         <dc:Bounds x="270" y="115" width="100" height="80" />
@@ -48,6 +56,17 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNEdge id="Flow_12pkbxb_di" bpmnElement="Flow_12pkbxb">
         <di:waypoint x="370" y="155" />
         <di:waypoint x="432" y="155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1rugoux_di" bpmnElement="Participant_0u5u82m" isHorizontal="true">
+        <dc:Bounds x="50" y="-70" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1l8bz5q_di" bpmnElement="Flow_1l8bz5q">
+        <di:waypoint x="340" y="-10" />
+        <di:waypoint x="340" y="115" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="372" y="50" width="76" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

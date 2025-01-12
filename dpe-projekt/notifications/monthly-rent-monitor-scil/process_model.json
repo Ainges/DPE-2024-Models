@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "Monthly rent monitor SCIL Process",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "monthly-rent-monitor-scil.bpmn",
+    "primary_process_id": "Process_monthly_rent_monitor_scil_0urrsdu"
+}

@@ -37,7 +37,7 @@
     <bpmn:boundaryEvent id="Event_0mofmzj" name="First day of Month" cancelActivity="false" attachedToRef="Activity_0irf9g2">
       <bpmn:outgoing>Flow_06ytex8</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0aunirt">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P30D</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">"PT30S"</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0s7gpe4" sourceRef="Event_0u0x8e9" targetRef="Activity_0irf9g2" />
@@ -49,17 +49,6 @@
   <bpmn:message id="monitor-monthly-rent" name="monitor-monthly-rent" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_19e8t09">
-      <bpmndi:BPMNShape id="Participant_1pim5v2_di" bpmnElement="Participant_01dek9g" isHorizontal="true">
-        <dc:Bounds x="-130" y="-330" width="1390" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_0u92f12_di" bpmnElement="Participant_02xoqw3" isHorizontal="true">
-        <dc:Bounds x="-120" y="330" width="490" height="60" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_150d2nk_di" bpmnElement="Participant_0ko2t6b" isHorizontal="true">
-        <dc:Bounds x="440" y="330" width="600" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_15j1i9r_di" bpmnElement="Participant_15j1i9r" isHorizontal="true">
         <dc:Bounds x="-120" y="-110" width="1330" height="380" />
         <bpmndi:BPMNLabel />
@@ -113,6 +102,17 @@
         <di:waypoint x="670" y="80" />
         <di:waypoint x="982" y="80" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1pim5v2_di" bpmnElement="Participant_01dek9g" isHorizontal="true">
+        <dc:Bounds x="-130" y="-330" width="1390" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0u92f12_di" bpmnElement="Participant_02xoqw3" isHorizontal="true">
+        <dc:Bounds x="-120" y="330" width="490" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_150d2nk_di" bpmnElement="Participant_0ko2t6b" isHorizontal="true">
+        <dc:Bounds x="440" y="330" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0cupqw8_di" bpmnElement="Flow_0cupqw8">
         <di:waypoint x="140" y="-270" />
         <di:waypoint x="140" y="-90" />
