@@ -10,7 +10,7 @@
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:endEvent id="EndEvent_1" name="Monthly rent Payment received">
+    <bpmn:endEvent id="EndEvent_1" name="Payment received">
       <bpmn:incoming>Flow_12pkbxb</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_17db3yp" sourceRef="StartEvent_1" targetRef="Activity_0qpzdpu" />
@@ -43,7 +43,7 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
         <dc:Bounds x="432" y="137" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="406" y="180" width="89" height="27" />
+          <dc:Bounds x="406" y="180" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0c0bvuo_di" bpmnElement="Activity_0qpzdpu">
