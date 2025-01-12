@@ -17,7 +17,7 @@
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:preScript>payload={"mailType":"annualStatementPreperationReminder",
+        <spiffworkflow:preScript>payload={"mailType":"annualStatementPreparationReminder",
 "data":data
 }</spiffworkflow:preScript>
       </bpmn:extensionElements>
