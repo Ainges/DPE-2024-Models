@@ -111,9 +111,14 @@ for agreement1 in objRentalAgreements:
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0bdd0l7" sourceRef="Activity_0kea5oe" targetRef="Activity_0ui191a" />
     <bpmn:endEvent id="Event_1iwwrm1">
-      <bpmn:incoming>Flow_02ko2l6</bpmn:incoming>
+      <bpmn:incoming>Flow_1hm2wyw</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_02ko2l6" sourceRef="Event_1dgs14v" targetRef="Event_1iwwrm1" />
+    <bpmn:sequenceFlow id="Flow_02ko2l6" sourceRef="Event_1dgs14v" targetRef="Activity_195b8q9" />
+    <bpmn:sequenceFlow id="Flow_1hm2wyw" sourceRef="Activity_195b8q9" targetRef="Event_1iwwrm1" />
+    <bpmn:task id="Activity_195b8q9" name="Test">
+      <bpmn:incoming>Flow_02ko2l6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hm2wyw</bpmn:outgoing>
+    </bpmn:task>
   </bpmn:process>
   <bpmn:message id="monitor-monthly-rent" name="monitor-monthly-rent" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -152,6 +157,10 @@ for agreement1 in objRentalAgreements:
       <bpmndi:BPMNShape id="Event_1iwwrm1_di" bpmnElement="Event_1iwwrm1">
         <dc:Bounds x="692" y="32" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_195b8q9_di" bpmnElement="Activity_195b8q9">
+        <dc:Bounds x="80" y="10" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1c3ta1u_di" bpmnElement="Flow_1c3ta1u">
         <di:waypoint x="-110" y="-40" />
         <di:waypoint x="-60" y="-40" />
@@ -166,14 +175,18 @@ for agreement1 in objRentalAgreements:
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_02ko2l6_di" bpmnElement="Flow_02ko2l6">
         <di:waypoint x="-265" y="50" />
+        <di:waypoint x="80" y="50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hm2wyw_di" bpmnElement="Flow_1hm2wyw">
+        <di:waypoint x="180" y="50" />
         <di:waypoint x="692" y="50" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_17h9umu_di" bpmnElement="TextAnnotation_17h9umu">
-        <dc:Bounds x="-10" y="-210" width="160" height="70" />
+        <dc:Bounds x="50" y="-240" width="160" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0apiswm_di" bpmnElement="TextAnnotation_0apiswm">
-        <dc:Bounds x="190" y="-210" width="99.99274099883856" height="69.994918699187" />
+        <dc:Bounds x="210" y="-180" width="100" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1kuwbp4_di" bpmnElement="DataOutputAssociation_1kuwbp4">
@@ -189,12 +202,12 @@ for agreement1 in objRentalAgreements:
         <di:waypoint x="-18" y="-80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_13ivezc_di" bpmnElement="Association_13ivezc">
-        <di:waypoint x="199" y="-80" />
-        <di:waypoint x="227" y="-140" />
+        <di:waypoint x="212" y="-80" />
+        <di:waypoint x="235" y="-110" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1hjz0g1_di" bpmnElement="Association_1hjz0g1">
-        <di:waypoint x="148" y="-80" />
-        <di:waypoint x="98" y="-140" />
+        <di:waypoint x="169" y="-80" />
+        <di:waypoint x="141" y="-170" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
