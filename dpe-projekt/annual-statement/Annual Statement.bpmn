@@ -160,7 +160,7 @@ for invoice in objInvoices:
     <bpmn:sequenceFlow id="Flow_07mbf7c" sourceRef="Activity_05oq3wb" targetRef="Activity_1a6vdew" />
     <bpmn:callActivity id="Activity_1a6vdew" name="Statement for each invoice category" calledElement="Process_statement_for_each_invoice_category_brzdcir">
       <bpmn:incoming>Flow_07mbf7c</bpmn:incoming>
-      <bpmn:outgoing>Flow_1g79fpp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0su7m1n</bpmn:outgoing>
       <bpmn:property id="Property_1lgrewt" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0ikndf4">
         <bpmn:sourceRef>DataObjectReference_00k3tbo</bpmn:sourceRef>
@@ -198,7 +198,7 @@ for invoice in objInvoices:
       <bpmn:incoming>Flow_06nxwei</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:callActivity id="Activity_1t848x1" name="Create and handle  Annual Statement" calledElement="Process_11ur3al">
-      <bpmn:incoming>Flow_1g79fpp</bpmn:incoming>
+      <bpmn:incoming>Flow_0su7m1n</bpmn:incoming>
       <bpmn:outgoing>Flow_0x58d1o</bpmn:outgoing>
       <bpmn:property id="Property_0q3s4aw" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0y1ygxu">
@@ -215,14 +215,16 @@ for invoice in objInvoices:
       </bpmn:dataInputAssociation>
       <bpmn:multiInstanceLoopCharacteristics>
         <bpmn:loopDataInputRef>objRentalAgreements</bpmn:loopDataInputRef>
+        <bpmn:loopDataOutputRef>objAnnualStatements</bpmn:loopDataOutputRef>
         <bpmn:inputDataItem id="objRentalAgreement" name="objRentalAgreement" />
+        <bpmn:outputDataItem id="objAnnualStatement" name="objAnnualStatement" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0x58d1o" sourceRef="Activity_1t848x1" targetRef="Event_0xeukwd" />
     <bpmn:endEvent id="Event_0xeukwd" name="Annual Statemen creation has been successful">
       <bpmn:incoming>Flow_0x58d1o</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1g79fpp" sourceRef="Activity_1a6vdew" targetRef="Activity_1t848x1" />
+    <bpmn:sequenceFlow id="Flow_0su7m1n" sourceRef="Activity_1a6vdew" targetRef="Activity_1t848x1" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0g6wv93">
@@ -359,7 +361,7 @@ for invoice in objInvoices:
         <di:waypoint x="1400" y="835" />
         <di:waypoint x="1482" y="835" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1g79fpp_di" bpmnElement="Flow_1g79fpp">
+      <bpmndi:BPMNEdge id="Flow_0su7m1n_di" bpmnElement="Flow_0su7m1n">
         <di:waypoint x="1180" y="840" />
         <di:waypoint x="1300" y="840" />
       </bpmndi:BPMNEdge>
