@@ -8,7 +8,7 @@
     <bpmn:sequenceFlow id="Flow_1u3sxzn" sourceRef="Event_1llyl7q" targetRef="Activity_0q4er2z" />
     <bpmn:serviceTask id="Activity_0q4er2z" name="Send Annual Statement preparation reminder">
       <bpmn:extensionElements>
-        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
+        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2" resultVariable="response">
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8161/api/message/notification?type=queue&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;, &#34;Authorization&#34;:&#34;Basic YWRtaW46YWRtaW4=&#34;}" />
@@ -17,7 +17,7 @@
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
-        <spiffworkflow:preScript>payload={"mailType":"AnnualStatementPreperationReminder",
+        <spiffworkflow:preScript>payload={"mailType":"annualStatementPreperationReminder",
 "data":data
 }</spiffworkflow:preScript>
       </bpmn:extensionElements>
