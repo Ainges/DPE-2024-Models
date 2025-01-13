@@ -8,6 +8,7 @@
   "invoiceCategoryId": "",
   "housingObjectId": "",
   "currency": "EUR",
+  "relevantForAnnualStatement": true,
   "externalInvoice": "COBADEFFXXX",
   "externalInvoic": "COBADEFFXXX",
   "externalInvoi": "COBADEFFXXX",

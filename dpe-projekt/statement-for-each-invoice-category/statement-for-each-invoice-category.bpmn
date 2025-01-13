@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="ResponseSumOfInvoiceCategory">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/sum/&#34;+str(objRentalAgreements[0][&#34;apartment&#34;][&#34;housingObject&#34;][&#34;housingObjectId&#34;])+&#34;/&#34;+str(objInvoiceCategory[&#34;invoiceCategoryId&#34;])+&#34;/&#34;+str(varYear)" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoice-category-sum/&#34;+str(objRentalAgreements[0][&#34;apartment&#34;][&#34;housingObject&#34;][&#34;housingObjectId&#34;])+&#34;/&#34;+str(objInvoiceCategory[&#34;invoiceCategoryId&#34;])+&#34;/&#34;+str(varYear)+&#34;?relevantForAnnualStatement=true&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -160,7 +160,6 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
       <bpmn:incoming>Flow_03bbixn</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0y3pifc" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_1xwfml1" />
-    <bpmn:dataObjectReference id="DataObjectReference_1xkz8fo" name="Statement Entry Data" dataObjectRef="objCreateStatementEntry" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
@@ -189,6 +188,12 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         <dc:Bounds x="425" y="165" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="412" y="135" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1xkz8fo_di" bpmnElement="DataObjectReference_1xkz8fo">
+        <dc:Bounds x="582" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="561" y="62" width="79" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
@@ -237,12 +242,6 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
           <dc:Bounds x="976" y="2" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_1xkz8fo_di" bpmnElement="DataObjectReference_1xkz8fo">
-        <dc:Bounds x="582" y="5" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="561" y="62" width="79" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0n8y2b0_di" bpmnElement="Flow_0n8y2b0">
         <di:waypoint x="840" y="190" />
         <di:waypoint x="930" y="190" />
@@ -283,10 +282,10 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
           <dc:Bounds x="600" y="172" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
-        <di:waypoint x="840" y="167" />
-        <di:waypoint x="860" y="156" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
+        <dc:Bounds x="860" y="80" width="100" height="84" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1w0zio9_di" bpmnElement="DataOutputAssociation_1w0zio9">
         <di:waypoint x="186" y="150" />
         <di:waypoint x="242" y="87" />
@@ -307,10 +306,10 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         <di:waypoint x="616" y="55" />
         <di:waypoint x="772" y="280" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
-        <dc:Bounds x="860" y="80" width="100" height="84" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
+        <di:waypoint x="840" y="167" />
+        <di:waypoint x="860" y="156" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

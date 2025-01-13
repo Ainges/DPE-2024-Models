@@ -7,7 +7,7 @@
   <bpmn:process id="Process_18ks2hv" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objHousingObject" name="Housing Object" />
-      <bpmn:dataOutput id="objAnnualStatements" name="Annual Statements" />
+      <bpmn:dataOutput id="objAnnualStatements" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objHousingObject</bpmn:dataInputRefs>
       </bpmn:inputSet>
@@ -102,11 +102,11 @@ varYear = varCurrentYear</spiffworkflow:postScript>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_05vlmtj" sourceRef="Activity_062jx1j" targetRef="Activity_05oq3wb" />
-    <bpmn:serviceTask id="Activity_05oq3wb" name="Get all invoices of housing object">
+    <bpmn:serviceTask id="Activity_05oq3wb" name="Get all relevant invoices of housing object">
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllInvoices">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])+&#34;?relevantForAnnualStatement=true&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
@@ -219,9 +219,7 @@ for invoice in objInvoices:
       </bpmn:dataInputAssociation>
       <bpmn:multiInstanceLoopCharacteristics>
         <bpmn:loopDataInputRef>objRentalAgreements</bpmn:loopDataInputRef>
-        <bpmn:loopDataOutputRef>objAnnualStatements</bpmn:loopDataOutputRef>
         <bpmn:inputDataItem id="objRentalAgreement" name="objRentalAgreement" />
-        <bpmn:outputDataItem id="objAnnualStatement" name="objAnnualStatement" />
       </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0x58d1o" sourceRef="Activity_1t848x1" targetRef="Event_0xeukwd" />
@@ -238,12 +236,6 @@ for invoice in objInvoices:
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0blfeei_di" bpmnElement="Lane_0blfeei" isHorizontal="true">
         <dc:Bounds x="400" y="470" width="1378" height="640" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataOutput-731653660-1DI" bpmnElement="objAnnualStatements">
-        <dc:Bounds x="1722" y="495" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1717" y="552" width="57" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0axosog_di" bpmnElement="DataObjectReference_0axosog">
         <dc:Bounds x="1082" y="635" width="36" height="50" />

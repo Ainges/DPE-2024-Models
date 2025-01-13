@@ -4,7 +4,8 @@
   "type": "object",
   "required": [
     "housingObjectId",
-    "invoiceCategoryId"
+    "invoiceCategoryId",
+    "relevantForAnnualStatement"
 
   ],
   "properties": {
@@ -17,6 +18,11 @@
      "type": "number",
       "title": "InvoiceCategoryId",
       "dafault": 1
+    },
+      "relevantForAnnualStatement": {
+      "type": "boolean",
+      "description": "Select if the invoice is relevant for the annual statement",
+      "default": true
     }
   }
 }

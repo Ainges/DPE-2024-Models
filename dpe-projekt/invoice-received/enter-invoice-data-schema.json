@@ -52,6 +52,11 @@
       "description": "The currency in ISO4217 Notation",
       "default": "EUR"
     },
+    "relevantForAnnualStatement": {
+      "type": "boolean",
+      "description": "Select if the invoice is relevant for the annual statement",
+      "default": true
+    },
     "required": [
       "invoiceDate",
       "invoiceAmount",
@@ -61,7 +66,8 @@
       "receiverBic",
       "invoiceCategoryId",
       "housingObjectId",
-      "currency"
+      "currency",
+      "relevantForAnnualStatement"
     ]
   }
 }
