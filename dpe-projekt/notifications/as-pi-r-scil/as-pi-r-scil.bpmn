@@ -19,7 +19,7 @@
  * **Service Task** - communicate with an external API to fetch or update some data.
 
 You can also change the text you are reading here by updating the *Instructions* on this example manual task.</spiffworkflow:instructionsForEndUser>
-        <spiffworkflow:preScript>payload={"mailType":"annaualStatementPaymentInformationRequest",
+        <spiffworkflow:preScript>payload={"mailType":"annualStatementPaymentInformationRequest",
 "data":data
 }</spiffworkflow:preScript>
         <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
