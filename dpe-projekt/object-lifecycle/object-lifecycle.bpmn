@@ -11,12 +11,13 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1x4vmd8" associationDirection="None" sourceRef="Event_16up0z3" targetRef="TextAnnotation_0bgz5mg" />
     <bpmn:textAnnotation id="TextAnnotation_05twy4y">
-      <bpmn:text>sale, Owner transfer etc.</bpmn:text>
+      <bpmn:text>Sale, ownership transfer etc.</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_11uf3gh">
-      <bpmn:text>Hier muss aber trotzdem die Jahresabrechnung gegenüber des Gesetztgebers gemacht werden</bpmn:text>
+      <bpmn:text>Annual Statement is mandatory, even if it is delayed</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1bgd0zd" associationDirection="None" sourceRef="Event_08svpnq" targetRef="TextAnnotation_11uf3gh" />
+    <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
     <bpmn:correlationKey id="CorrelationKey_1lix8cb" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
@@ -192,12 +193,11 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0n7pn6y" sourceRef="Gateway_0llvysu" targetRef="Event_11qj8ko" />
+    <bpmn:dataObjectReference id="DataObjectReference_17lrmq9" name="Housing Object Data" dataObjectRef="objObjectData" />
+    <bpmn:dataObject id="objObjectData" name="Housing Object Data" />
     <bpmn:endEvent id="Event_11qj8ko">
       <bpmn:incoming>Flow_0n7pn6y</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:dataObjectReference id="DataObjectReference_17lrmq9" name="Housing Object Data" dataObjectRef="objObjectData" />
-    <bpmn:dataObject id="objObjectData" name="Housing Object Data" />
-    <bpmn:association id="Association_0i4q8df" associationDirection="None" sourceRef="Event_05sb3xn" targetRef="TextAnnotation_05twy4y" />
   </bpmn:process>
   <bpmn:message id="Tenant-objection" name="Tenant-objection" />
   <bpmn:message id="end-of-accountability-for-the_object" name="end-of-accountability-for-the_object" />
@@ -212,7 +212,7 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
       <bpmndi:BPMNShape id="Event_16up0z3_di" bpmnElement="Event_16up0z3">
         <dc:Bounds x="-18" y="342" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-39" y="304.5" width="77" height="27" />
+          <dc:Bounds x="-39" y="386" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0anl30x_di" bpmnElement="DataObjectReference_0anl30x">
@@ -301,14 +301,14 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
       <bpmndi:BPMNShape id="Activity_1s3yn3t_di" bpmnElement="Activity_15f5iod">
         <dc:Bounds x="240" y="320" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_11qj8ko_di" bpmnElement="Event_11qj8ko">
-        <dc:Bounds x="662" y="772" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_17lrmq9_di" bpmnElement="DataObjectReference_17lrmq9">
         <dc:Bounds x="132" y="485" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="112" y="542" width="76" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11qj8ko_di" bpmnElement="Event_11qj8ko">
+        <dc:Bounds x="782" y="1142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0zqk9a8_di" bpmnElement="Event_0oppcdu">
         <dc:Bounds x="522" y="382" width="36" height="36" />
@@ -395,11 +395,8 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0n7pn6y_di" bpmnElement="Flow_0n7pn6y">
         <di:waypoint x="680" y="585" />
-        <di:waypoint x="680" y="772" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
-        <di:waypoint x="1607" y="348" />
-        <di:waypoint x="1493" y="251" />
+        <di:waypoint x="680" y="1160" />
+        <di:waypoint x="782" y="1160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0cmgtpw_di" bpmnElement="Participant_0jjp3ud" isHorizontal="true">
         <dc:Bounds x="-80" y="-10" width="1608" height="60" />
@@ -410,11 +407,11 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_05twy4y_di" bpmnElement="TextAnnotation_05twy4y">
-        <dc:Bounds x="1420" y="210" width="100" height="41" />
+        <dc:Bounds x="1530" y="260" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_11uf3gh_di" bpmnElement="TextAnnotation_11uf3gh">
-        <dc:Bounds x="1010" y="610" width="100" height="128" />
+        <dc:Bounds x="1010" y="610" width="99.99999794078421" height="83.67071524966262" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_09n3rda_di" bpmnElement="DataInputAssociation_09n3rda">
@@ -458,6 +455,10 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
         <di:waypoint x="928" y="603" />
         <di:waypoint x="1010" y="617" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0i4q8df_di" bpmnElement="Association_0i4q8df">
+        <di:waypoint x="1612" y="344" />
+        <di:waypoint x="1590" y="301" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hj1t8x_di" bpmnElement="Flow_1hj1t8x">
         <di:waypoint x="490" y="50" />
         <di:waypoint x="490" y="320" />
@@ -466,14 +467,14 @@ objHousingObject = housingObjectCreationResponse["body"]</spiffworkflow:postScri
         <di:waypoint x="980" y="870" />
         <di:waypoint x="980" y="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="936" y="440" width="88" height="40" />
+          <dc:Bounds x="996" y="290" width="88" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_03lizqz_di" bpmnElement="Flow_03lizqz">
         <di:waypoint x="1280" y="660" />
         <di:waypoint x="1280" y="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1257" y="352" width="76" height="53" />
+          <dc:Bounds x="1292" y="283" width="76" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

@@ -5,6 +5,7 @@
     <bpmn:textAnnotation id="TextAnnotation_1nrox9a">
       <bpmn:text>Creates all statement entries per category per housing object:</bpmn:text>
     </bpmn:textAnnotation>
+    <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
   </bpmn:collaboration>
   <bpmn:process id="Process_statement_for_each_invoice_category_brzdcir" isExecutable="true">
     <bpmn:ioSpecification>
@@ -155,16 +156,16 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         <bpmn:targetRef>Property_17rfx98</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0b78qo4">
+    <bpmn:endEvent id="Event_0b78qo4" name="Statement entry created">
       <bpmn:incoming>Flow_03bbixn</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0y3pifc" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_1xwfml1" />
-    <bpmn:association id="Association_0mr5c5i" associationDirection="None" sourceRef="Activity_1xwfml1" targetRef="TextAnnotation_1nrox9a" />
+    <bpmn:dataObjectReference id="DataObjectReference_1xkz8fo" name="Statement Entry Data" dataObjectRef="objCreateStatementEntry" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
       <bpmndi:BPMNShape id="Participant_0qogfp4_di" bpmnElement="Participant_0qogfp4" isHorizontal="true">
-        <dc:Bounds x="-50" y="-78" width="1120" height="498" />
+        <dc:Bounds x="-50" y="-78" width="1140" height="498" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_143vwhb_di" bpmnElement="Event_143vwhb">
@@ -190,12 +191,6 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
           <dc:Bounds x="412" y="135" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_1xkz8fo_di" bpmnElement="DataObjectReference_1xkz8fo">
-        <dc:Bounds x="852" y="25" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="830" y="82" width="80" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18rpa0v_di" bpmnElement="Gateway_18rpa0v" isMarkerVisible="true">
         <dc:Bounds x="905" y="295" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -208,6 +203,9 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0b78qo4_di" bpmnElement="Event_0b78qo4">
         <dc:Bounds x="1012" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="992" y="345" width="78" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataInput-676433915-1DI" bpmnElement="objInvoiceCategory">
         <dc:Bounds x="12" y="-55" width="36" height="50" />
@@ -237,6 +235,12 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         <dc:Bounds x="992" y="-55" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="976" y="2" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1xkz8fo_di" bpmnElement="DataObjectReference_1xkz8fo">
+        <dc:Bounds x="582" y="5" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="561" y="62" width="79" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0n8y2b0_di" bpmnElement="Flow_0n8y2b0">
@@ -280,13 +284,9 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0mr5c5i_di" bpmnElement="Association_0mr5c5i">
-        <di:waypoint x="740" y="170" />
-        <di:waypoint x="610" y="113" />
+        <di:waypoint x="840" y="167" />
+        <di:waypoint x="860" y="156" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
-        <dc:Bounds x="510" y="40" width="100.0000064179975" height="84.12197686645635" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1w0zio9_di" bpmnElement="DataOutputAssociation_1w0zio9">
         <di:waypoint x="186" y="150" />
         <di:waypoint x="242" y="87" />
@@ -296,17 +296,21 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
         <di:waypoint x="304" y="150" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0mx6t19_di" bpmnElement="DataOutputAssociation_0mx6t19">
-        <di:waypoint x="360" y="177" />
-        <di:waypoint x="852" y="50" />
+        <di:waypoint x="360" y="162" />
+        <di:waypoint x="582" y="35" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_03ihyt9_di" bpmnElement="DataInputAssociation_03ihyt9">
-        <di:waypoint x="856" y="75" />
-        <di:waypoint x="812" y="150" />
+        <di:waypoint x="618" y="46" />
+        <di:waypoint x="744" y="152" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_001pt16_di" bpmnElement="DataInputAssociation_001pt16">
-        <di:waypoint x="863" y="75" />
-        <di:waypoint x="810" y="280" />
+        <di:waypoint x="616" y="55" />
+        <di:waypoint x="772" y="280" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1nrox9a_di" bpmnElement="TextAnnotation_1nrox9a">
+        <dc:Bounds x="860" y="80" width="100" height="84" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

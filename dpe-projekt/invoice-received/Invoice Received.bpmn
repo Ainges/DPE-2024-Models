@@ -174,7 +174,7 @@ objPaymentConfirmation= {"status": "successfull"}</spiffworkflow:postScript>
         <bpmn:targetRef>Property_09zk3nt</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_1g80j9f" name="No need to save invoice">
+    <bpmn:endEvent id="Event_1g80j9f" name="Invoice was already handled">
       <bpmn:incoming>Flow_0k6jz54</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="Activity_02jqtgr" name="Complete invoice data">
@@ -275,7 +275,7 @@ objInvoice = {
       <bpmndi:BPMNShape id="Event_1g80j9f_di" bpmnElement="Event_1g80j9f">
         <dc:Bounds x="1562" y="712" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1540" y="755" width="81" height="27" />
+          <dc:Bounds x="1541" y="755" width="79" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_086no8j_di" bpmnElement="Activity_02jqtgr">
