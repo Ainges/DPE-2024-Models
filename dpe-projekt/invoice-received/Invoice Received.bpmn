@@ -202,6 +202,18 @@ objInvoice = {
     }
 }
 </spiffworkflow:postScript>
+        <spiffworkflow:instructionsForEndUser># Invoice Details
+
+- **Invoice Date**: {{invoice_received.invoice.invoiceDate}}
+- **Invoice Amount**: {{invoice_received.invoice.invoiceAmount}} {{invoice_received.invoice.currency}}
+- **Description**: {{invoice_received.invoice.description}}
+- **Status**: {{invoice_received.invoice.status}}
+- **Receiver**: {{invoice_received.invoice.receiver}}
+- **Receiver IBAN**: {{invoice_received.invoice.receiverIBAN}}
+- **Receiver BIC**: {{invoice_received.invoice.receiverBIC}}
+- **External Invoice Number**: {{invoice_received.invoice.externalInvoiceNumber}}
+
+**Digital Invoice**: {{invoice_received.digitalInvoice}}</spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1m102o0</bpmn:incoming>
       <bpmn:outgoing>Flow_1i9zdtf</bpmn:outgoing>

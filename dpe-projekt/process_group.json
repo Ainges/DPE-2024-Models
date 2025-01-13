@@ -89,6 +89,10 @@
             "correlation_properties": {},
             "schema": {}
         },
+        "outstanding-invoice": {
+            "correlation_properties": {},
+            "schema": {}
+        },
         "receive_digital_invoice": {
             "correlation_properties": {},
             "schema": {}
