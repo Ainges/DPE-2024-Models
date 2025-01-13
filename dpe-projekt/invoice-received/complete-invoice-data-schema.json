@@ -1,11 +1,10 @@
 {
-  "title": "Add additional Data for the Received Invoice",
-  "description": "",
+  "title": "Checkbox",
+  "description": "A super simple checkbox",
   "type": "object",
   "required": [
     "housingObjectId",
     "invoiceCategoryId"
-
   ],
   "properties": {
     "housingObjectId": {
@@ -14,9 +13,14 @@
       "dafault": 1
     },
     "invoiceCategoryId": {
-     "type": "number",
+      "type": "number",
       "title": "InvoiceCategoryId",
       "dafault": 1
+    },
+    "relevantForAnnualStatement": {
+      "type": "boolean",
+      "title": "Include this in Annual Statement?",
+      "default": true
     }
   }
 }

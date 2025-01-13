@@ -79,7 +79,8 @@
     },
     "housingObject": {
         "housingObjectId": housingObjectId
-    }
+    },
+    "relevantForAnnualStatement" : relevantForAnnualStatement
 }</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1br6n19</bpmn:incoming>
@@ -128,6 +129,7 @@ createInvoiceDto = {
     if "invoiceCategory" in objInvoice else None,
     "housingObjectId": str(objInvoice["housingObject"]["housingObjectId"])
     if "housingObject" in objInvoice else None,
+    "relevantForAnnualStatement" : objInvoice.get("relevantForAnnualStatement")
 }</spiffworkflow:preScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ulleny</bpmn:incoming>
@@ -199,7 +201,8 @@ objInvoice = {
     },
     "housingObject": {
         "housingObjectId": housingObjectId
-    }
+    },
+    "relevantForAnnualStatement": relevantForAnnualStatement
 }
 </spiffworkflow:postScript>
         <spiffworkflow:instructionsForEndUser># Invoice Details

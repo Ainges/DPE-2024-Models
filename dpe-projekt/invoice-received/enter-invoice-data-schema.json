@@ -52,6 +52,11 @@
       "description": "The currency in ISO4217 Notation",
       "default": "EUR"
     },
+    "relevantForAnnualStatement": {
+      "type": "boolean",
+      "title": "Include this in Annual Statement?",
+      "default": true
+    },
     "required": [
       "invoiceDate",
       "invoiceAmount",
