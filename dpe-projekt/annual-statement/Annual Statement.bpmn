@@ -106,7 +106,7 @@ varYear = varCurrentYear</spiffworkflow:postScript>
       <bpmn:extensionElements>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="getResponseAllInvoices">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])+&#34;?relevantForAnnualStatement=true&#34;" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/invoices/housing-object/&#34;+str(objHousingObject[&#34;housingObjectId&#34;])+&#34;/year/&#34;+str(varCurrentYear)+&#34;?relevantForAnnualStatement=true&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
             <spiffworkflow:parameter id="params" type="any" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
