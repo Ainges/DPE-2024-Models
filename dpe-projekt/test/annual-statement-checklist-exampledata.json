@@ -1,0 +1,9 @@
+{
+  "prepareInvoices": false,
+  "recordInsuranceCosts": false,
+  "reviewCleaningCosts": false,
+  "documentWasteCosts": false,
+  "verifyLivingAreas": false,
+  "collectReceipts": false
+ 
+}

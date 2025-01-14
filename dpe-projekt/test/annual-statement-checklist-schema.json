@@ -1,0 +1,37 @@
+{
+  "title": "Annual Statement Review Checklist",
+  "description": "This checklist is designed to simplify the preparation of the annual statement. Use it to ensure all tasks are reviewed and completed before starting the annual statement",
+  "type": "object",
+  "properties": {
+    "prepareInvoices": {
+      "type": "boolean",
+      "title": "Prepare all invoices for the accounting period.",
+      "default": false
+    },
+    "recordInsuranceCosts": {
+      "type": "boolean",
+      "title": "Record insurance costs (e.g., building insurance).",
+      "default": false
+    },
+    "reviewCleaningCosts": {
+      "type": "boolean",
+      "title": "Review building cleaning and caretaker costs.",
+      "default": false
+    },
+    "documentWasteCosts": {
+      "type": "boolean",
+      "title": "Document costs for waste disposal and street cleaning.",
+      "default": false
+    },
+    "verifyLivingAreas": {
+      "type": "boolean",
+      "title": "Verify proportional living areas and usage units.",
+      "default": false
+    },
+    "collectReceipts": {
+      "type": "boolean",
+      "title": "Collect all invoices and receipts for the accounting year.",
+      "default": false
+    }
+  }
+}
