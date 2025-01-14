@@ -45,6 +45,52 @@
             "correlation_properties": {},
             "schema": {}
         },
+        "housing-object-master-data": {
+            "correlation_properties": {},
+            "schema": {
+                "properties": {
+                    "objHousingObject": {
+                        "properties": {
+                            "city": {
+                                "type": "string"
+                            },
+                            "housingObjectId": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "numberOfApartments": {
+                                "type": "integer"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "street": {
+                                "type": "string"
+                            },
+                            "zipCode": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "housingObjectId",
+                            "name",
+                            "street",
+                            "city",
+                            "state",
+                            "zipCode",
+                            "numberOfApartments"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "objHousingObject"
+                ],
+                "type": "object"
+            }
+        },
         "invoice-received": {
             "correlation_properties": {},
             "schema": {

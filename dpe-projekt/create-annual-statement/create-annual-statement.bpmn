@@ -10,6 +10,10 @@
     <bpmn:messageFlow id="Flow_041juhp" name="Annual Statement and Payment information" sourceRef="Activity_1lb879v" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_1g156j7" sourceRef="Activity_0bs29ut" targetRef="Participant_09b49h8" />
     <bpmn:messageFlow id="Flow_1thop6c" name="Start Tenant Objection Monitoring process" sourceRef="Event_0epx8pl" targetRef="Participant_19plp0k" />
+    <bpmn:textAnnotation id="TextAnnotation_1k4p0w5">
+      <bpmn:text>Dies ist eine Call Activity, die nicht als Call-Aktivittät modelliert wurde, da der Prozess nicht ausführbar ist. Dadurch wird verhindert, dass Spiffworkflow eine Fehlermeldung ausgibt</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1821glj" associationDirection="None" sourceRef="Activity_0k9na4x" targetRef="TextAnnotation_1k4p0w5" />
     <bpmn:correlationKey id="CorrelationKey_10p22qm" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_11ur3al">
@@ -335,6 +339,12 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
       <bpmndi:BPMNShape id="Activity_0y3dfn3_di" bpmnElement="Activity_0k9na4x">
         <dc:Bounds x="2050" y="-200" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1pq3s7w_di" bpmnElement="DataObjectReference_1pq3s7w">
+        <dc:Bounds x="1582" y="275" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1560" y="332" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="dataInput-691775243-1DI" bpmnElement="objRentalAgreement">
         <dc:Bounds x="-48" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -448,23 +458,25 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <di:waypoint x="8" y="70" />
         <di:waypoint x="205" y="70" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="DataObjectReference_1pq3s7w_di" bpmnElement="DataObjectReference_1pq3s7w">
-        <dc:Bounds x="1582" y="275" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1560" y="332" width="81" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_16rby3p_di" bpmnElement="Participant_09b49h8" isHorizontal="true">
-        <dc:Bounds x="-100" y="-340" width="2470" height="70" />
+        <dc:Bounds x="-110" y="-510" width="2570" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_18llk6n_di" bpmnElement="Participant_19plp0k" isHorizontal="true">
         <dc:Bounds x="-110" y="550" width="2480" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1k4p0w5_di" bpmnElement="TextAnnotation_1k4p0w5">
+        <dc:Bounds x="2170" y="-370" width="320" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_0t774n0_di" bpmnElement="DataInputAssociation_0t774n0">
         <di:waypoint x="967" y="-75" />
         <di:waypoint x="911" y="30" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0qzumy2_di" bpmnElement="DataOutputAssociation_0qzumy2">
+        <di:waypoint x="940" y="86" />
+        <di:waypoint x="1582" y="294" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0m1fajn_di" bpmnElement="DataInputAssociation_0m1fajn">
         <di:waypoint x="998" y="-99" />
@@ -478,6 +490,10 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <di:waypoint x="998" y="-97" />
         <di:waypoint x="1820" y="42" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1rca9qg_di" bpmnElement="DataInputAssociation_1rca9qg">
+        <di:waypoint x="1618" y="295" />
+        <di:waypoint x="1960" y="196" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_10skf6w_di" bpmnElement="DataOutputAssociation_10skf6w">
         <di:waypoint x="598" y="174" />
         <di:waypoint x="962" y="-88" />
@@ -486,23 +502,27 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <di:waypoint x="590" y="50" />
         <di:waypoint x="962" y="-96" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1821glj_di" bpmnElement="Association_1821glj">
+        <di:waypoint x="2125" y="-200" />
+        <di:waypoint x="2180" y="-290" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1709fte_di" bpmnElement="Flow_1709fte">
         <di:waypoint x="1870" y="30" />
-        <di:waypoint x="1870" y="-270" />
+        <di:waypoint x="1870" y="-450" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1876" y="-177" width="88" height="14" />
+          <dc:Bounds x="1876" y="-297" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_041juhp_di" bpmnElement="Flow_041juhp">
         <di:waypoint x="1720" y="-80" />
-        <di:waypoint x="1720" y="-270" />
+        <di:waypoint x="1720" y="-450" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1726" y="-190" width="88" height="40" />
+          <dc:Bounds x="1726" y="-275" width="88" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1g156j7_di" bpmnElement="Flow_1g156j7">
         <di:waypoint x="1600" y="130" />
-        <di:waypoint x="1600" y="-270" />
+        <di:waypoint x="1600" y="-450" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1442" y="-130" width="55" height="40" />
         </bpmndi:BPMNLabel>
@@ -513,14 +533,6 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1059" y="317" width="61" height="53" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_1rca9qg_di" bpmnElement="DataInputAssociation_1rca9qg">
-        <di:waypoint x="1618" y="295" />
-        <di:waypoint x="1960" y="196" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0qzumy2_di" bpmnElement="DataOutputAssociation_0qzumy2">
-        <di:waypoint x="940" y="86" />
-        <di:waypoint x="1582" y="294" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
