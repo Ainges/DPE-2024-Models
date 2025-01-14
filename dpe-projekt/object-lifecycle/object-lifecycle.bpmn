@@ -23,7 +23,7 @@
       <bpmn:text>Object is created, built, or acquired</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1ilrn4u" associationDirection="None" sourceRef="Event_095lmbf" targetRef="TextAnnotation_073rjuz" />
-    <bpmn:correlationKey id="CorrelationKey_1hxz9to" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_1a900r3" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_object_lifecycle_gv7yall" isExecutable="true">
     <bpmn:dataObject id="objHousingObject" name="Housing Object" />
