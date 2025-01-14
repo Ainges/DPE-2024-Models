@@ -80,7 +80,7 @@
     "housingObject": {
         "housingObjectId": housingObjectId
     },
-    "relevantForAnnualStatement" : relevantForAnnualStatement
+    "relevantForAnnualStatement" : str(relevantForAnnualStatement)
 }</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1br6n19</bpmn:incoming>
@@ -202,7 +202,7 @@ objInvoice = {
     "housingObject": {
         "housingObjectId": housingObjectId
     },
-    "relevantForAnnualStatement" : relevantForAnnualStatement
+    "relevantForAnnualStatement" : str(relevantForAnnualStatement)
 }
 </spiffworkflow:postScript>
         <spiffworkflow:instructionsForEndUser># Invoice Details
