@@ -6,7 +6,7 @@
     <bpmn:participant id="Participant_1juapdn" name="Receive payment" />
     <bpmn:messageFlow id="Flow_0cif5n8" sourceRef="Participant_078m8m9" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_12h5u08" sourceRef="Activity_0qpzdpu" targetRef="Participant_1juapdn" />
-    <bpmn:correlationKey id="CorrelationKey_1lxlgvq" name="MainCorrelationKey" />
+    <bpmn:correlationKey id="CorrelationKey_0sjjuz8" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_monthly_rent_monitor_scil_0urrsdu" isExecutable="true">
     <bpmn:endEvent id="EndEvent_1" name="Payment confirmation sent">
@@ -18,7 +18,7 @@
       <bpmn:outgoing>Flow_17db3yp</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1rbbqfe" messageRef="external-monthly-rent-received">
         <bpmn:extensionElements>
-          <spiffworkflow:messageVariable>datat</spiffworkflow:messageVariable>
+          <spiffworkflow:messageVariable>data</spiffworkflow:messageVariable>
         </bpmn:extensionElements>
       </bpmn:messageEventDefinition>
     </bpmn:startEvent>
@@ -54,7 +54,7 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNShape id="Event_0or64jw_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="156" y="202" width="82" height="27" />
+          <dc:Bounds x="157" y="202" width="81" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0yevt6o_di" bpmnElement="Activity_0qpzdpu">
