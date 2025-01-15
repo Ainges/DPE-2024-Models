@@ -12,6 +12,10 @@
         "external-monthly-rent-received": {
             "correlation_properties": {},
             "schema": {}
+        },
+        "monitor-monthly-rent": {
+            "correlation_properties": {},
+            "schema": {}
         }
     }
 }

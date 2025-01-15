@@ -7,13 +7,9 @@
   <bpmn:process id="Process_18ks2hv" isExecutable="true">
     <bpmn:ioSpecification>
       <bpmn:dataInput id="objHousingObject" name="Housing Object" />
-      <bpmn:dataOutput id="objAnnualStatements" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objHousingObject</bpmn:dataInputRefs>
       </bpmn:inputSet>
-      <bpmn:outputSet>
-        <bpmn:dataOutputRefs>objAnnualStatements</bpmn:dataOutputRefs>
-      </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:laneSet id="LaneSet_0mmy1ix">
       <bpmn:lane id="Lane_0blfeei">

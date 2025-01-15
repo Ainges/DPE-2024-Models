@@ -21,15 +21,11 @@
       <bpmn:dataInput id="objRentalAgreement" name="Rental Agreement" />
       <bpmn:dataInput id="objStatementEntries" name="Statement Entries" />
       <bpmn:dataInput id="varYear" name="Year" />
-      <bpmn:dataOutput id="objAnnualStatements" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objRentalAgreement</bpmn:dataInputRefs>
         <bpmn:dataInputRefs>objStatementEntries</bpmn:dataInputRefs>
         <bpmn:dataInputRefs>varYear</bpmn:dataInputRefs>
       </bpmn:inputSet>
-      <bpmn:outputSet>
-        <bpmn:dataOutputRefs>objAnnualStatements</bpmn:dataOutputRefs>
-      </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:sequenceFlow id="Flow_1agi8xa" sourceRef="Activity_0ywd0ad" targetRef="Gateway_1vhkcl6" />
     <bpmn:sequenceFlow id="Flow_1orw3ez" name="Tenant payed exactly" sourceRef="Gateway_102zn7r" targetRef="Activity_1v5ox0t">
@@ -165,7 +161,7 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/midYear&#34;" />
             <spiffworkflow:parameter id="headers" type="any" value="{&#34;Content-Type&#34;:&#34;application/json&#34;}" />
-            <spiffworkflow:parameter id="data" type="any" value="objRentalAgreement" />
+            <spiffworkflow:parameter id="data" type="any" value="objTaskData" />
             <spiffworkflow:parameter id="basic_auth_username" type="str" />
             <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
@@ -175,6 +171,7 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
     "statemenEntries": objStatementEntries,
     "rentalAgreement": objRentalAgreement  # Vorhandene Liste direkt zuweisen
 }</spiffworkflow:preScript>
+        <spiffworkflow:postScript>objAnnualStatement=ResponseCreateAnnualStatementMidYear["body"]</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_004k7s9</bpmn:incoming>
       <bpmn:outgoing>Flow_1mrcd74</bpmn:outgoing>
@@ -350,6 +347,12 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
           <dc:Bounds x="1560" y="332" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0r3nf6m_di" bpmnElement="DataObjectReference_0r3nf6m">
+        <dc:Bounds x="2092" y="245" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2079" y="302" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="dataInput-691775243-1DI" bpmnElement="objRentalAgreement">
         <dc:Bounds x="-48" y="-125" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -463,12 +466,6 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <di:waypoint x="8" y="70" />
         <di:waypoint x="205" y="70" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="DataObjectReference_0r3nf6m_di" bpmnElement="DataObjectReference_0r3nf6m">
-        <dc:Bounds x="2092" y="245" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2079" y="302" width="63" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_16rby3p_di" bpmnElement="Participant_09b49h8" isHorizontal="true">
         <dc:Bounds x="-110" y="-510" width="2570" height="60" />
         <bpmndi:BPMNLabel />
@@ -504,6 +501,10 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
       <bpmndi:BPMNEdge id="DataInputAssociation_1rca9qg_di" bpmnElement="DataInputAssociation_1rca9qg">
         <di:waypoint x="1618" y="295" />
         <di:waypoint x="1960" y="196" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0tvpq0y_di" bpmnElement="DataOutputAssociation_0tvpq0y">
+        <di:waypoint x="2052" y="209" />
+        <di:waypoint x="2092" y="246" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_10skf6w_di" bpmnElement="DataOutputAssociation_10skf6w">
         <di:waypoint x="598" y="174" />
@@ -544,10 +545,6 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1059" y="317" width="61" height="53" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0tvpq0y_di" bpmnElement="DataOutputAssociation_0tvpq0y">
-        <di:waypoint x="2052" y="209" />
-        <di:waypoint x="2092" y="246" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
