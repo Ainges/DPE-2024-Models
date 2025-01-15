@@ -175,6 +175,7 @@ objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE7551210800124512619
     "statemenEntries": objStatementEntries,
     "rentalAgreement": objRentalAgreement  # Vorhandene Liste direkt zuweisen
 }</spiffworkflow:preScript>
+        <spiffworkflow:postScript>objAnnualStatement=ResponseCreateAnnualStatementMidYear["body"]</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_004k7s9</bpmn:incoming>
       <bpmn:outgoing>Flow_1mrcd74</bpmn:outgoing>
