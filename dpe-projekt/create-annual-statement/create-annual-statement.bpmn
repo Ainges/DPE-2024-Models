@@ -69,7 +69,7 @@ objPaymentDetails = {
     "bic": createInvoiceDto["receiverBic"],
     }
 '''
-objPaymentDetails = {"receiver":"Alice Johnson","receiverIban":"DE75512108001245126199","invoiceAmount":objAnnualStatement["difference"]*-1,"description":"Nebenkostenabrechnung"+ str(varYear) ,"country":"DE","currency":"EUR","bic":"COBADEFFXXX"}</spiffworkflow:postScript>
+objPaymentDetails = {"receiver":"Alice Johnson","receiverIban":"DE75512108001245126199","invoiceAmount":objAnnualStatement["difference"]*-1,"description":"Nebenkostenabrechnung "+ str(varYear) ,"country":"DE","currency":"EUR","bic":"COBADEFFXXX"}</spiffworkflow:postScript>
         <spiffworkflow:serviceTaskOperator id="http/GetRequestV2" resultVariable="ResponseCreateStatementPDF">
           <spiffworkflow:parameters>
             <spiffworkflow:parameter id="url" type="str" value="&#34;http://host.docker.internal:8080/annual-statements/&#34;+str(objAnnualStatement[&#34;annualStatementId&#34;])+&#34;/pdf&#34;" />
