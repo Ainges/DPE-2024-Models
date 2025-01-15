@@ -21,15 +21,11 @@
       <bpmn:dataInput id="objRentalAgreement" name="Rental Agreement" />
       <bpmn:dataInput id="objStatementEntries" name="Statement Entries" />
       <bpmn:dataInput id="varYear" name="Year" />
-      <bpmn:dataOutput id="objAnnualStatements" />
       <bpmn:inputSet>
         <bpmn:dataInputRefs>objRentalAgreement</bpmn:dataInputRefs>
         <bpmn:dataInputRefs>objStatementEntries</bpmn:dataInputRefs>
         <bpmn:dataInputRefs>varYear</bpmn:dataInputRefs>
       </bpmn:inputSet>
-      <bpmn:outputSet>
-        <bpmn:dataOutputRefs>objAnnualStatements</bpmn:dataOutputRefs>
-      </bpmn:outputSet>
     </bpmn:ioSpecification>
     <bpmn:sequenceFlow id="Flow_1agi8xa" sourceRef="Activity_0ywd0ad" targetRef="Gateway_1vhkcl6" />
     <bpmn:sequenceFlow id="Flow_1orw3ez" name="Tenant payed exactly" sourceRef="Gateway_102zn7r" targetRef="Activity_1v5ox0t">
