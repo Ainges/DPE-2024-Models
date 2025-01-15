@@ -32,11 +32,11 @@
     <bpmn:sequenceFlow id="Flow_1r2lxin" name="yes" sourceRef="Gateway_0u7vwwk" targetRef="Activity_0m65s89" />
     <bpmn:sequenceFlow id="Flow_06518h5" sourceRef="Activity_0m65s89" targetRef="Event_1d72jk5" />
     <bpmn:sequenceFlow id="Flow_0plra6b" name="no" sourceRef="Gateway_0u7vwwk" targetRef="Event_03cf4w7" />
-    <bpmn:sendTask id="Activity_0qfokl3" name="Send bank Deails">
+    <bpmn:sendTask id="Activity_0qfokl3" name="Send bank deails">
       <bpmn:incoming>Flow_1perb1o</bpmn:incoming>
       <bpmn:outgoing>Flow_15a2un3</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:receiveTask id="Activity_1w87uv6" name="Receive Payment details">
+    <bpmn:receiveTask id="Activity_1w87uv6" name="Receive payment details">
       <bpmn:incoming>Flow_15a2un3</bpmn:incoming>
       <bpmn:outgoing>Flow_1r1pkbd</bpmn:outgoing>
     </bpmn:receiveTask>
@@ -107,6 +107,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1eodebw_di" bpmnElement="Activity_1w87uv6">
         <dc:Bounds x="790" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_07gh104_di" bpmnElement="Gateway_07gh104" isMarkerVisible="true">
         <dc:Bounds x="595" y="152" width="50" height="50" />
