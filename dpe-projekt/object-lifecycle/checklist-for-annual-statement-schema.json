@@ -3,9 +3,9 @@
   "description": "This checklist is her to make the preparation of the annual statement. Use it to ensure all tasks are reviewed and completed before starting the annual statement",
   "type": "object",
   "properties": {
-    "prepareInvoices": {
+    "collectReceipts": {
       "type": "boolean",
-      "title": "Prepare all invoices for the accounting period.",
+      "title": "Collect all invoices and receipts for the accounting year.",
       "default": false
     },
     "recordInsuranceCosts": {
@@ -26,11 +26,6 @@
     "verifyLivingAreas": {
       "type": "boolean",
       "title": "Verify proportional living areas and usage units.",
-      "default": false
-    },
-    "collectReceipts": {
-      "type": "boolean",
-      "title": "Collect all invoices and receipts for the accounting year.",
       "default": false
     }
   }
