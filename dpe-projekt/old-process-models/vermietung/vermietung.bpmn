@@ -73,9 +73,13 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmn:text>From this point, the termination is irreversible / legally binding</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_15jhno7" associationDirection="None" sourceRef="Event_18snlzx" targetRef="TextAnnotation_00rs85n" />
+    <bpmn:textAnnotation id="TextAnnotation_049klrp">
+      <bpmn:text>NOT RUNNABLE!</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0lpyfki" associationDirection="None" sourceRef="StartEvent_1" targetRef="TextAnnotation_049klrp" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_vermietung_ckqhp4h">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_rental_ckqhp4h">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="-58" y="252" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -128,6 +132,10 @@ You can also change the text you are reading here by updating the *Instructions*
         <dc:Bounds x="540" y="80" width="99.98453323014192" height="69.98917223149144" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_049klrp_di" bpmnElement="TextAnnotation_049klrp">
+        <dc:Bounds x="-20" y="170" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
         <di:waypoint x="-22" y="270" />
         <di:waypoint x="80" y="270" />
@@ -167,6 +175,10 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNEdge id="Association_15jhno7_di" bpmnElement="Association_15jhno7">
         <di:waypoint x="590" y="252" />
         <di:waypoint x="590" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0lpyfki_di" bpmnElement="Association_0lpyfki">
+        <di:waypoint x="-29" y="256" />
+        <di:waypoint x="9" y="211" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
