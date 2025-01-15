@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "second-reminder-scil ",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "second-reminder-scil.bpmn",
+    "primary_process_id": "Process_second_reminder_scil_ypz01qb"
+}

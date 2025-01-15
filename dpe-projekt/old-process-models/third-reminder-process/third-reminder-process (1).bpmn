@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_0svfa58">
+    <bpmn:participant id="Participant_0riwbx3" name="Third Reminder Process" processRef="Process_third_reminder_process_hbplqt5" />
+    <bpmn:correlationKey id="CorrelationKey_143zf0a" name="MainCorrelationKey" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_third_reminder_process_hbplqt5" isExecutable="true">
+    <bpmn:startEvent id="Event_1nymqyc" name="Third Reminder Message has been received">
+      <bpmn:outgoing>Flow_01yukau</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_02md51v" messageRef="third-Reminder">
+        <bpmn:extensionElements>
+          <spiffworkflow:messageVariable>thirdReminder</spiffworkflow:messageVariable>
+        </bpmn:extensionElements>
+      </bpmn:messageEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_01yukau" sourceRef="Event_1nymqyc" targetRef="Activity_1yq5kma" />
+    <bpmn:serviceTask id="Activity_1yq5kma" name="send Third Reminder Email">
+      <bpmn:incoming>Flow_01yukau</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hkrbf9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_042r5j9" name="Third Reminder Email sucessfully  sent">
+      <bpmn:incoming>Flow_0hkrbf9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0hkrbf9" sourceRef="Activity_1yq5kma" targetRef="Event_042r5j9" />
+  </bpmn:process>
+  <bpmn:message id="third-Reminder" name="third-Reminder" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0svfa58">
+      <bpmndi:BPMNShape id="Participant_0riwbx3_di" bpmnElement="Participant_0riwbx3" isHorizontal="true">
+        <dc:Bounds x="-30" y="50" width="420" height="240" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0x4ga8s_di" bpmnElement="Event_1nymqyc">
+        <dc:Bounds x="42" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="22" y="205" width="77" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yxsp63_di" bpmnElement="Activity_1yq5kma">
+        <dc:Bounds x="130" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_042r5j9_di" bpmnElement="Event_042r5j9">
+        <dc:Bounds x="282" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="256" y="205" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_01yukau_di" bpmnElement="Flow_01yukau">
+        <di:waypoint x="78" y="180" />
+        <di:waypoint x="130" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hkrbf9_di" bpmnElement="Flow_0hkrbf9">
+        <di:waypoint x="230" y="180" />
+        <di:waypoint x="282" y="180" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

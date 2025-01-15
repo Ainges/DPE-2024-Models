@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_16mjce8">
+    <bpmn:participant id="Participant_1tu16lq" name="First Reminder SCIL" processRef="Process_first_reminder_scil_5alsoup" />
+    <bpmn:correlationKey id="CorrelationKey_15uexyl" name="MainCorrelationKey" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_first_reminder_scil_5alsoup" isExecutable="true">
+    <bpmn:startEvent id="Event_0l703kx" name="First Reminder Message received">
+      <bpmn:outgoing>Flow_0msipki</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0xc8g3a" messageRef="first-reminder">
+        <bpmn:extensionElements />
+      </bpmn:messageEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0msipki" sourceRef="Event_0l703kx" targetRef="Activity_0ig90j9" />
+    <bpmn:serviceTask id="Activity_0ig90j9" name="send First Reminder email">
+      <bpmn:incoming>Flow_0msipki</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f3ybpa</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_01434as" name="First Reminder email sent successfully">
+      <bpmn:incoming>Flow_1f3ybpa</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1f3ybpa" sourceRef="Activity_0ig90j9" targetRef="Event_01434as" />
+  </bpmn:process>
+  <bpmn:message id="first-reminder" name="first-reminder" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_16mjce8">
+      <bpmndi:BPMNShape id="Participant_1tu16lq_di" bpmnElement="Participant_1tu16lq" isHorizontal="true">
+        <dc:Bounds x="-30" y="60" width="510" height="240" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12s7ep1_di" bpmnElement="Event_0l703kx">
+        <dc:Bounds x="42" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="15" y="205" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18vnot7_di" bpmnElement="Activity_0ig90j9">
+        <dc:Bounds x="170" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01434as_di" bpmnElement="Event_01434as">
+        <dc:Bounds x="362" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="344" y="205" width="73" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0msipki_di" bpmnElement="Flow_0msipki">
+        <di:waypoint x="78" y="180" />
+        <di:waypoint x="170" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f3ybpa_di" bpmnElement="Flow_1f3ybpa">
+        <di:waypoint x="270" y="180" />
+        <di:waypoint x="362" y="180" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
