@@ -37,8 +37,8 @@
     <bpmn:sequenceFlow id="Flow_0jd7flz" name="Tenant payed less" sourceRef="Gateway_102zn7r" targetRef="Activity_1lb879v">
       <bpmn:conditionExpression>objAnnualStatement["difference"] &gt; 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" dataObjectRef="objAnnualStatements" />
-    <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" dataObjectRef="objAnnualStatements" />
+    <bpmn:dataObjectReference id="DataObjectReference_1me1mqe" />
+    <bpmn:dataObjectReference id="DataObjectReference_0g7tnly" />
     <bpmn:sequenceFlow id="Flow_0ouhx9e" sourceRef="Activity_1lb879v" targetRef="Activity_1i43hk8" />
     <bpmn:sequenceFlow id="Flow_18wb55g" sourceRef="Activity_0bs29ut" targetRef="Activity_1yoxnog" />
     <bpmn:sequenceFlow id="Flow_16j3m8m" sourceRef="Activity_1yoxnog" targetRef="Event_03u6bi1" />
@@ -78,7 +78,7 @@ objPaymentDetails = {
     "bic": createInvoiceDto["receiverBic"],
     }
 '''
-objPaymentDetails = {"receiver":"John Doe","receiverIban":"DE75512108001245126199","invoiceAmount":100,"description":"Invoice for xyz","country":"DE","currency":"EUR","bic":"COBADEFFXXX"}</spiffworkflow:postScript>
+objPaymentDetails = {"receiver":"Alice Johnson","receiverIban":"DE75512108001245126199","invoiceAmount":objAnnualStatement["difference"]*-1,"description":"Annual Statement "+str(varYear),"country":"DE","currency":"EUR","bic":"COBADEFFXXX"}</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0tt8g4t</bpmn:incoming>
       <bpmn:outgoing>Flow_0v3j3jq</bpmn:outgoing>

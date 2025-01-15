@@ -72,7 +72,13 @@
     "rentalAgreements": objRentalAgreements  # Vorhandene Liste direkt zuweisen
 }
 objCreateStatementEntry=taskData
-</spiffworkflow:postScript>
+
+varTenantChange = False
+
+for agreement in objRentalAgreements:
+    if agreement.get("tenant_change") == True:
+        varTenantChange = True
+        break</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0aq6950</bpmn:incoming>
       <bpmn:outgoing>Flow_0m3wqkh</bpmn:outgoing>
@@ -94,7 +100,7 @@ objCreateStatementEntry=taskData
       <bpmn:outgoing>Flow_0y3pifc</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0ij9myi" name="Yes" sourceRef="Gateway_1kd1jkd" targetRef="Activity_0m6oo42">
-      <bpmn:conditionExpression>objRentalAgreements[0]["tenant_change"] == True</bpmn:conditionExpression>
+      <bpmn:conditionExpression>varTenantChange == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0staayp" sourceRef="Activity_0m6oo42" targetRef="Gateway_18rpa0v" />
     <bpmn:sequenceFlow id="Flow_03bbixn" sourceRef="Gateway_18rpa0v" targetRef="Event_0b78qo4" />
@@ -159,7 +165,9 @@ for agreement in objCreateStatementEntry["rentalAgreements"]:
     <bpmn:endEvent id="Event_0b78qo4" name="Statement entry created">
       <bpmn:incoming>Flow_03bbixn</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0y3pifc" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_1xwfml1" />
+    <bpmn:sequenceFlow id="Flow_0y3pifc" name="No" sourceRef="Gateway_1kd1jkd" targetRef="Activity_1xwfml1">
+      <bpmn:conditionExpression>varTenantChange == False</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j8vjry">
