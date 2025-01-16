@@ -2,6 +2,8 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_15w3y1e">
     <bpmn:participant id="Participant_1jy3itz" name="Send Annual Statement to tenants with payment information SCIL Process" processRef="Process_as_pi_scil_y4jhno9" />
+    <bpmn:participant id="Participant_0hofhol" name="Annual Statement Process" />
+    <bpmn:messageFlow id="Flow_00ptgvk" name="Annual Statement with payment information" sourceRef="Participant_0hofhol" targetRef="StartEvent_1" />
     <bpmn:correlationKey id="CorrelationKey_0zyq9x5" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_as_pi_scil_y4jhno9" isExecutable="true">
@@ -60,7 +62,7 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNShape id="Event_0ninbyi_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="153" y="202" width="88" height="53" />
+          <dc:Bounds x="153" y="202.5" width="88" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
@@ -70,6 +72,18 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNEdge id="Flow_12pkbxb_di" bpmnElement="Flow_12pkbxb">
         <di:waypoint x="370" y="177" />
         <di:waypoint x="432" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0sfmmlk_di" bpmnElement="Participant_0hofhol" isHorizontal="true">
+        <dc:Bounds x="60" y="410" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_00ptgvk_di" bpmnElement="Flow_00ptgvk">
+        <di:waypoint x="120" y="410" />
+        <di:waypoint x="120" y="177" />
+        <di:waypoint x="179" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="91" y="292" width="88" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

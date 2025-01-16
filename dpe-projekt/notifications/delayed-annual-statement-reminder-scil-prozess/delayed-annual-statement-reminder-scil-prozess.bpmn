@@ -2,6 +2,8 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0dqusra">
     <bpmn:participant id="Participant_0oc5dx7" name="Delayed Annual Statement Reminder SCIL Process" processRef="Process_delayed_annual_statement_reminder_scil_prozess_86iesw5" />
+    <bpmn:participant id="Participant_09vmmzl" name="Object Lifecycle Process" />
+    <bpmn:messageFlow id="Flow_0tptqxp" name="Delayed Annual Statement Reminde" sourceRef="Participant_09vmmzl" targetRef="StartEvent_1" />
     <bpmn:correlationKey id="CorrelationKey_19wt9ix" name="MainCorrelationKey" />
   </bpmn:collaboration>
   <bpmn:process id="Process_delayed_annual_statement_reminder_scil_prozess_86iesw5" isExecutable="true">
@@ -48,7 +50,7 @@ You can also change the text you are reading here by updating the *Instructions*
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0dqusra">
       <bpmndi:BPMNShape id="Participant_0oc5dx7_di" bpmnElement="Participant_0oc5dx7" isHorizontal="true">
-        <dc:Bounds x="90" y="90" width="400" height="250" />
+        <dc:Bounds x="90" y="90" width="400" height="200" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
@@ -60,7 +62,7 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNShape id="Event_1634pph_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="158" y="202" width="78" height="53" />
+          <dc:Bounds x="158" y="213" width="78" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
@@ -70,6 +72,18 @@ You can also change the text you are reading here by updating the *Instructions*
       <bpmndi:BPMNEdge id="Flow_12pkbxb_di" bpmnElement="Flow_12pkbxb">
         <di:waypoint x="370" y="177" />
         <di:waypoint x="432" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0y3mcax_di" bpmnElement="Participant_09vmmzl" isHorizontal="true">
+        <dc:Bounds x="90" y="460" width="400" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0tptqxp_di" bpmnElement="Flow_0tptqxp">
+        <di:waypoint x="130" y="460" />
+        <di:waypoint x="130" y="177" />
+        <di:waypoint x="179" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="106" y="316" width="78" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
