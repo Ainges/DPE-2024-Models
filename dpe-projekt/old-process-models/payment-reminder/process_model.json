@@ -1,9 +1,9 @@
 {
     "description": "",
-    "display_name": "Payment",
+    "display_name": "Payment Reminder",
     "exception_notification_addresses": [],
     "fault_or_suspend_on_exception": "fault",
     "metadata_extraction_paths": null,
-    "primary_file_name": "paymentvarification (1).bpmn",
-    "primary_process_id": "Process_paymentvarification_i7y3584"
+    "primary_file_name": "payment-reminder (1).bpmn",
+    "primary_process_id": "Process_1x4gv4t"
 }
