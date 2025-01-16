@@ -2,6 +2,8 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_16mjce8">
     <bpmn:participant id="Participant_1tu16lq" name="First Reminder SCIL" processRef="Process_first_reminder_scil_5alsoup" />
+    <bpmn:participant id="Participant_0gdlijp" name="Payment Reminder" />
+    <bpmn:messageFlow id="Flow_0266ad8" name="First Reminder" sourceRef="Participant_0gdlijp" targetRef="Event_0l703kx" />
     <bpmn:textAnnotation id="TextAnnotation_121okf1">
       <bpmn:text>NOT RUNNABLE1</bpmn:text>
     </bpmn:textAnnotation>
@@ -35,7 +37,7 @@
       <bpmndi:BPMNShape id="Event_12s7ep1_di" bpmnElement="Event_0l703kx">
         <dc:Bounds x="42" y="162" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="15" y="205" width="90" height="27" />
+          <dc:Bounds x="25" y="215.5" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18vnot7_di" bpmnElement="Activity_0ig90j9">
@@ -56,6 +58,10 @@
         <di:waypoint x="270" y="180" />
         <di:waypoint x="362" y="180" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0pwhlgi_di" bpmnElement="Participant_0gdlijp" isHorizontal="true">
+        <dc:Bounds x="-30" y="400" width="520" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_121okf1_di" bpmnElement="TextAnnotation_121okf1">
         <dc:Bounds x="80" y="80" width="100" height="41" />
         <bpmndi:BPMNLabel />
@@ -63,6 +69,15 @@
       <bpmndi:BPMNEdge id="Association_1rxhd4f_di" bpmnElement="Association_1rxhd4f">
         <di:waypoint x="71" y="166" />
         <di:waypoint x="109" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0266ad8_di" bpmnElement="Flow_0266ad8">
+        <di:waypoint x="170" y="400" />
+        <di:waypoint x="170" y="280" />
+        <di:waypoint x="60" y="280" />
+        <di:waypoint x="60" y="198" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="79" y="262" width="73" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

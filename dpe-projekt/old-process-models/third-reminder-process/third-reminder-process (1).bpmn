@@ -2,6 +2,8 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_0svfa58">
     <bpmn:participant id="Participant_0riwbx3" name="Third Reminder Process" processRef="Process_third_reminder_process_hbplqt5" />
+    <bpmn:participant id="Participant_0h3g2q5" name="Payment Reminder" />
+    <bpmn:messageFlow id="Flow_1txyfsa" name="Third Reminder" sourceRef="Participant_0h3g2q5" targetRef="Event_1nymqyc" />
     <bpmn:textAnnotation id="TextAnnotation_0gr58n3">
       <bpmn:text>NOT RUNNABLE!</bpmn:text>
     </bpmn:textAnnotation>
@@ -37,7 +39,7 @@
       <bpmndi:BPMNShape id="Event_0x4ga8s_di" bpmnElement="Event_1nymqyc">
         <dc:Bounds x="42" y="162" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="22" y="205" width="77" height="40" />
+          <dc:Bounds x="22" y="220" width="76" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1yxsp63_di" bpmnElement="Activity_1yq5kma">
@@ -57,14 +59,27 @@
         <di:waypoint x="230" y="180" />
         <di:waypoint x="282" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_07xe4wp_di" bpmnElement="Association_07xe4wp">
-        <di:waypoint x="71" y="166" />
-        <di:waypoint x="109" y="121" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1mdbr64_di" bpmnElement="Participant_0h3g2q5" isHorizontal="true">
+        <dc:Bounds x="-30" y="410" width="420" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0gr58n3_di" bpmnElement="TextAnnotation_0gr58n3">
         <dc:Bounds x="80" y="80" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_07xe4wp_di" bpmnElement="Association_07xe4wp">
+        <di:waypoint x="71" y="166" />
+        <di:waypoint x="109" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1txyfsa_di" bpmnElement="Flow_1txyfsa">
+        <di:waypoint x="220" y="410" />
+        <di:waypoint x="220" y="330" />
+        <di:waypoint x="60" y="330" />
+        <di:waypoint x="60" y="198" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="102" y="312" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

@@ -2,6 +2,8 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
   <bpmn:collaboration id="Collaboration_1beu3f2">
     <bpmn:participant id="Participant_09up94g" name="Second Reminder SCIL" processRef="Process_second_reminder_scil_4egh58w" />
+    <bpmn:participant id="Participant_0wezgep" name="Payment Reminder" />
+    <bpmn:messageFlow id="Flow_1idq6ut" name="Second Reminder" sourceRef="Participant_0wezgep" targetRef="Event_1c6i9x2" />
     <bpmn:textAnnotation id="TextAnnotation_1m9gl5u">
       <bpmn:text>NOT RUNNABLE!</bpmn:text>
     </bpmn:textAnnotation>
@@ -37,7 +39,7 @@
       <bpmndi:BPMNShape id="Event_1wqvgh1_di" bpmnElement="Event_1c6i9x2">
         <dc:Bounds x="72" y="242" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="45" y="285" width="90" height="27" />
+          <dc:Bounds x="55" y="305.5" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0y3pjcd_di" bpmnElement="Activity_0y2rwu0">
@@ -58,6 +60,10 @@
         <di:waypoint x="260" y="260" />
         <di:waypoint x="312" y="260" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1t6x7n3_di" bpmnElement="Participant_0wezgep" isHorizontal="true">
+        <dc:Bounds x="-10" y="480" width="490" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1m9gl5u_di" bpmnElement="TextAnnotation_1m9gl5u">
         <dc:Bounds x="110" y="160" width="100" height="41" />
         <bpmndi:BPMNLabel />
@@ -65,6 +71,15 @@
       <bpmndi:BPMNEdge id="Association_1563a8j_di" bpmnElement="Association_1563a8j">
         <di:waypoint x="101" y="246" />
         <di:waypoint x="139" y="201" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1idq6ut_di" bpmnElement="Flow_1idq6ut">
+        <di:waypoint x="200" y="480" />
+        <di:waypoint x="200" y="350" />
+        <di:waypoint x="90" y="350" />
+        <di:waypoint x="90" y="278" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="144" y="409" width="89" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
